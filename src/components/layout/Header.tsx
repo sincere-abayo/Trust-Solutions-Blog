@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,13 +23,16 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <img
+              <Image
                 src="/logo/image.png"
                 alt="Trust Solutions Company"
-                className="w-28 h-34 object-contain" // Increased size from w-24 h-20 to w-32 h-28
+                width={112}
+                height={136}
+                className="w-28 h-34 object-contain"
+                priority
               />
               <span className="ml-3 text-2xl font-bold text-gray-900">
-                Trust Solutions <br/> Company
+                Trust Solutions <br /> Company
               </span>
             </Link>
           </div>

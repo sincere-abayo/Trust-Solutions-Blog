@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -41,9 +42,11 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center mb-4">
-              <img
+              <Image
                 src="/logo/image.png"
                 alt="Trust Solutions Company"
+                width={64}
+                height={64}
                 className="w-16 h-16 object-contain"
               />
               <span className="ml-3 text-2xl font-bold">
@@ -161,7 +164,6 @@ const Footer = () => {
                 </svg>
                 <span className="text-gray-300">
                   KG 16 Ave, Kigali City, Rwanda
-
                 </span>
               </div>
               <div className="flex items-center">

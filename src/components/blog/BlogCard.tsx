@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 
 interface BlogPost {
@@ -110,10 +111,12 @@ const BlogCard = ({ post, featured = false }: BlogCardProps) => {
       {/* Featured Image */}
       {post.featuredImage && (
         <div className="relative h-48 overflow-hidden">
-          <img
+          <Image
             src={post.featuredImage}
             alt={post.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           {featured && (
             <div className="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">

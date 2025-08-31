@@ -1,4 +1,5 @@
 import Layout from "@/components/layout/Layout";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function AboutPage() {
@@ -180,9 +181,11 @@ export default function AboutPage() {
             <div className="bg-gray-100 rounded-xl p-8">
               <div className="text-center">
                 <div className="w-32 h-32 bg-white-600 rounded-full mx-auto mb-6 flex items-center justify-center overflow-hidden">
-                  <img
+                  <Image
                     src="/logo/image-nb.png"
                     alt="Trust Solutions Company Logo"
+                    width={400}
+                    height={416}
                     className="w-100 h-104 object-contain"
                   />
                 </div>
