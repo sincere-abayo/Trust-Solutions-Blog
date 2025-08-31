@@ -79,42 +79,40 @@ export default function HomePage() {
       <Hero />
 
       {/* Services Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Our Core Services
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Trust Solutions Company delivers effective, customized solutions
               across our three areas of expertise. Whatever your challenge, we
               provide the solution.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {services.map((service, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {services.map((service) => (
               <div
                 key={service.title}
-                className="group bg-white rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 hover:border-gray-200"
+                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="text-center">
-                  <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl mb-8 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
                     {service.icon}
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6 group-hover:text-blue-600 transition-colors duration-300">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 mb-8 text-lg leading-relaxed">
-                    {service.description}
-                  </p>
+                  <p className="text-gray-600 mb-6">{service.description}</p>
                   <Link
                     href={service.href}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-lg group-hover:scale-105 transition-all duration-300"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
                   >
                     Learn More
                     <svg
-                      className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
+                      className="ml-2 w-4 h-4"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -135,19 +133,19 @@ export default function HomePage() {
       </section>
 
       {/* Featured Blog Posts */}
-      <section className="py-24 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Featured Insights
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Discover expert insights and practical advice from our team of
               professionals across all three service areas.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {featuredPosts.map((post) => (
               <BlogCard key={post.id} post={post} featured={true} />
             ))}
@@ -156,11 +154,11 @@ export default function HomePage() {
           <div className="text-center">
             <Link
               href="/blog"
-              className="inline-flex items-center px-10 py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold text-xl shadow-xl hover:shadow-2xl hover:-translate-y-1"
+              className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium text-lg"
             >
               View All Posts
               <svg
-                className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform duration-300"
+                className="ml-2 w-5 h-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -178,19 +176,19 @@ export default function HomePage() {
       </section>
 
       {/* Recent Blog Posts */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Latest Insights
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Stay updated with our latest articles, tips, and industry insights
               across business consulting, real estate, and event planning.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {recentPosts.map((post) => (
               <BlogCard key={post.id} post={post} />
             ))}
@@ -199,35 +197,25 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          />
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+      <section className="py-20 bg-blue-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Get Started?
           </h2>
-          <p className="text-xl text-blue-100 mb-10 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
             Whatever your challenge, we provide the solution. Contact us today
             to discuss how we can help you achieve your goals.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="bg-white text-blue-600 px-10 py-5 rounded-2xl font-semibold text-xl hover:bg-blue-50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
+              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors duration-200"
             >
               Contact Us Today
             </Link>
             <Link
               href="/about"
-              className="border-3 border-white text-white px-10 py-5 rounded-2xl font-semibold text-xl hover:bg-white hover:text-blue-600 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
+              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors duration-200"
             >
               Learn More About Us
             </Link>
