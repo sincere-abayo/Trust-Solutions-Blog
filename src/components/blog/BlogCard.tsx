@@ -22,13 +22,13 @@ const BlogCard = ({ post, featured = false }: BlogCardProps) => {
   const getCategoryColor = (category: string) => {
     switch (category.toLowerCase()) {
       case "business":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-100 text-blue-800 border-blue-200";
       case "real estate":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 text-green-800 border-green-200";
       case "events":
-        return "bg-purple-100 text-purple-800";
+        return "bg-purple-100 text-purple-800 border-purple-200";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
@@ -101,70 +101,102 @@ const BlogCard = ({ post, featured = false }: BlogCardProps) => {
     }
   };
 
+  const getCategoryGradient = (category: string) => {
+    switch (category.toLowerCase()) {
+      case "business":
+        return "from-blue-500 to-blue-600";
+      case "real estate":
+        return "from-green-500 to-green-600";
+      case "events":
+        return "from-purple-500 to-purple-600";
+      default:
+        return "from-gray-500 to-gray-600";
+    }
+  };
+
   return (
     <article
-      className={`group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden ${
-        featured ? "ring-2 ring-blue-500" : ""
-      }`}
+      className={`group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-gray-200 ${
+        featured ? "ring-2 ring-blue-500 shadow-xl" : ""
+      } hover:-translate-y-2`}
     >
       {/* Featured Image */}
-      {post.featuredImage && (
-        <div className="relative h-48 overflow-hidden">
+      <div className="relative h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+        {post.featuredImage ? (
           <img
             src={post.featuredImage}
             alt={post.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           />
-          {featured && (
-            <div className="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-              Featured
+        ) : (
+          <div
+            className={`w-full h-full bg-gradient-to-br ${getCategoryGradient(
+              post.category
+            )} flex items-center justify-center`}
+          >
+            <div className="text-white text-6xl font-bold opacity-20">
+              {post.category.charAt(0).toUpperCase()}
             </div>
-          )}
+          </div>
+        )}
+
+        {/* Category Badge */}
+        <div className="absolute top-4 left-4">
+          <span
+            className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold border ${getCategoryColor(
+              post.category
+            )}`}
+          >
+            {getCategoryIcon(post.category)}
+            <span className="ml-1.5">{post.category}</span>
+          </span>
         </div>
-      )}
+
+        {/* Featured Badge */}
+        {featured && (
+          <div className="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+            ⭐ Featured
+          </div>
+        )}
+
+        {/* Read Time Badge */}
+        <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-gray-700 px-2 py-1 rounded-lg text-xs font-medium">
+          {post.readTime} min read
+        </div>
+      </div>
 
       <div className="p-6">
-        {/* Category and Meta */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-2">
-            <span
-              className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(
-                post.category
-              )}`}
-            >
-              {getCategoryIcon(post.category)}
-              <span className="ml-1">{post.category}</span>
-            </span>
-          </div>
-          <div className="flex items-center space-x-2 text-sm text-gray-500">
-            <span>{post.readTime} min read</span>
-          </div>
-        </div>
-
         {/* Title */}
         <h3
-          className={`font-bold mb-3 group-hover:text-blue-600 transition-colors duration-200 ${
+          className={`font-bold mb-4 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2 ${
             featured ? "text-xl" : "text-lg"
           }`}
         >
-          <Link href={`/blog/${post.slug}`} className="hover:underline">
+          <Link
+            href={`/blog/${post.slug}`}
+            className="hover:underline decoration-2 underline-offset-4"
+          >
             {post.title}
           </Link>
         </h3>
 
         {/* Excerpt */}
-        <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
+        <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed">
+          {post.excerpt}
+        </p>
 
         {/* Author and Date */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <span className="text-gray-600 text-sm font-medium">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center shadow-md">
+              <span className="text-white text-sm font-semibold">
                 {post.author.charAt(0).toUpperCase()}
               </span>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-900">{post.author}</p>
+              <p className="text-sm font-semibold text-gray-900">
+                {post.author}
+              </p>
               <p className="text-xs text-gray-500">
                 {formatDistanceToNow(post.publishedAt, { addSuffix: true })}
               </p>
@@ -174,7 +206,7 @@ const BlogCard = ({ post, featured = false }: BlogCardProps) => {
           {/* Read More */}
           <Link
             href={`/blog/${post.slug}`}
-            className="text-blue-600 hover:text-blue-700 font-medium text-sm group-hover:underline"
+            className="text-blue-600 hover:text-blue-700 font-semibold text-sm group-hover:underline decoration-2 underline-offset-4 transition-all duration-200 hover:scale-105"
           >
             Read More →
           </Link>

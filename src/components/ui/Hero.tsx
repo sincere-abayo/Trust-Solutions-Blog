@@ -66,7 +66,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white overflow-hidden">
+    <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white overflow-hidden min-h-screen flex items-center">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div
@@ -77,50 +77,86 @@ const Hero = () => {
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+      {/* Floating Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-32 h-32 bg-blue-400/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-40 left-20 w-24 h-24 bg-blue-300/20 rounded-full blur-xl animate-pulse delay-2000"></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 w-full">
         {/* Main Content */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+        <div className="text-center mb-20">
+          <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight animate-fade-in-up">
             Whatever Your Challenge,
-            <span className="block text-blue-200">We Provide The Solution</span>
+            <span className="block text-blue-200 mt-2 animate-fade-in-up delay-300">
+              We Provide The Solution
+            </span>
           </h1>
-          <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto">
+          <p className="text-xl md:text-2xl text-blue-100 mb-10 max-w-5xl mx-auto leading-relaxed animate-fade-in-up delay-500">
             Trust Solutions Company delivers effective, customized solutions
             across our three areas of expertise: Strategic Business Consulting,
             comprehensive Real Estate Brokerage, and creative Event Planning.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up delay-700">
             <Link
               href="/contact"
-              className="bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors duration-200 shadow-lg hover:shadow-xl"
+              className="group bg-white text-blue-900 px-10 py-5 rounded-2xl font-bold text-xl hover:bg-blue-50 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transform"
             >
               Get Started Today
+              <svg
+                className="ml-2 w-5 h-5 inline-block group-hover:translate-x-1 transition-transform duration-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
             </Link>
             <Link
               href="/about"
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-900 transition-colors duration-200"
+              className="group border-3 border-white text-white px-10 py-5 rounded-2xl font-bold text-xl hover:bg-white hover:text-blue-900 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transform"
             >
               Learn More
+              <svg
+                className="ml-2 w-5 h-5 inline-block group-hover:translate-x-1 transition-transform duration-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
+              </svg>
             </Link>
           </div>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 animate-fade-in-up delay-1000">
           {services.map((service, index) => (
             <Link
               key={service.title}
               href={service.href}
-              className="group bg-white/10 backdrop-blur-sm rounded-xl p-8 hover:bg-white/20 transition-all duration-300 hover:scale-105 border border-white/20"
+              className="group bg-white/10 backdrop-blur-md rounded-2xl p-8 hover:bg-white/20 transition-all duration-500 hover:scale-105 border border-white/20 hover:border-white/40 shadow-xl hover:shadow-2xl hover:-translate-y-3"
+              style={{ animationDelay: `${1200 + index * 200}ms` }}
             >
               <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500 rounded-full mb-6 group-hover:bg-blue-400 transition-colors duration-300">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-6 group-hover:scale-110 group-hover:from-blue-400 group-hover:to-blue-500 transition-all duration-300 shadow-lg">
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-200 transition-colors duration-300">
+                <h3 className="text-xl font-bold mb-4 group-hover:text-blue-200 transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-blue-100 group-hover:text-white transition-colors duration-300">
+                <p className="text-blue-100 group-hover:text-white transition-colors duration-300 leading-relaxed">
                   {service.description}
                 </p>
               </div>
@@ -129,22 +165,31 @@ const Hero = () => {
         </div>
 
         {/* Trust Indicators */}
-        <div className="mt-16 text-center">
-          <p className="text-blue-200 text-lg mb-4">
+        <div className="mt-20 text-center animate-fade-in-up delay-1500">
+          <p className="text-blue-200 text-xl mb-6 font-medium">
             Trusted by businesses across industries
           </p>
-          <div className="flex justify-center items-center space-x-8 opacity-60">
-            <div className="text-2xl font-bold">500+</div>
-            <div className="text-2xl font-bold">•</div>
-            <div className="text-2xl font-bold">15+ Years</div>
-            <div className="text-2xl font-bold">•</div>
-            <div className="text-2xl font-bold">98% Success</div>
+          <div className="flex justify-center items-center space-x-12 opacity-80">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-white mb-2">500+</div>
+              <div className="text-blue-200 text-sm">Happy Clients</div>
+            </div>
+            <div className="text-4xl font-bold text-blue-200">•</div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-white mb-2">15+</div>
+              <div className="text-blue-200 text-sm">Years Experience</div>
+            </div>
+            <div className="text-4xl font-bold text-blue-200">•</div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-white mb-2">98%</div>
+              <div className="text-blue-200 text-sm">Success Rate</div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-white to-transparent"></div>
     </section>
   );
 };
