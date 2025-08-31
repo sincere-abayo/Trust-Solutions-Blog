@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -189,18 +188,12 @@ html {
   @apply bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-gray-200;
 }
 
-.pro-card-hover {
-  @apply hover:-translate-y-2 hover:shadow-3xl;
-}
+
 
 /* Professional Button Styles */
-.btn-primary {
-  @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 focus-ring;
-}
 
-.btn-secondary {
-  @apply border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-2xl font-semibold text-lg hover:border-gray-400 hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 focus-ring;
-}
+
+
 
 /* Professional Input Styles */
 .input-pro {
