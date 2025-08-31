@@ -4,6 +4,43 @@ import BlogCard from "@/components/blog/BlogCard";
 import { getFeaturedPosts, getAllPosts } from "@/data/blogPosts";
 import Link from "next/link";
 
+// Function to get relevant live images based on category
+const getFeaturedImage = (category: string): string => {
+  const businessImages = [
+    "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=600&fit=crop&crop=center", // Business meeting
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&crop=center", // Strategic planning
+    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&crop=center", // Team collaboration
+    "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop&crop=center", // Business growth
+  ];
+
+  const realEstateImages = [
+    "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop&crop=center", // Modern house
+    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop&crop=center", // Luxury property
+    "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop&crop=center", // Real estate investment
+    "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop&crop=center", // Property development
+  ];
+
+  const eventImages = [
+    "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop&crop=center", // Corporate event
+    "https://images.unsplash.com/photo-1519167758481-83f550bbd0dc?w=800&h=600&fit=crop&crop=center", // Wedding planning
+    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop&crop=center", // Conference setup
+    "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&h=600&fit=crop&crop=center", // Event decoration
+  ];
+
+  switch (category.toLowerCase()) {
+    case "business":
+      return businessImages[Math.floor(Math.random() * businessImages.length)];
+    case "real estate":
+      return realEstateImages[
+        Math.floor(Math.random() * realEstateImages.length)
+      ];
+    case "events":
+      return eventImages[Math.floor(Math.random() * eventImages.length)];
+    default:
+      return businessImages[0];
+  }
+};
+
 export default function HomePage() {
   const featuredPosts = getFeaturedPosts();
   const recentPosts = getAllPosts().slice(0, 6);
@@ -147,7 +184,14 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {featuredPosts.map((post) => (
-              <BlogCard key={post.id} post={post} featured={true} />
+              <BlogCard
+                key={post.id}
+                post={{
+                  ...post,
+                  featuredImage: getFeaturedImage(post.category),
+                }}
+                featured={true}
+              />
             ))}
           </div>
 
@@ -190,7 +234,13 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {recentPosts.map((post) => (
-              <BlogCard key={post.id} post={post} />
+              <BlogCard
+                key={post.id}
+                post={{
+                  ...post,
+                  featuredImage: getFeaturedImage(post.category),
+                }}
+              />
             ))}
           </div>
         </div>

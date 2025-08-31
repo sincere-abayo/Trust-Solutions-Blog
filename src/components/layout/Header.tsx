@@ -18,15 +18,17 @@ const Header = () => {
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-30">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">TS</span>
-              </div>
-              <span className="ml-3 text-xl font-bold text-gray-900">
-                Trust Solutions
+              <img
+                src="/logo/image.png"
+                alt="Trust Solutions Company"
+                className="w-28 h-34 object-contain" // Increased size from w-24 h-20 to w-32 h-28
+              />
+              <span className="ml-3 text-2xl font-bold text-gray-900">
+                Trust Solutions <br/> Company
               </span>
             </Link>
           </div>

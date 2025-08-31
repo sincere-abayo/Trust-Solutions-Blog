@@ -172,7 +172,7 @@ export default function ContactPage() {
                     value={formData.phone}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="(555) 123-4567"
+                    placeholder="0784490045"
                   />
                 </div>
                 <div>
@@ -294,7 +294,7 @@ export default function ContactPage() {
                   </svg>
                   <div>
                     <div className="font-medium text-gray-900">Phone</div>
-                    <div className="text-gray-600">(555) 123-4567</div>
+                    <div className="text-gray-600">0784490045</div>
                   </div>
                 </div>
 
@@ -314,7 +314,9 @@ export default function ContactPage() {
                   </svg>
                   <div>
                     <div className="font-medium text-gray-900">Email</div>
-                    <div className="text-gray-600">info@trustsolutions.com</div>
+                    <div className="text-gray-600">
+                      credojeanconfiance@gmail.com
+                    </div>
                   </div>
                 </div>
 

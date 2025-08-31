@@ -4,9 +4,9 @@ import Link from "next/link";
 export default function AboutPage() {
   const team = [
     {
-      name: "Sarah Johnson",
+      name: "IRERA Jean Confiance",
       role: "CEO & Business Strategy Director",
-      bio: "With over 15 years of experience in strategic business consulting, Sarah has helped hundreds of companies achieve sustainable growth and market leadership.",
+      bio: "With over 10 years of experience in strategic business consulting, Sarah has helped hundreds of companies achieve sustainable growth and market leadership.",
       expertise: [
         "Strategic Planning",
         "Business Development",
@@ -15,7 +15,7 @@ export default function AboutPage() {
       image: "/images/team/sarah-johnson.jpg",
     },
     {
-      name: "Michael Chen",
+      name: "Ishimwe Jean Louis",
       role: "Real Estate Director",
       bio: "Michael brings 12 years of real estate expertise, specializing in commercial properties, investment portfolios, and market trend analysis.",
       expertise: [
@@ -26,7 +26,7 @@ export default function AboutPage() {
       image: "/images/team/michael-chen.jpg",
     },
     {
-      name: "Amanda Rodriguez",
+      name: "Abayo Sincere",
       role: "Event Planning Director",
       bio: "Amanda has orchestrated over 500 successful events, from intimate corporate gatherings to large-scale conferences and celebrations.",
       expertise: ["Corporate Events", "Wedding Planning", "Event Management"],
@@ -118,7 +118,7 @@ export default function AboutPage() {
   ];
 
   const stats = [
-    { number: "500+", label: "Successful Projects" },
+    { number: "50+", label: "Successful Projects" },
     { number: "15+", label: "Years of Experience" },
     { number: "98%", label: "Client Satisfaction" },
     { number: "3", label: "Core Service Areas" },
@@ -130,7 +130,7 @@ export default function AboutPage() {
       <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            About Trust Solutions
+            About Trust Solutions Company
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
             Delivering effective, customized solutions across our three areas of
@@ -149,7 +149,7 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-gray-600">
                 <p>
-                  Founded in 2009, Trust Solutions Company began with a simple
+                  Founded in 2025, Trust Solutions Company began with a simple
                   yet powerful mission: to provide comprehensive solutions to
                   businesses and individuals facing complex challenges.
                 </p>
@@ -172,10 +172,19 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
+            {/* To do:
+                - Replace the "TS" circle with the company logo from /logo/image.png
+                - Keep the rest of the card structure and content the same
+                - Ensure the logo is styled to fit in a rounded, centered container
+            */}
             <div className="bg-gray-100 rounded-xl p-8">
               <div className="text-center">
-                <div className="w-32 h-32 bg-blue-600 rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <span className="text-white text-4xl font-bold">TS</span>
+                <div className="w-32 h-32 bg-white-600 rounded-full mx-auto mb-6 flex items-center justify-center overflow-hidden">
+                  <img
+                    src="/logo/image-nb.png"
+                    alt="Trust Solutions Company Logo"
+                    className="w-100 h-104 object-contain"
+                  />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   Trust Solutions Company
@@ -185,7 +194,7 @@ export default function AboutPage() {
                 </p>
                 <div className="grid grid-cols-2 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-blue-600">2009</div>
+                    <div className="text-2xl font-bold text-blue-600">2025</div>
                     <div className="text-sm text-gray-600">Founded</div>
                   </div>
                   <div>
