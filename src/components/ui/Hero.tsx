@@ -173,10 +173,10 @@ const Hero = () => {
           <p className="text-sm font-medium mb-2 text-blue-200">
             Real Trust Solutions Client
           </p>
-          <p className="text-lg font-semibold">
-            "They transformed our business strategy and helped us achieve 300%
-            growth in just 18 months."
-          </p>
+                      <p className="text-lg font-semibold">
+              &ldquo;They transformed our business strategy and helped us achieve 300%
+              growth in just 18 months.&rdquo;
+            </p>
           <p className="text-sm text-blue-200 mt-2">
             - Sarah Johnson, CEO TechStart Inc.
           </p>
