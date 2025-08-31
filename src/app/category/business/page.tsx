@@ -96,7 +96,7 @@ export default function BusinessCategoryPage() {
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
             Expert strategic planning and advisory solutions to help your
-            business grow and thrive in today's competitive market.
+            business grow and thrive in today&apos;s competitive market.
           </p>
         </div>
       </section>
@@ -239,7 +239,7 @@ export default function BusinessCategoryPage() {
                       Ongoing Support
                     </h3>
                     <p className="text-gray-600">
-                      We don't just create plans—we help implement them and
+                      We don&apos;t just create plans—we help implement them and
                       provide ongoing guidance for success.
                     </p>
                   </div>
@@ -251,9 +251,9 @@ export default function BusinessCategoryPage() {
                 Ready to Transform Your Business?
               </h3>
               <p className="mb-6">
-                Let's discuss how our strategic consulting services can help you
-                overcome challenges, identify opportunities, and achieve
-                sustainable growth.
+                Let&apos;s discuss how our strategic consulting services can
+                help you overcome challenges, identify opportunities, and
+                achieve sustainable growth.
               </p>
               <Link
                 href="/contact"
@@ -324,8 +324,8 @@ export default function BusinessCategoryPage() {
             Ready to Accelerate Your Business Growth?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Let's discuss how our strategic consulting services can help you
-            overcome challenges and achieve your business objectives.
+            Let&apos;s discuss how our strategic consulting services can help
+            you overcome challenges and achieve your business objectives.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

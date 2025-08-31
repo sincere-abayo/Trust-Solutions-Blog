@@ -12,7 +12,7 @@ export default function HomePage() {
     {
       title: "Strategic Business Consulting",
       description:
-        "Expert advisory solutions to help your business grow and thrive in today's competitive market.",
+        "Expert advisory solutions to help your business grow and thrive in today&apos;s competitive market.",
       icon: (
         <svg
           className="w-12 h-12 text-blue-600"

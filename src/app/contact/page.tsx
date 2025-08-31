@@ -45,7 +45,7 @@ export default function ContactPage() {
     {
       id: "general",
       name: "General Inquiry",
-      description: "Have a question? We'd love to hear from you.",
+      description: "Have a question? We&apos;d love to hear from you.",
     },
     {
       id: "business",

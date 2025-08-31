@@ -162,13 +162,13 @@ export default function AboutPage() {
                 </p>
                 <p>
                   Our growth has been driven by our unwavering commitment to our
-                  clients' success and our ability to adapt and expand our
+                  clients&apos; success and our ability to adapt and expand our
                   services to meet evolving market demands.
                 </p>
                 <p>
-                  Today, we're proud to have helped over 500 clients achieve
-                  their goals, building lasting relationships based on trust,
-                  results, and mutual success.
+                  Today, we&apos;re proud to have helped over 500 clients
+                  achieve their goals, building lasting relationships based on
+                  trust, results, and mutual success.
                 </p>
               </div>
             </div>
@@ -207,8 +207,8 @@ export default function AboutPage() {
               Our Mission & Values
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're driven by a clear mission and guided by core values that
-              shape everything we do.
+              We&apos;re driven by a clear mission and guided by core values
+              that shape everything we do.
             </p>
           </div>
 
@@ -333,8 +333,8 @@ export default function AboutPage() {
             Ready to Work Together?
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Let's discuss how Trust Solutions can help you achieve your goals
-            and overcome your challenges.
+            Let&apos;s discuss how Trust Solutions can help you achieve your
+            goals and overcome your challenges.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
