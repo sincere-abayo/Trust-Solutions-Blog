@@ -78,68 +78,81 @@ const Hero = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-        {/* Main Content */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Whatever Your Challenge,
-            <span className="block text-blue-200">We Provide The Solution</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto">
-            Trust Solutions Company delivers effective, customized solutions
-            across our three areas of expertise: Strategic Business Consulting,
-            comprehensive Real Estate Brokerage, and creative Event Planning.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        {/* Main Content - RISE-inspired Design */}
+        <div className="text-center mb-20">
+          {/* Mission Statement */}
+          <div className="mb-12">
+            <h1 className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tight">
+              We exist to solve
+              <span className="block text-blue-200 mt-2">your challenges.</span>
+            </h1>
+            <p className="text-2xl md:text-3xl text-blue-100 mb-10 max-w-5xl mx-auto leading-relaxed font-light">
+              Our mission is to provide comprehensive solutions across business
+              consulting, real estate, and event planning - giving you the tools
+              and expertise to overcome obstacles and achieve your goals.
+            </p>
+          </div>
+
+          {/* Primary CTA */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
             <Link
               href="/contact"
-              className="bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors duration-200 shadow-lg hover:shadow-xl"
+              className="bg-white text-blue-900 px-12 py-6 rounded-2xl font-black text-2xl hover:bg-blue-50 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transform"
             >
-              Get Started Today
+              GET STARTED TODAY
             </Link>
             <Link
               href="/about"
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-900 transition-colors duration-200"
+              className="border-3 border-white text-white px-12 py-6 rounded-2xl font-black text-2xl hover:bg-white hover:text-blue-900 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transform"
             >
-              Learn More
+              LEARN MORE
             </Link>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="text-center">
+            <p className="text-blue-200 text-xl mb-6 font-medium">
+              Trusted by businesses across industries
+            </p>
+            <div className="flex justify-center items-center space-x-8 opacity-80">
+              <div className="text-3xl font-black">500+</div>
+              <div className="text-3xl font-black">•</div>
+              <div className="text-3xl font-black">15+ Years</div>
+              <div className="text-3xl font-black">•</div>
+              <div className="text-3xl font-black">98% Success</div>
+            </div>
           </div>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Enhanced Services Grid - RISE-inspired */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {services.map((service, index) => (
             <Link
               key={service.title}
               href={service.href}
-              className="group bg-white/10 backdrop-blur-sm rounded-xl p-8 hover:bg-white/20 transition-all duration-300 hover:scale-105 border border-white/20"
+              className="group bg-white/15 backdrop-blur-md rounded-2xl p-10 hover:bg-white/25 transition-all duration-500 hover:scale-105 border-2 border-white/30 hover:border-white/50 shadow-2xl hover:shadow-3xl"
+              style={{
+                animationDelay: `${index * 200}ms`,
+              }}
             >
               <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500 rounded-full mb-6 group-hover:bg-blue-400 transition-colors duration-300">
-                  {service.icon}
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl mb-8 group-hover:from-blue-300 group-hover:to-blue-500 transition-all duration-300 shadow-lg group-hover:shadow-2xl">
+                  <div className="text-white">{service.icon}</div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-200 transition-colors duration-300">
+                <h3 className="text-2xl font-black mb-4 group-hover:text-blue-200 transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-blue-100 group-hover:text-white transition-colors duration-300">
+                <p className="text-blue-100 group-hover:text-white transition-colors duration-300 text-lg leading-relaxed">
                   {service.description}
                 </p>
+                <div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-blue-200 font-semibold text-sm tracking-wide uppercase">
+                    Learn More →
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
-        </div>
-
-        {/* Trust Indicators */}
-        <div className="mt-16 text-center">
-          <p className="text-blue-200 text-lg mb-4">
-            Trusted by businesses across industries
-          </p>
-          <div className="flex justify-center items-center space-x-8 opacity-60">
-            <div className="text-2xl font-bold">500+</div>
-            <div className="text-2xl font-bold">•</div>
-            <div className="text-2xl font-bold">15+ Years</div>
-            <div className="text-2xl font-bold">•</div>
-            <div className="text-2xl font-bold">98% Success</div>
-          </div>
         </div>
       </div>
 

@@ -129,27 +129,36 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map((service) => (
+          {/* Enhanced Services Grid - RISE-inspired */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {services.map((service, index) => (
               <div
                 key={service.title}
-                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="group bg-white rounded-2xl p-10 shadow-xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-3 border-2 border-gray-100 hover:border-blue-200 overflow-hidden relative"
+                style={{
+                  animationDelay: `${index * 150}ms`,
+                }}
               >
-                <div className="text-center">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
-                    {service.icon}
+                {/* Hover Effect Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <div className="text-center relative z-10">
+                  <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-8 group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-2xl">
+                    <div className="text-white">{service.icon}</div>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                  <h3 className="text-2xl font-black text-gray-900 mb-6 group-hover:text-blue-600 transition-colors duration-300">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 mb-6">{service.description}</p>
+                  <p className="text-gray-600 mb-8 text-lg leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                    {service.description}
+                  </p>
                   <Link
                     href={service.href}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-bold text-lg group-hover:scale-105 transition-all duration-300"
                   >
                     Learn More
                     <svg
-                      className="ml-2 w-4 h-4"
+                      className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -246,28 +255,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-blue-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+      {/* Enhanced CTA Section - RISE-inspired */}
+      <section className="py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+        </div>
+
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight">
             Ready to Get Started?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+          <p className="text-2xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
             Whatever your challenge, we provide the solution. Contact us today
             to discuss how we can help you achieve your goals.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link
               href="/contact"
-              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors duration-200"
+              className="bg-white text-blue-600 px-12 py-6 rounded-2xl font-black text-2xl hover:bg-blue-50 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transform"
             >
-              Contact Us Today
+              CONTACT US TODAY
             </Link>
             <Link
               href="/about"
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors duration-200"
+              className="border-3 border-white text-white px-12 py-6 rounded-2xl font-black text-2xl hover:bg-white hover:text-blue-600 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transform"
             >
-              Learn More About Us
+              LEARN MORE ABOUT US
             </Link>
           </div>
         </div>

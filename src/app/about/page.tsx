@@ -4,9 +4,9 @@ import Link from "next/link";
 export default function AboutPage() {
   const team = [
     {
-      name: "IRERA Jean Confiance",
-      role: "CEO & Business Strategy Director",
-      bio: "With over 10 years of experience in strategic business consulting, Sarah has helped hundreds of companies achieve sustainable growth and market leadership.",
+      name: "Mr. Irera Jean Confiance",
+      role: "Founder & Managing Director",
+      bio: "Irera Jean Confiance will lead the company. With a deep understanding of the Rwandan market's challenges and a passion for elevating service standards, His role will be to drive the company's strategic vision, build key client relationships, and ensure that the promise of 'Trust Solutions' is delivered consistently across all departments. The initial team will be small, with plans to hire dedicated leads for each of the three service pillars as the company grows.",
       expertise: [
         "Strategic Planning",
         "Business Development",

@@ -160,9 +160,8 @@ const Footer = () => {
                   />
                 </svg>
                 <span className="text-gray-300">
-                  123 Business Ave, Suite 100
-                  <br />
-                  City, State 12345
+                  KG 16 Ave, Kigali City, Rwanda
+
                 </span>
               </div>
               <div className="flex items-center">
