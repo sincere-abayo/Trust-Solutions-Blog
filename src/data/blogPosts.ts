@@ -1,3 +1,41 @@
+// Function to get dynamic images based on category
+const getCategoryImage = (category: string, index: number) => {
+  const businessImages = [
+    'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1551434678-e076c223a5ab?w=800&h=600&fit=crop&crop=center'
+  ];
+  
+  const realEstateImages = [
+    'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1570129477492-45c003c2d567?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop&crop=center'
+  ];
+  
+  const eventsImages = [
+    'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop&crop=center'
+  ];
+  
+  switch (category.toLowerCase()) {
+    case 'business':
+      return businessImages[index % businessImages.length];
+    case 'real estate':
+      return realEstateImages[index % realEstateImages.length];
+    case 'events':
+      return eventsImages[index % eventsImages.length];
+    default:
+      return businessImages[0];
+  }
+};
+
 export interface BlogPost {
   id: string;
   title: string;
@@ -65,7 +103,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: new Date('2024-08-15'),
     readTime: 8,
     slug: 'strategic-planning-mistakes-business',
-    featuredImage: '/images/business-planning.jpg',
+    featuredImage: getCategoryImage('Business', 0),
     tags: ['strategic planning', 'business growth', 'market research', 'goal setting']
   },
   {
@@ -131,7 +169,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: new Date('2024-08-10'),
     readTime: 10,
     slug: 'building-high-performing-teams-leadership',
-    featuredImage: '/images/team-leadership.jpg',
+    featuredImage: getCategoryImage('Business', 1),
     tags: ['leadership', 'team building', 'performance management', 'communication']
   },
 
@@ -195,7 +233,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: new Date('2024-08-12'),
     readTime: 7,
     slug: '2024-real-estate-market-trends',
-    featuredImage: '/images/real-estate-trends.jpg',
+    featuredImage: getCategoryImage('Real Estate', 0),
     tags: ['market trends', 'real estate', 'buying', 'selling', 'interest rates']
   },
   {
@@ -324,7 +362,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: new Date('2024-08-08'),
     readTime: 12,
     slug: 'investment-properties-real-estate-guide',
-    featuredImage: '/images/investment-properties.jpg',
+    featuredImage: getCategoryImage('Real Estate', 1),
     tags: ['real estate investing', 'wealth building', 'property management', 'financing']
   },
 
@@ -434,7 +472,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: new Date('2024-08-14'),
     readTime: 9,
     slug: 'corporate-event-planning-10-steps',
-    featuredImage: '/images/corporate-events.jpg',
+    featuredImage: getCategoryImage('Events', 0),
     tags: ['corporate events', 'event planning', 'business events', 'event management']
   },
   {
@@ -646,7 +684,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: new Date('2024-08-06'),
     readTime: 15,
     slug: 'wedding-planning-timeline-12-month-guide',
-    featuredImage: '/images/wedding-planning.jpg',
+    featuredImage: getCategoryImage('Events', 1),
     tags: ['wedding planning', 'event planning', 'weddings', 'timeline', 'planning guide']
   }
 ];

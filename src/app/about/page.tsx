@@ -13,7 +13,8 @@ export default function AboutPage() {
         "Business Development",
         "Market Analysis",
       ],
-      image: "/images/team/sarah-johnson.jpg",
+      image:
+        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face",
     },
     {
       name: "Ishimwe Jean Louis",
@@ -24,14 +25,16 @@ export default function AboutPage() {
         "Investment Properties",
         "Market Trends",
       ],
-      image: "/images/team/michael-chen.jpg",
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
     },
     {
       name: "Abayo Sincere",
       role: "Event Planning Director",
       bio: "Amanda has orchestrated over 500 successful events, from intimate corporate gatherings to large-scale conferences and celebrations.",
       expertise: ["Corporate Events", "Wedding Planning", "Event Management"],
-      image: "/images/team/amanda-rodriguez.jpg",
+      image:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
     },
   ];
 
@@ -182,7 +185,7 @@ export default function AboutPage() {
               <div className="text-center">
                 <div className="w-32 h-32 bg-white-600 rounded-full mx-auto mb-6 flex items-center justify-center overflow-hidden">
                   <Image
-                    src="/logo/image-nb.png"
+                    src="/logo/image.png"
                     alt="Trust Solutions Company Logo"
                     width={400}
                     height={416}
