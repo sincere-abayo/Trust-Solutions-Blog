@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { Badge } from "./Badge";
 
 const Hero = () => {
   const services = [
@@ -66,7 +68,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white overflow-hidden">
+    <section className="relative h-screen flex flex-col justify-center items-center bg-primary text-white overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <div
@@ -75,11 +77,14 @@ const Hero = () => {
             backgroundImage: `url("https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1920&h=1080&fit=crop&crop=center")`,
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/70 to-blue-700/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary/90"></div>
       </div>
 
+      {/* Content Overlay for Contrast */}
+      <div className="absolute inset-0 bg-black/70 z-10" aria-hidden="true"></div>
+
       {/* Background Pattern Overlay */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-20 z-20">
         <div
           className="absolute inset-0"
           style={{
@@ -88,46 +93,54 @@ const Hero = () => {
         />
       </div>
 
-      <div className="relative w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+      <div className="relative w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 z-30">
+        {/* Trust Badge */}
+        <div className="mb-6 sm:mb-8">
+          <Badge variant="secondary" className="text-sm sm:text-base px-4 py-2">
+            Trusted by 500+ businesses across industries
+          </Badge>
+        </div>
+
         {/* Company Name and Slogan */}
         <div className="w-full text-center flex flex-col justify-center items-center mb-6 sm:mb-10">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg mb-2">
+          {/* Logo removed */}
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-accent drop-shadow-lg mb-2">
             Trust Solutions Company
           </h1>
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold text-blue-200 mb-4 sm:mb-6 leading-tight">
-            We exist to solve <span className="block text-blue-100 font-light">your challenges.</span>
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold text-secondary mb-4 sm:mb-6 leading-tight">
+            We exist to solve <span className="block text-white font-light">your challenges.</span>
           </h2>
         </div>
         {/* Main Content */}
         <div className="w-full text-center flex flex-col justify-center items-center">
-          <p className="text-base sm:text-lg md:text-2xl text-blue-100 mb-6 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base sm:text-lg md:text-2xl text-secondary mb-6 max-w-2xl mx-auto leading-relaxed font-light">
             Our mission is to provide comprehensive solutions across business consulting, real estate, and event planning — giving you the tools and expertise to overcome obstacles and achieve your goals.
           </p>
           {/* Primary CTA */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center mb-6">
             <Link
               href="/contact"
-              className="bg-white text-blue-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-black text-base sm:text-xl hover:bg-blue-50 transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1 sm:hover:-translate-y-2 transform hover:scale-105"
+              className="bg-accent text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-black text-base sm:text-xl hover:bg-white hover:text-accent transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1 sm:hover:-translate-y-2 transform hover:scale-105 border-2 border-accent"
             >
               GET STARTED TODAY
             </Link>
             <Link
               href="/about"
-              className="border border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-black text-base sm:text-xl hover:bg-white hover:text-blue-900 transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1 sm:hover:-translate-y-2 transform hover:scale-105"
+              className="bg-white/20 border-2 border-secondary text-secondary px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-black text-base sm:text-xl hover:bg-secondary hover:text-primary transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1 sm:hover:-translate-y-2 transform hover:scale-105"
             >
               LEARN MORE
             </Link>
           </div>
           {/* Trust Indicators */}
           <div className="text-center">
-            <p className="text-blue-200 text-base sm:text-lg mb-2 font-semibold tracking-wide">
+            <p className="text-secondary text-base sm:text-lg mb-2 font-semibold tracking-wide">
               Trusted by businesses across industries
             </p>
             <div className="flex flex-wrap justify-center items-center space-x-2 sm:space-x-6 opacity-90">
               <div className="text-lg sm:text-2xl font-black text-white">500+</div>
-              <div className="text-lg sm:text-2xl font-black text-blue-300">•</div>
+              <div className="text-lg sm:text-2xl font-black text-accent">•</div>
               <div className="text-lg sm:text-2xl font-black text-white">15+ Years</div>
-              <div className="text-lg sm:text-2xl font-black text-blue-300">•</div>
+              <div className="text-lg sm:text-2xl font-black text-accent">•</div>
               <div className="text-lg sm:text-2xl font-black text-white">98% Success</div>
             </div>
           </div>
@@ -135,12 +148,15 @@ const Hero = () => {
       </div>
 
       {/* Vertical CTA Bar - RISE-inspired */}
-      <div className="hidden md:flex absolute right-0 top-0 bottom-0 w-14 bg-gradient-to-b from-blue-600 to-blue-800 flex-col items-center justify-center shadow-2xl z-10">
+      <div className="hidden md:flex absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-b from-accent/90 to-accent/70 flex-col items-center justify-center shadow-2xl z-40">
         <Link
           href="/contact"
-          className="flex flex-col items-center justify-center group cursor-pointer h-40 w-full hover:bg-blue-700 transition-colors duration-300"
+          className="flex flex-col items-center justify-center group cursor-pointer h-40 w-full hover:bg-accent/80 transition-colors duration-300"
         >
-          <span className="transform -rotate-90 whitespace-nowrap text-center text-white font-black text-lg tracking-wider group-hover:text-blue-200">
+          <span className="flex flex-col items-center transform -rotate-90 whitespace-nowrap text-center text-primary font-black text-lg tracking-wider group-hover:text-white">
+            <svg className="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M2.5 19.5l19-7-7 19-2.5-7-7-2.5z" />
+            </svg>
             GET STARTED TODAY
           </span>
         </Link>
@@ -150,7 +166,7 @@ const Hero = () => {
             href="https://linkedin.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-blue-200 transition-colors duration-300"
+            className="text-primary hover:text-white transition-colors duration-300"
             aria-label="LinkedIn"
           >
             {/* LinkedIn Icon */}
@@ -162,7 +178,7 @@ const Hero = () => {
             href="https://twitter.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-blue-200 transition-colors duration-300"
+            className="text-primary hover:text-white transition-colors duration-300"
             aria-label="Twitter"
           >
             {/* Twitter Icon */}
@@ -174,7 +190,7 @@ const Hero = () => {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute bottom-0 left-0 w-full h-4 sm:h-8 md:h-12 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-full h-4 sm:h-8 md:h-12 bg-gradient-to-t from-white to-transparent pointer-events-none z-30"></div>
     </section>
   );
 };
