@@ -66,7 +66,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white overflow-hidden">
+    <section className="relative h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <div
@@ -88,135 +88,93 @@ const Hero = () => {
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-48">
-        {/* Main Content - RISE-inspired Design */}
-        <div className="text-center mb-24">
-          {/* Mission Statement */}
-          <div className="mb-16">
-            <h1 className="text-6xl md:text-8xl font-black mb-10 leading-tight tracking-tight">
-              We exist to solve
-              <span className="block text-blue-200 mt-4">your challenges.</span>
-            </h1>
-            <p className="text-3xl md:text-4xl text-blue-100 mb-12 max-w-6xl mx-auto leading-relaxed font-light">
-              Our mission is to provide comprehensive solutions across business
-              consulting, real estate, and event planning - giving you the tools
-              and expertise to overcome obstacles and achieve your goals.
-            </p>
-          </div>
-
+      <div className="relative w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+        {/* Company Name and Slogan */}
+        <div className="w-full text-center flex flex-col justify-center items-center mb-6 sm:mb-10">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg mb-2">
+            Trust Solutions Company
+          </h1>
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold text-blue-200 mb-4 sm:mb-6 leading-tight">
+            We exist to solve <span className="block text-blue-100 font-light">your challenges.</span>
+          </h2>
+        </div>
+        {/* Main Content */}
+        <div className="w-full text-center flex flex-col justify-center items-center">
+          <p className="text-base sm:text-lg md:text-2xl text-blue-100 mb-6 max-w-2xl mx-auto leading-relaxed font-light">
+            Our mission is to provide comprehensive solutions across business consulting, real estate, and event planning — giving you the tools and expertise to overcome obstacles and achieve your goals.
+          </p>
           {/* Primary CTA */}
-          <div className="flex flex-col sm:flex-row gap-8 justify-center mb-20">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center mb-6">
             <Link
               href="/contact"
-              className="bg-white text-blue-900 px-16 py-8 rounded-3xl font-black text-3xl hover:bg-blue-50 transition-all duration-500 shadow-2xl hover:shadow-3xl hover:-translate-y-3 transform hover:scale-105"
+              className="bg-white text-blue-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-black text-base sm:text-xl hover:bg-blue-50 transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1 sm:hover:-translate-y-2 transform hover:scale-105"
             >
               GET STARTED TODAY
             </Link>
             <Link
               href="/about"
-              className="border-4 border-white text-white px-16 py-8 rounded-3xl font-black text-3xl hover:bg-white hover:text-blue-900 transition-all duration-500 shadow-2xl hover:shadow-3xl hover:-translate-y-3 transform hover:scale-105"
+              className="border border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-black text-base sm:text-xl hover:bg-white hover:text-blue-900 transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1 sm:hover:-translate-y-2 transform hover:scale-105"
             >
               LEARN MORE
             </Link>
           </div>
-
           {/* Trust Indicators */}
           <div className="text-center">
-            <p className="text-blue-200 text-2xl mb-8 font-semibold tracking-wide">
+            <p className="text-blue-200 text-base sm:text-lg mb-2 font-semibold tracking-wide">
               Trusted by businesses across industries
             </p>
-            <div className="flex justify-center items-center space-x-12 opacity-90">
-              <div className="text-4xl font-black text-white">500+</div>
-              <div className="text-4xl font-black text-blue-300">•</div>
-              <div className="text-4xl font-black text-white">15+ Years</div>
-              <div className="text-4xl font-black text-blue-300">•</div>
-              <div className="text-4xl font-black text-white">98% Success</div>
+            <div className="flex flex-wrap justify-center items-center space-x-2 sm:space-x-6 opacity-90">
+              <div className="text-lg sm:text-2xl font-black text-white">500+</div>
+              <div className="text-lg sm:text-2xl font-black text-blue-300">•</div>
+              <div className="text-lg sm:text-2xl font-black text-white">15+ Years</div>
+              <div className="text-lg sm:text-2xl font-black text-blue-300">•</div>
+              <div className="text-lg sm:text-2xl font-black text-white">98% Success</div>
             </div>
           </div>
-        </div>
-
-        {/* Enhanced Services Grid - RISE-inspired */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {services.map((service, index) => (
-            <Link
-              key={service.title}
-              href={service.href}
-              className="group bg-white/20 backdrop-blur-md rounded-3xl p-12 hover:bg-white/30 transition-all duration-500 hover:scale-105 border-2 border-white/40 hover:border-white/60 shadow-2xl hover:shadow-3xl"
-              style={{
-                animationDelay: `${index * 200}ms`,
-              }}
-            >
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl mb-10 group-hover:from-blue-300 group-hover:to-blue-500 transition-all duration-300 shadow-lg group-hover:shadow-2xl">
-                  <div className="text-white text-2xl">{service.icon}</div>
-                </div>
-                <h3 className="text-3xl font-black mb-6 group-hover:text-blue-200 transition-colors duration-300">
-                  {service.title}
-                </h3>
-                <p className="text-blue-100 group-hover:text-white transition-colors duration-300 text-xl leading-relaxed">
-                  {service.description}
-                </p>
-                <div className="mt-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-blue-200 font-bold text-base tracking-wide uppercase">
-                    Learn More →
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* Floating Testimonial Box - RISE-inspired */}
-      <div className="absolute bottom-8 left-8 bg-blue-600/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border-2 border-blue-400/30 max-w-sm">
-        <div className="text-white">
-          <p className="text-sm font-medium mb-2 text-blue-200">
-            Real Trust Solutions Client
-          </p>
-                      <p className="text-lg font-semibold">
-              &ldquo;They transformed our business strategy and helped us achieve 300%
-              growth in just 18 months.&rdquo;
-            </p>
-          <p className="text-sm text-blue-200 mt-2">
-            - Sarah Johnson, CEO TechStart Inc.
-          </p>
         </div>
       </div>
 
       {/* Vertical CTA Bar - RISE-inspired */}
-      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-b from-blue-600 to-blue-800 flex flex-col items-center justify-center shadow-2xl">
-        <div className="transform -rotate-90 whitespace-nowrap text-center">
-          <div className="text-white font-black text-lg tracking-wider">
-            GET STARTED
-          </div>
-          <div className="text-blue-200 font-bold text-sm tracking-wide">
-            TODAY
-          </div>
-        </div>
-
+      <div className="hidden md:flex absolute right-0 top-0 bottom-0 w-14 bg-gradient-to-b from-blue-600 to-blue-800 flex-col items-center justify-center shadow-2xl z-10">
+        <Link
+          href="/contact"
+          className="flex flex-col items-center justify-center group cursor-pointer h-40 w-full hover:bg-blue-700 transition-colors duration-300"
+        >
+          <span className="transform -rotate-90 whitespace-nowrap text-center text-white font-black text-lg tracking-wider group-hover:text-blue-200">
+            GET STARTED TODAY
+          </span>
+        </Link>
         {/* Social Icons */}
-        <div className="absolute top-8 flex flex-col space-y-4">
+        <div className="absolute top-8 flex flex-col space-y-4 items-center w-full">
           <a
-            href="#"
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-white hover:text-blue-200 transition-colors duration-300"
+            aria-label="LinkedIn"
           >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4z" />
+            {/* LinkedIn Icon */}
+            <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z" />
             </svg>
           </a>
           <a
-            href="#"
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-white hover:text-blue-200 transition-colors duration-300"
+            aria-label="Twitter"
           >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z" />
+            {/* Twitter Icon */}
+            <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 4.557a9.93 9.93 0 01-2.828.775 4.932 4.932 0 002.165-2.724c-.951.564-2.005.974-3.127 1.195a4.92 4.92 0 00-8.384 4.482c-4.086-.205-7.713-2.164-10.141-5.144a4.822 4.822 0 00-.666 2.475c0 1.708.87 3.216 2.188 4.099a4.904 4.904 0 01-2.229-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.936 4.936 0 01-2.224.084c.627 1.956 2.444 3.377 4.6 3.417a9.867 9.867 0 01-6.102 2.104c-.396 0-.787-.023-1.175-.069a13.945 13.945 0 007.548 2.212c9.057 0 14.009-7.513 14.009-14.009 0-.213-.005-.425-.014-.636a10.012 10.012 0 002.457-2.548z" />
             </svg>
           </a>
         </div>
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute bottom-0 left-0 w-full h-4 sm:h-8 md:h-12 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
     </section>
   );
 };
