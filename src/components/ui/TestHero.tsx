@@ -69,7 +69,7 @@ export function TestHero() {
           </h1>
 
           <h2 className="text-xl md:text-2xl lg:text-3xl font-medium text-blue-200 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 hover:scale-105 transition-transform duration-500">
-            Rwanda's Premier One-Stop Solutions Partner
+            Rwanda&apos;s Premier One-Stop Solutions Partner
           </h2>
 
           <p className="text-lg md:text-xl lg:text-2xl text-slate-200 max-w-3xl mx-auto mb-10 text-pretty leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 hover:text-white transition-colors duration-300 hover:scale-105">
