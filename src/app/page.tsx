@@ -3,7 +3,7 @@ import Hero from "@/components/ui/Hero";
 import CTA from "@/components/ui/CTA";
 import MissionVisionValues from "@/components/ui/MissionVisionValues";
 import BlogCard from "@/components/blog/BlogCard";
-import { getFeaturedPosts, getAllPosts } from "@/data/blogPosts";
+import { getAllPosts } from "@/data/blogPosts";
 import Link from "next/link";
 
 // Function to get relevant live images based on category
@@ -44,7 +44,6 @@ const getFeaturedImage = (category: string): string => {
 };
 
 export default function HomePage() {
-  const featuredPosts = getFeaturedPosts();
   const recentPosts = getAllPosts().slice(0, 6);
 
   const services = [
@@ -183,28 +182,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Blog Posts */}
+      {/* Blog Posts */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Featured Insights
+              Latest Insights
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Discover expert insights and practical advice from our team of
-              professionals across all three service areas.
+              professionals across business consulting, real estate, and event
+              planning.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {featuredPosts.map((post) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {recentPosts.map((post) => (
               <BlogCard
                 key={post.id}
                 post={{
                   ...post,
                   featuredImage: getFeaturedImage(post.category),
                 }}
-                featured={true}
               />
             ))}
           </div>
@@ -229,33 +228,6 @@ export default function HomePage() {
                 />
               </svg>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Recent Blog Posts */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Latest Insights
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Stay updated with our latest articles, tips, and industry insights
-              across business consulting, real estate, and event planning.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {recentPosts.map((post) => (
-              <BlogCard
-                key={post.id}
-                post={{
-                  ...post,
-                  featuredImage: getFeaturedImage(post.category),
-                }}
-              />
-            ))}
           </div>
         </div>
       </section>

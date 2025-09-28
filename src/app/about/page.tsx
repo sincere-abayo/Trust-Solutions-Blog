@@ -7,7 +7,7 @@ export default function AboutPage() {
     {
       name: "Mr. Irera Jean Confiance",
       role: "Founder & Managing Director",
-      bio: "Irera Jean Confiance will lead the company. With a deep understanding of the Rwandan market's challenges and a passion for elevating service standards, His role will be to drive the company's strategic vision, build key client relationships, and ensure that the promise of 'Trust Solutions' is delivered consistently across all departments. The initial team will be small, with plans to hire dedicated leads for each of the three service pillars as the company grows.",
+      bio: "Irera Jean Confiance, Founder & Managing Director, lead the company. With a deep understanding of the Rwandan market's challenges and a passion for elevating service standards, His role will be to drive the company's strategic vision, build key client relationships, and ensure that the promise of 'Trust Solutions' is delivered consistently across all departments. The initial team will be small, with plans to hire dedicated leads for each of the three service pillars as the company grows.",
       expertise: [
         "Strategic Planning",
         "Business Development",
@@ -19,7 +19,7 @@ export default function AboutPage() {
     {
       name: "Ishimwe Jean Louis",
       role: "Real Estate Director",
-      bio: "Michael brings 12 years of real estate expertise, specializing in commercial properties, investment portfolios, and market trend analysis.",
+      bio: "Ishimwe brings 12 years of real estate expertise, specializing in commercial properties, investment portfolios, and market trend analysis.",
       expertise: [
         "Commercial Real Estate",
         "Investment Properties",
@@ -31,7 +31,7 @@ export default function AboutPage() {
     {
       name: "Abayo Sincere",
       role: "Event Planning Director",
-      bio: "Amanda has orchestrated over 500 successful events, from intimate corporate gatherings to large-scale conferences and celebrations.",
+      bio: "Abayo has orchestrated over 500 successful events, from intimate corporate gatherings to large-scale conferences and celebrations.",
       expertise: ["Corporate Events", "Wedding Planning", "Event Management"],
       image:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
@@ -142,8 +142,8 @@ export default function AboutPage() {
   ];
 
   const stats = [
-    { number: "50+", label: "Successful Projects" },
-    { number: "15+", label: "Years of Experience" },
+    { number: "50+", label: "Client Served" },
+    { number: "2+", label: "Years of Experience" },
     { number: "98%", label: "Client Satisfaction" },
     { number: "3", label: "Core Service Areas" },
   ];
@@ -158,7 +158,7 @@ export default function AboutPage() {
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
             Delivering effective, customized solutions across our three areas of
-            expertise for over 15 years.
+            expertise for over 2 years.
           </p>
         </div>
       </section>
@@ -190,9 +190,9 @@ export default function AboutPage() {
                   services to meet evolving market demands.
                 </p>
                 <p>
-                  Today, we&apos;re proud to have helped over 500 clients
-                  achieve their goals, building lasting relationships based on
-                  trust, results, and mutual success.
+                  Today, we&apos;re proud to have helped over 50 clients achieve
+                  their goals, building lasting relationships based on trust,
+                  results, and mutual success.
                 </p>
               </div>
             </div>
@@ -224,7 +224,7 @@ export default function AboutPage() {
                     <div className="text-sm text-gray-600">Founded</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-blue-600">500+</div>
+                    <div className="text-2xl font-bold text-blue-600">50+</div>
                     <div className="text-sm text-gray-600">Clients Served</div>
                   </div>
                 </div>

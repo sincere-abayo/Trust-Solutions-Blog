@@ -271,9 +271,7 @@ export default function ContactPage() {
                   <div>
                     <div className="font-medium text-gray-900">Address</div>
                     <div className="text-gray-600">
-                      123 Business Avenue, Suite 100
-                      <br />
-                      City, State 12345
+                      KG 16 Ave, Kigali City, Rwanda
                     </div>
                   </div>
                 </div>
@@ -294,7 +292,7 @@ export default function ContactPage() {
                   </svg>
                   <div>
                     <div className="font-medium text-gray-900">Phone</div>
-                    <div className="text-gray-600">0784490045</div>
+                    <div className="text-gray-600">0722490045</div>
                   </div>
                 </div>
 
@@ -315,7 +313,7 @@ export default function ContactPage() {
                   <div>
                     <div className="font-medium text-gray-900">Email</div>
                     <div className="text-gray-600">
-                      credojeanconfiance@gmail.com
+                      Trustsolutions2025@gmail.com
                     </div>
                   </div>
                 </div>
@@ -366,7 +364,7 @@ export default function ContactPage() {
                   <div className="flex items-center">
                     <div className="w-3 h-3 bg-purple-600 rounded-full mr-3"></div>
                     <span className="text-gray-700">
-                      Creative Event Planning
+                      Event Planning Management
                     </span>
                   </div>
                 </div>
