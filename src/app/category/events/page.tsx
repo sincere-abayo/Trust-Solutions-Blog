@@ -1,4 +1,5 @@
 import Layout from "@/components/layout/Layout";
+import CTA from "@/components/ui/CTA";
 import BlogCard from "@/components/blog/BlogCard";
 import { getAllPosts } from "@/data/blogPosts";
 import Link from "next/link";
@@ -14,6 +15,18 @@ export default function EventsPage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mb-4">
+            <span className="inline-flex items-center px-4 py-2 bg-purple-600/20 backdrop-blur-sm border border-purple-400/30 rounded-full text-purple-200 text-sm font-medium">
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              Over 1 Year Experience
+            </span>
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Creative Event Planning
           </h1>
@@ -165,31 +178,12 @@ export default function EventsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-purple-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Create Your Perfect Event?
-          </h2>
-          <p className="text-xl text-purple-100 mb-8">
-            Let&apos;s discuss how our event planning services can bring your
-            vision to life and create unforgettable experiences.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="bg-white text-purple-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-purple-50 transition-colors duration-200"
-            >
-              Get Started Today
-            </Link>
-            <Link
-              href="/about"
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-purple-600 transition-colors duration-200"
-            >
-              Learn More About Us
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CTA
+        title="Ready to Create Your **Perfect Event**?"
+        subtitle="Let's discuss how our event planning services can bring your vision to life and create unforgettable experiences."
+        primaryButtonText="Schedule Appointment Today"
+        secondaryButtonText="Learn More About Us"
+      />
     </Layout>
   );
 }

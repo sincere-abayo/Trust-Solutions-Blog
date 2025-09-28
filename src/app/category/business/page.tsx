@@ -1,4 +1,5 @@
 import Layout from "@/components/layout/Layout";
+import CTA from "@/components/ui/CTA";
 import BlogCard from "@/components/blog/BlogCard";
 import { getPostsByCategory } from "@/data/blogPosts";
 import Link from "next/link";
@@ -91,6 +92,18 @@ export default function BusinessCategoryPage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mb-4">
+            <span className="inline-flex items-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm border border-blue-400/30 rounded-full text-blue-200 text-sm font-medium">
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              Over 2 Years Experience
+            </span>
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Business Consulting
           </h1>
@@ -318,31 +331,12 @@ export default function BusinessCategoryPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-blue-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Accelerate Your Business Growth?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Let&apos;s discuss how our strategic consulting services can help
-            you overcome challenges and achieve your business objectives.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors duration-200"
-            >
-              Get Started Today
-            </Link>
-            <Link
-              href="/about"
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors duration-200"
-            >
-              Learn More About Us
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CTA
+        title="Ready to Accelerate Your **Business Growth**?"
+        subtitle="Let's discuss how our strategic consulting services can help you overcome challenges and achieve your business objectives."
+        primaryButtonText="Schedule Consultation Today"
+        secondaryButtonText="Learn More About Us"
+      />
     </Layout>
   );
 }

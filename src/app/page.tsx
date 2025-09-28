@@ -1,5 +1,7 @@
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/ui/Hero";
+import CTA from "@/components/ui/CTA";
+import MissionVisionValues from "@/components/ui/MissionVisionValues";
 import BlogCard from "@/components/blog/BlogCard";
 import { getFeaturedPosts, getAllPosts } from "@/data/blogPosts";
 import Link from "next/link";
@@ -49,7 +51,7 @@ export default function HomePage() {
     {
       title: "Strategic Business Consulting",
       description:
-        "Expert advisory solutions to help your business grow and thrive in today&apos;s competitive market.",
+        "Expert advisory solutions to help your business grow and thrive in today's competitive market.",
       icon: (
         <svg
           className="w-12 h-12 text-blue-600"
@@ -89,7 +91,7 @@ export default function HomePage() {
       href: "/category/real-estate",
     },
     {
-      title: "Creative Event Planning",
+      title: "Event Planning and Management",
       description:
         "Memorable and successful events that exceed expectations and create lasting impressions.",
       icon: (
@@ -114,6 +116,9 @@ export default function HomePage() {
   return (
     <Layout>
       <Hero />
+
+      {/* Mission, Vision & Values Section */}
+      <MissionVisionValues />
 
       {/* Services Section */}
       <section className="py-20 bg-gray-50">
@@ -255,42 +260,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Enhanced CTA Section - RISE-inspired */}
-      <section className="py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          />
-        </div>
-
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight">
-            Ready to Get Started?
-          </h2>
-          <p className="text-2xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
-            Whatever your challenge, we provide the solution. Contact us today
-            to discuss how we can help you achieve your goals.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link
-              href="/contact"
-              className="bg-white text-blue-600 px-12 py-6 rounded-2xl font-black text-2xl hover:bg-blue-50 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transform"
-            >
-              CONTACT US TODAY
-            </Link>
-            <Link
-              href="/about"
-              className="border-3 border-white text-white px-12 py-6 rounded-2xl font-black text-2xl hover:bg-white hover:text-blue-600 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transform"
-            >
-              LEARN MORE ABOUT US
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* CTA Section */}
+      <CTA />
     </Layout>
   );
 }

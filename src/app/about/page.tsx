@@ -40,12 +40,32 @@ export default function AboutPage() {
 
   const values = [
     {
-      title: "Excellence",
+      title: "Trust",
       description:
-        "We strive for excellence in every project, delivering results that exceed expectations.",
+        "Building lasting relationships through transparency and reliability in everything we do.",
       icon: (
         <svg
           className="w-8 h-8 text-blue-600"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Excellence",
+      description:
+        "Delivering superior quality in everything we do, exceeding expectations at every turn.",
+      icon: (
+        <svg
+          className="w-8 h-8 text-green-600"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -62,10 +82,10 @@ export default function AboutPage() {
     {
       title: "Innovation",
       description:
-        "We embrace innovative solutions and creative approaches to solve complex challenges.",
+        "Embracing creative solutions and continuous improvement to solve complex challenges.",
       icon: (
         <svg
-          className="w-8 h-8 text-green-600"
+          className="w-8 h-8 text-purple-600"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -82,10 +102,10 @@ export default function AboutPage() {
     {
       title: "Integrity",
       description:
-        "We operate with the highest ethical standards, building trust through transparency and honesty.",
+        "Maintaining the highest ethical standards and operating with complete transparency.",
       icon: (
         <svg
-          className="w-8 h-8 text-purple-600"
+          className="w-8 h-8 text-orange-600"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -94,18 +114,18 @@ export default function AboutPage() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
           />
         </svg>
       ),
     },
     {
-      title: "Partnership",
+      title: "Client centricity",
       description:
-        "We believe in building long-term partnerships based on mutual success and shared goals.",
+        "Putting our clients' success at the center of everything we do, every single day.",
       icon: (
         <svg
-          className="w-8 h-8 text-blue-600"
+          className="w-8 h-8 text-red-600"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -114,7 +134,7 @@ export default function AboutPage() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
           />
         </svg>
       ),
@@ -229,13 +249,29 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             <div className="bg-white rounded-xl p-8 shadow-lg">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mb-6">
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 Our Mission
               </h3>
-              <p className="text-gray-600 text-lg">
-                To deliver effective, customized solutions across our three
-                areas of expertise: Strategic Business Consulting, comprehensive
-                Real Estate Brokerage, and creative Event Planning.
+              <p className="text-gray-600 text-lg leading-relaxed">
+                To empower individuals and businesses by providing exceptional
+                consulting, real estate, and event planning services that drive
+                success, create value, and build lasting relationships through
+                trust, innovation, and excellence.
               </p>
               <p className="text-gray-600 mt-4">
                 <strong>
@@ -244,13 +280,35 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="bg-white rounded-xl p-8 shadow-lg">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full mb-6">
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+              </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 Our Vision
               </h3>
-              <p className="text-gray-600 text-lg">
-                To be the trusted partner of choice for businesses and
-                individuals seeking comprehensive solutions to their most
-                complex challenges.
+              <p className="text-gray-600 text-lg leading-relaxed">
+                To be the leading trusted partner for comprehensive business
+                solutions, recognized for transforming challenges into
+                opportunities and helping clients achieve sustainable growth and
+                success in an ever-evolving marketplace.
               </p>
               <p className="text-gray-600 mt-4">
                 We envision a future where every client achieves their goals
@@ -260,16 +318,18 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {values.map((value) => (
-              <div key={value.title} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+              <div key={value.title} className="text-center group">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
                   {value.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">
                   {value.title}
                 </h3>
-                <p className="text-gray-600">{value.description}</p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {value.description}
+                </p>
               </div>
             ))}
           </div>

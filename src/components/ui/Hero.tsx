@@ -43,7 +43,9 @@ const Hero = () => {
             <span className="hidden sm:inline">
               Excellence • Integrity • Client-Centricity
             </span>
-            <span className="sm:hidden">Excellence • Integrity • Client-Centricity</span>
+            <span className="sm:hidden">
+              Excellence • Integrity • Client-Centricity
+            </span>
           </Badge>
         </div>
 
@@ -138,7 +140,7 @@ const Hero = () => {
                 </span>
               </div>
               <span className="text-xs xs:text-sm sm:text-base md:text-lg font-semibold text-white drop-shadow-lg [text-shadow:_2px_2px_4px_rgb(0_0_0_/_70%)]">
-                Client Focus
+                Client centricity
               </span>
             </div>
 

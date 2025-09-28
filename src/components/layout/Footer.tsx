@@ -58,6 +58,17 @@ const Footer = () => {
               of expertise: Strategic Business Consulting, comprehensive Real
               Estate Brokerage, and creative Event Planning.
             </p>
+            <div className="mb-4">
+              <p className="text-blue-400 font-semibold text-sm mb-2">
+                Built on Trust, Excellence & Innovation
+              </p>
+              <Link
+                href="/about"
+                className="text-gray-400 hover:text-white text-sm transition-colors"
+              >
+                Learn about our Mission & Values →
+              </Link>
+            </div>
             <div className="flex space-x-4">
               <a
                 href="#"
