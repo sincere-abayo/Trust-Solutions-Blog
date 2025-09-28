@@ -9,6 +9,7 @@ interface CTAProps {
   secondaryButtonHref?: string;
   showStats?: boolean;
   className?: string;
+  service?: string; // Service type to auto-select on contact page
 }
 
 const CTA = ({
@@ -20,7 +21,12 @@ const CTA = ({
   secondaryButtonHref = "/about",
   showStats = true,
   className = "",
+  service = "general",
 }: CTAProps) => {
+  // Build contact URL with service parameter
+  const contactUrl = service
+    ? `${primaryButtonHref}?service=${service}`
+    : primaryButtonHref;
   return (
     <section className={`relative py-20 sm:py-24 bg-white ${className}`}>
       <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-10 lg:px-12 text-center">
@@ -51,7 +57,7 @@ const CTA = ({
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
           <Link
-            href={primaryButtonHref}
+            href={contactUrl}
             className="bg-primary border-2 border-gray-300 text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg shadow-md hover:bg-gray-900 hover:text-white hover:shadow-lg transition"
           >
             {primaryButtonText}

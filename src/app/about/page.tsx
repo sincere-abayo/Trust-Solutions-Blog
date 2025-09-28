@@ -221,7 +221,6 @@ export default function AboutPage() {
                   Whatever your challenge, we provide the solution.
                 </p>
                 <div className="grid grid-cols-4 gap-4 text-center">
-         
                   {stats.map((stat) => (
                     <div key={stat.label}>
                       <div className="text-2xl font-bold text-blue-600">
@@ -230,7 +229,6 @@ export default function AboutPage() {
                       <div className="text-sm text-gray-600">{stat.label}</div>
                     </div>
                   ))}
-
                 </div>
               </div>
             </div>
@@ -356,7 +354,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-
       {/* Team */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -407,7 +404,10 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <CTA />
+      <CTA 
+      title="Interested in Working with Us."
+      subtitle="Contact us today to learn more about our services and how we can help you achieve your goals."
+      service="general" />
     </Layout>
   );
 }

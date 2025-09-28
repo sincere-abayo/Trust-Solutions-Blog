@@ -1,9 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Layout from "@/components/layout/Layout";
 
 export default function ContactPage() {
+  const searchParams = useSearchParams();
+  const serviceParam = searchParams.get("service");
+
   const [selectedService, setSelectedService] = useState("general");
   const [formData, setFormData] = useState({
     name: "",
@@ -13,6 +17,17 @@ export default function ContactPage() {
     message: "",
     service: "general",
   });
+
+  // Auto-select service based on URL parameter
+  useEffect(() => {
+    if (
+      serviceParam &&
+      ["general", "business", "real-estate", "events"].includes(serviceParam)
+    ) {
+      setSelectedService(serviceParam);
+      setFormData((prev) => ({ ...prev, service: serviceParam }));
+    }
+  }, [serviceParam]);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -45,7 +60,7 @@ export default function ContactPage() {
     {
       id: "general",
       name: "General Inquiry",
-      description: "Have a question? We&apos;d love to hear from you.",
+      description: "Have a question? We would love to hear from you.",
     },
     {
       id: "business",

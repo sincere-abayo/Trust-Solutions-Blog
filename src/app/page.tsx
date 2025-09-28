@@ -229,7 +229,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <CTA />
+      <CTA service="general" />
     </Layout>
   );
 }
