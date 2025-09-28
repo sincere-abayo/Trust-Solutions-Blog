@@ -1,4 +1,5 @@
 import Layout from "@/components/layout/Layout";
+import CTA from "@/components/ui/CTA";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -142,9 +143,10 @@ export default function AboutPage() {
   ];
 
   const stats = [
+    { number: "2025", label: "Founded" },
     { number: "50+", label: "Client Served" },
     { number: "2+", label: "Years of Experience" },
-    { number: "98%", label: "Client Satisfaction" },
+    // { number: "98%", label: "Client Satisfaction" },
     { number: "3", label: "Core Service Areas" },
   ];
 
@@ -218,15 +220,17 @@ export default function AboutPage() {
                 <p className="text-gray-600 mb-6">
                   Whatever your challenge, we provide the solution.
                 </p>
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">2025</div>
-                    <div className="text-sm text-gray-600">Founded</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">50+</div>
-                    <div className="text-sm text-gray-600">Clients Served</div>
-                  </div>
+                <div className="grid grid-cols-4 gap-4 text-center">
+         
+                  {stats.map((stat) => (
+                    <div key={stat.label}>
+                      <div className="text-2xl font-bold text-blue-600">
+                        {stat.number}
+                      </div>
+                      <div className="text-sm text-gray-600">{stat.label}</div>
+                    </div>
+                  ))}
+
                 </div>
               </div>
             </div>
@@ -239,8 +243,24 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Our Mission & Values
+              Our Values
             </h2>
+            <div className="flex flex-wrap justify-center gap-6 mb-6">
+              {[
+                "Trust",
+                "Excellence",
+                "Innovation",
+                "Integrity",
+                "Client centricity",
+              ].map((value) => (
+                <span
+                  key={value}
+                  className="inline-block bg-blue-100 text-blue-800 text-base font-semibold px-5 py-2 rounded-full"
+                >
+                  {value}
+                </span>
+              ))}
+            </div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We&apos;re driven by a clear mission and guided by core values
               that shape everything we do.
@@ -336,21 +356,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-20 bg-blue-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <div className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-blue-100 text-lg">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Team */}
       <section className="py-20 bg-white">
@@ -402,31 +407,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Work Together?
-          </h2>
-          <p className="text-xl text-gray-300 mb-8">
-            Let&apos;s discuss how Trust Solutions can help you achieve your
-            goals and overcome your challenges.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors duration-200"
-            >
-              Get Started Today
-            </Link>
-            <Link
-              href="/blog"
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-gray-900 transition-colors duration-200"
-            >
-              Read Our Blog
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CTA />
     </Layout>
   );
 }

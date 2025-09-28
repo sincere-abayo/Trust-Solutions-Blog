@@ -1,7 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/ui/Hero";
 import CTA from "@/components/ui/CTA";
-import MissionVisionValues from "@/components/ui/MissionVisionValues";
 import BlogCard from "@/components/blog/BlogCard";
 import { getAllPosts } from "@/data/blogPosts";
 import Link from "next/link";
@@ -115,9 +114,6 @@ export default function HomePage() {
   return (
     <Layout>
       <Hero />
-
-      {/* Mission, Vision & Values Section */}
-      <MissionVisionValues />
 
       {/* Services Section */}
       <section className="py-20 bg-gray-50">
