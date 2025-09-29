@@ -1,7 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import CTA from "@/components/ui/CTA";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function AboutPage() {
   const team = [

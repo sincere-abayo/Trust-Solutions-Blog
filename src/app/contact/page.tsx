@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Layout from "@/components/layout/Layout";
 
-export default function ContactPage() {
+function ContactForm() {
   const searchParams = useSearchParams();
   const serviceParam = searchParams.get("service");
 
@@ -389,5 +389,13 @@ export default function ContactPage() {
         </div>
       </div>
     </Layout>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ContactForm />
+    </Suspense>
   );
 }

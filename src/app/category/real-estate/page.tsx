@@ -219,7 +219,7 @@ export default function RealEstatePage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {services.map((service, index) => (
+            {services.map((service) => (
               <div
                 key={service.title}
                 className={`bg-gradient-to-br ${

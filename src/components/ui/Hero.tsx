@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Badge } from "./Badge";
-import { Users, TrendingUp, ArrowRight, Sparkles, Star } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 const Hero = () => {
   return (
