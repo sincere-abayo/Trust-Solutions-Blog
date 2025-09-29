@@ -403,10 +403,11 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <CTA 
-      title="Interested in Working with Us."
-      subtitle="Contact us today to learn more about our services and how we can help you achieve your goals."
-      service="general" />
+      <CTA
+        title="Interested in Working with Us."
+        subtitle="Contact us today to learn more about our services and how we can help you achieve your goals."
+        service="general"
+      />
     </Layout>
   );
 }
