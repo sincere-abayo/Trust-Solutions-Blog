@@ -34,8 +34,9 @@ export default function TermsOfServicePage() {
                   1. Agreement to Terms
                 </h2>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  Welcome to Trust Solutions (&quot;Company,&quot; &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;).
-                  These Terms of Service (&quot;Terms&quot;) govern your use of our
+                  Welcome to Trust Solutions (&quot;Company,&quot;
+                  &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). These
+                  Terms of Service (&quot;Terms&quot;) govern your use of our
                   website, services, and any related applications (collectively,
                   the &quot;Service&quot;) operated by Trust Solutions.
                 </p>

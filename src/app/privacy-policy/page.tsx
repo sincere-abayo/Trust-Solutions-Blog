@@ -34,11 +34,12 @@ export default function PrivacyPolicyPage() {
                   1. Introduction
                 </h2>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  Welcome to Trust Solutions (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are
-                  committed to protecting your privacy and ensuring the security
-                  of your personal information. This Privacy Policy explains how
-                  we collect, use, disclose, and safeguard your information when
-                  you visit our website or use our services.
+                  Welcome to Trust Solutions (&quot;we,&quot; &quot;our,&quot;
+                  or &quot;us&quot;). We are committed to protecting your
+                  privacy and ensuring the security of your personal
+                  information. This Privacy Policy explains how we collect, use,
+                  disclose, and safeguard your information when you visit our
+                  website or use our services.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
                   By accessing or using our services, you agree to the
@@ -269,8 +270,8 @@ export default function PrivacyPolicyPage() {
                 <p className="text-gray-700 leading-relaxed">
                   We may update this Privacy Policy from time to time. We will
                   notify you of any changes by posting the new policy on this
-                  page and updating the &quot;Last updated&quot; date. We encourage you to
-                  review this policy periodically.
+                  page and updating the &quot;Last updated&quot; date. We
+                  encourage you to review this policy periodically.
                 </p>
               </section>
 
