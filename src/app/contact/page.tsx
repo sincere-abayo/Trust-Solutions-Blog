@@ -12,9 +12,9 @@ function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState<{
     show: boolean;
-    type: 'success' | 'error';
+    type: "success" | "error";
     message: string;
-  }>({ show: false, type: 'success', message: '' });
+  }>({ show: false, type: "success", message: "" });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -63,8 +63,9 @@ function ContactForm() {
       if (response.ok) {
         setNotification({
           show: true,
-          type: 'success',
-          message: 'Thank you for your message! We will get back to you soon. Please check your email for confirmation.'
+          type: "success",
+          message:
+            "Thank you for your message! We will get back to you soon. Please check your email for confirmation.",
         });
         setFormData({
           name: "",
@@ -76,24 +77,33 @@ function ContactForm() {
         });
         setSelectedService("general");
         // Auto-hide notification after 5 seconds
-        setTimeout(() => setNotification(prev => ({ ...prev, show: false })), 5000);
+        setTimeout(
+          () => setNotification((prev) => ({ ...prev, show: false })),
+          5000
+        );
       } else {
         const errorData = await response.json();
         setNotification({
           show: true,
-          type: 'error',
-          message: `Error: ${errorData.error || "Failed to send message"}`
+          type: "error",
+          message: `Error: ${errorData.error || "Failed to send message"}`,
         });
-        setTimeout(() => setNotification(prev => ({ ...prev, show: false })), 5000);
+        setTimeout(
+          () => setNotification((prev) => ({ ...prev, show: false })),
+          5000
+        );
       }
     } catch (error) {
       console.error("Error submitting form:", error);
       setNotification({
         show: true,
-        type: 'error',
-        message: 'Failed to send message. Please try again later.'
+        type: "error",
+        message: "Failed to send message. Please try again later.",
       });
-      setTimeout(() => setNotification(prev => ({ ...prev, show: false })), 5000);
+      setTimeout(
+        () => setNotification((prev) => ({ ...prev, show: false })),
+        5000
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -436,33 +446,59 @@ function ContactForm() {
           </div>
         </div>
       </div>
-      
+
       {/* Toast Notification */}
       {notification.show && (
-        <div className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out max-w-md ${
-          notification.type === 'success' 
-            ? 'bg-green-500 text-white' 
-            : 'bg-red-500 text-white'
-        }`}>
+        <div
+          className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out max-w-md ${
+            notification.type === "success"
+              ? "bg-green-500 text-white"
+              : "bg-red-500 text-white"
+          }`}
+        >
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              {notification.type === 'success' ? (
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              {notification.type === "success" ? (
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               ) : (
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               )}
-              <span className="text-sm font-medium">{notification.message}</span>
+              <span className="text-sm font-medium">
+                {notification.message}
+              </span>
             </div>
             <button
-              onClick={() => setNotification(prev => ({ ...prev, show: false }))}
+              onClick={() =>
+                setNotification((prev) => ({ ...prev, show: false }))
+              }
               className="ml-4 text-white hover:text-gray-200 transition-colors"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
               </svg>
             </button>
           </div>
