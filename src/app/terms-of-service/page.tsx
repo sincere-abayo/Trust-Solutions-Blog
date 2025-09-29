@@ -34,10 +34,10 @@ export default function TermsOfServicePage() {
                   1. Agreement to Terms
                 </h2>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  Welcome to Trust Solutions ("Company," "we," "our," or "us").
-                  These Terms of Service ("Terms") govern your use of our
+                  Welcome to Trust Solutions (&quot;Company,&quot; &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;).
+                  These Terms of Service (&quot;Terms&quot;) govern your use of our
                   website, services, and any related applications (collectively,
-                  the "Service") operated by Trust Solutions.
+                  the &quot;Service&quot;) operated by Trust Solutions.
                 </p>
                 <p className="text-gray-700 leading-relaxed mb-4">
                   By accessing or using our Service, you agree to be bound by
@@ -273,7 +273,7 @@ export default function TermsOfServicePage() {
                   While we strive to provide excellent services, we make no
                   warranties or representations about the accuracy or
                   completeness of the Service content. The Service is provided
-                  on an "AS IS" and "AS AVAILABLE" basis.
+                  on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis.
                 </p>
                 <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
                   <li>We disclaim all warranties, express or implied</li>
@@ -325,7 +325,7 @@ export default function TermsOfServicePage() {
                   Solutions and its licensees, licensors, employees,
                   contractors, agents, officers, and directors from and against
                   any and all claims, damages, obligations, losses, liabilities,
-                  costs, or debt, and expenses (including attorney's fees)
+                  costs, or debt, and expenses (including attorney&apos;s fees)
                   resulting from your use of the Service or your violation of
                   these Terms.
                 </p>
@@ -386,7 +386,7 @@ export default function TermsOfServicePage() {
                 <p className="text-gray-700 leading-relaxed mb-4">
                   We reserve the right to modify or replace these Terms at any
                   time. If a revision is material, we will provide at least 30
-                  days' notice prior to any new terms taking effect.
+                  days&apos; notice prior to any new terms taking effect.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
                   By continuing to access or use our Service after revisions

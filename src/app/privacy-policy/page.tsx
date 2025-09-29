@@ -34,7 +34,7 @@ export default function PrivacyPolicyPage() {
                   1. Introduction
                 </h2>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  Welcome to Trust Solutions ("we," "our," or "us"). We are
+                  Welcome to Trust Solutions (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are
                   committed to protecting your privacy and ensuring the security
                   of your personal information. This Privacy Policy explains how
                   we collect, use, disclose, and safeguard your information when
@@ -250,7 +250,7 @@ export default function PrivacyPolicyPage() {
               {/* Children's Privacy */}
               <section className="mb-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  10. Children's Privacy
+                  10. Children&apos;s Privacy
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
                   Our services are not intended for children under 13 years of
@@ -269,7 +269,7 @@ export default function PrivacyPolicyPage() {
                 <p className="text-gray-700 leading-relaxed">
                   We may update this Privacy Policy from time to time. We will
                   notify you of any changes by posting the new policy on this
-                  page and updating the "Last updated" date. We encourage you to
+                  page and updating the &quot;Last updated&quot; date. We encourage you to
                   review this policy periodically.
                 </p>
               </section>
