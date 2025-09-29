@@ -2,11 +2,14 @@
 
 ## ✅ What Was Implemented
 
-### 1. Email API Route (`/src/app/api/contact/route.ts`)
+### 1. Dual Email System (`/src/app/api/contact/route.ts`)
 
 - Created a Next.js API route to handle contact form submissions
 - Uses Nodemailer to send emails via Gmail SMTP
-- Sends formatted HTML emails to `Trustsolutions2025@gmail.com`
+- **Sends TWO emails:**
+  1. **Notification email** to `Trustsolutions2025@gmail.com` with form details
+  2. **Confirmation email** to the sender acknowledging their message
+- Professional HTML templates for both emails
 - Includes all form data: name, email, phone, company, service type, and message
 - Proper error handling and validation
 
@@ -45,15 +48,24 @@
 
 3. **Restart the development server** after updating environment variables
 
-## 📧 Email Template Features
+## 📧 Dual Email System Features
 
-The emails sent to `Trustsolutions2025@gmail.com` include:
+### Email to You (`Trustsolutions2025@gmail.com`):
 
 - Professional HTML formatting with your brand colors
 - Clear contact information section
 - Service type identification
 - Formatted message content
 - Reply-to functionality pointing to the sender's email
+
+### Confirmation Email to Sender:
+
+- Beautiful branded design with Trust Solutions colors
+- Professional acknowledgment message
+- Summary of their inquiry including service type and message
+- Clear next steps and expectations
+- Contact information for immediate assistance
+- Automated "do not reply" notice
 
 ## 🚀 Ready for Production
 
