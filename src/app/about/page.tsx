@@ -1,8 +1,15 @@
+"use client";
+
+
 import Layout from "@/components/layout/Layout";
 import CTA from "@/components/ui/CTA";
 import Image from "next/image";
+import { useState } from "react";
+
 
 export default function AboutPage() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const team = [
     {
       name: "Mr. Irera Jean Confiance",
@@ -19,7 +26,7 @@ export default function AboutPage() {
     {
       name: "Ishimwe Jean Louis",
       role: "Real Estate Director",
-      bio: "Ishimwe brings 12 years of real estate expertise, specializing in commercial properties, investment portfolios, and market trend analysis.",
+      bio: "Ishimwe brings 4 years of real estate expertise, specializing in commercial properties, investment portfolios, and market trend analysis.",
       expertise: [
         "Commercial Real Estate",
         "Investment Properties",
@@ -30,9 +37,13 @@ export default function AboutPage() {
     },
     {
       name: "Abayo Sincere",
-      role: "Event Planning Director",
-      bio: "Abayo has orchestrated over 500 successful events, from intimate corporate gatherings to large-scale conferences and celebrations.",
-      expertise: ["Corporate Events", "Wedding Planning", "Event Management"],
+      role: "IT Director",
+      bio: "Abayo brings two years of experience as an IT Director, specializing in managing and overseeing technical infrastructure and IT systems.",
+      expertise: [
+        "IT Infrastructure Management",
+        "Technical Support",
+        "System Administration",
+      ],
       image:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
     },
@@ -235,7 +246,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission and Values */}
+      {/* Mission and Values show me how  to apply it well  */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -385,7 +396,17 @@ export default function AboutPage() {
                   {member.name}
                 </h3>
                 <p className="text-blue-600 font-medium mb-4">{member.role}</p>
-                <p className="text-gray-600 mb-6">{member.bio}</p>
+                <p className="text-gray-600 mb-6">{isExpanded 
+    ? member.bio 
+    : `${member.bio.substring(0, 150)}...`}
+  {member.bio.length > 240 && (
+    <button 
+      onClick={() => setIsExpanded(!isExpanded)}
+      className="text-blue-600 dark:text-blue-400 hover:underline ml-1"
+    >
+      {isExpanded ? 'Read Less' : 'Read More'}
+    </button>
+  )}</p>
                 <div className="space-y-2">
                   {member.expertise.map((skill) => (
                     <span
