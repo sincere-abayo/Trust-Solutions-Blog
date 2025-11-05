@@ -2,9 +2,61 @@ import Link from "next/link";
 import { Badge } from "./Badge";
 import { Sparkles } from "lucide-react";
 
+const AnimatedService = ({ 
+  text, 
+  delay 
+}: { 
+  text: string; 
+  delay: number;
+}) => {
+  return (
+    <span
+      className="inline-block"
+      style={{
+        animation: `slideInFade 6s ease-in-out ${delay}ms infinite`,
+        opacity: 0,
+        transform: 'translateX(-20px)',
+      }}
+    >
+      {text}
+    </span>
+  );
+};
+
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center bg-primary text-white overflow-visible">
+    <>
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes slideInFade {
+          0% {
+            opacity: 0;
+            transform: translateX(-30px) scale(0.95);
+          }
+          15%, 85% {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateX(-30px) scale(0.95);
+          }
+        }
+        @keyframes fadeInUp {
+          0% {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          15%, 85% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+        }
+      `}} />
+      <section className="relative min-h-screen flex flex-col justify-center items-center bg-primary text-white overflow-visible">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <div
@@ -62,18 +114,23 @@ const Hero = () => {
             </span>
           </h2>
 
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-slate-200 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl 2xl:max-w-4xl mx-auto mb-8 sm:mb-10 md:mb-12 lg:mb-14 text-pretty leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 hover:text-white transition-colors duration-300 hover:scale-105">
+          <div className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-slate-200 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl 2xl:max-w-4xl mx-auto mb-8 sm:mb-10 md:mb-12 lg:mb-14 text-pretty leading-relaxed hover:text-white transition-colors duration-300">
             {/* services */}
-            <span className="block sm:inline">
-              Strategic Business Consulting • IT Consulting • Real Estate
-              Brokerage • Event Planning, Catering & Management.
-            </span>
+            <div className="block space-y-2">
+              <div className="block"><AnimatedService text="• Strategic Business Consulting" delay={400} /></div>
+              <div className="block"><AnimatedService text="• IT Consulting" delay={1200} /></div>
+              <div className="block"><AnimatedService text="• Real Estate Brokerage" delay={2000} /></div>
+              <div className="block"><AnimatedService text="• Event Planning, Catering & Management." delay={2800} /></div>
+            </div>
             {/* sub slogan */}
-            <span className="block mt-3 sm:mt-1">
+            <span 
+              className="block mt-3 sm:mt-1"
+              
+            >
               One trusted partner for all your professional needs in Kigali and
               beyond.
             </span>
-          </p>
+          </div>
           {/* Primary CTA */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 justify-center mb-8 sm:mb-10 md:mb-12 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
             <Link
@@ -235,6 +292,7 @@ const Hero = () => {
       {/* Decorative Elements */}
       <div className="absolute bottom-0 left-0 w-full h-2 xs:h-3 sm:h-4 md:h-6 lg:h-8 xl:h-10 2xl:h-12 bg-gradient-to-t from-white to-transparent pointer-events-none z-30"></div>
     </section>
+    </>
   );
 };
 
