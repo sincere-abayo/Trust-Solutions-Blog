@@ -89,7 +89,7 @@ export default function HomePage() {
       href: "/category/real-estate",
     },
     {
-      title: "Event Planning and Management",
+      title: "Event Planning, Catering & Management",
       description:
         "Memorable and successful events that exceed expectations and create lasting impressions.",
       icon: (

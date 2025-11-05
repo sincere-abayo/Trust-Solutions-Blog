@@ -56,7 +56,7 @@ const Hero = () => {
           }
         }
       `}} />
-      <section className="relative min-h-screen flex flex-col justify-center items-center bg-primary text-white overflow-visible">
+      <section className="relative min-h-[75vh] flex flex-col justify-center items-center bg-primary text-white overflow-visible">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <div
@@ -84,7 +84,7 @@ const Hero = () => {
         />
       </div>
 
-      <div className="relative -mt-8 -sm-mt-2 -md-mt-4 w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mx-auto flex-1 flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 py-8 sm:py-12 md:py-16 lg:py-20 z-30">
+      <div className="relative w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mx-auto flex-1 flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16 py-6 sm:py-8 md:py-10 lg:py-12 z-30">
         {/* Trust Badge */}
         <div className="mb-4 sm:mb-6 md:mb-8 flex justify-center w-full">
           <Badge
@@ -131,22 +131,7 @@ const Hero = () => {
               beyond.
             </span>
           </div>
-          {/* Primary CTA */}
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 justify-center mb-8 sm:mb-10 md:mb-12 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
-            <Link
-              href="/contact"
-              className="bg-accent text-primary px-6 sm:px-8 md:px-10 lg:px-12 py-3 sm:py-4 md:py-5 rounded-xl font-black text-base sm:text-lg md:text-xl lg:text-2xl hover:bg-white hover:text-black transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1 sm:hover:-translate-y-2 transform hover:scale-105 border-2 border-accent text-center whitespace-nowrap"
-            >
-              <span className="hidden sm:inline">GET STARTED TODAY</span>
-              <span className="sm:hidden">GET STARTED</span>
-            </Link>
-            <Link
-              href="/about"
-              className="bg-white/20 border-2 border-white text-white px-6 sm:px-8 md:px-10 lg:px-12 py-3 sm:py-4 md:py-5 rounded-xl font-black text-base sm:text-lg md:text-xl lg:text-2xl hover:bg-white hover:text-black transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1 sm:hover:-translate-y-2 transform hover:scale-105 text-center whitespace-nowrap"
-            >
-              LEARN MORE
-            </Link>
-          </div>
+        
           {/* Professional Stat Cards */}
           <div className="flex flex-col xs:flex-row sm:flex-row items-center justify-center gap-3 xs:gap-4 sm:gap-6 md:gap-8 text-center mb-6 sm:mb-8 w-full max-w-sm xs:max-w-md sm:max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto">
             <div className="group flex flex-col items-center gap-1.5 xs:gap-2 hover:scale-105 transition-all duration-300 cursor-pointer bg-black/40 backdrop-blur-md rounded-xl xs:rounded-2xl p-3 xs:p-4 sm:p-5 md:p-6 border border-white/30 shadow-2xl w-full xs:min-w-[140px] sm:min-w-[160px] md:min-w-[180px] lg:min-w-[200px] xl:min-w-[220px]">
@@ -224,13 +209,29 @@ const Hero = () => {
               </span>
             </div>
           </div>
-
-          {/* Trust Indicator Text */}
+            {/* Trust Indicator Text */}
           <div className="text-center mb-2 sm:mb-4">
             <p className="text-white text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl font-semibold tracking-wide drop-shadow-lg [text-shadow:_2px_2px_4px_rgb(0_0_0_/_60%)]">
               Trusted by businesses across industries
             </p>
           </div>
+  {/* Primary CTA */}
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 justify-center mb-8 sm:mb-10 md:mb-12 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
+            <Link
+              href="/contact"
+              className="bg-accent text-primary px-6 sm:px-8 md:px-10 lg:px-12 py-3 sm:py-4 md:py-5 rounded-xl font-black text-base sm:text-lg md:text-xl lg:text-2xl hover:bg-white hover:text-black transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1 sm:hover:-translate-y-2 transform hover:scale-105 border-2 border-accent text-center whitespace-nowrap"
+            >
+              <span className="hidden sm:inline">GET STARTED TODAY</span>
+              <span className="sm:hidden">GET STARTED</span>
+            </Link>
+            <Link
+              href="/about"
+              className="bg-white/20 border-2 border-white text-white px-6 sm:px-8 md:px-10 lg:px-12 py-3 sm:py-4 md:py-5 rounded-xl font-black text-base sm:text-lg md:text-xl lg:text-2xl hover:bg-white hover:text-black transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1 sm:hover:-translate-y-2 transform hover:scale-105 text-center whitespace-nowrap"
+            >
+              LEARN MORE
+            </Link>
+          </div>
+        
         </div>
       </div>
 
