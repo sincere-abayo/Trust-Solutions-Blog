@@ -151,31 +151,34 @@ function ContactForm() {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
-          <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
+      {/* Hero Section - Consistent Design */}
+      <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-8 md:py-12 overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3">
+            Contact Us
+          </h1>
+          <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto">
             Whatever your challenge, we provide the solution. Get in touch to
             discuss how we can help you achieve your goals.
           </p>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
               Send Us a Message
             </h2>
 
             {/* Service Selection */}
-            <div className="mb-8">
-              <label className="block text-sm font-medium text-gray-700 mb-4">
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-3">
                 What can we help you with?
               </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {services.map((service) => (
                   <button
                     key={service.id}
@@ -183,16 +186,16 @@ function ContactForm() {
                       setSelectedService(service.id);
                       setFormData((prev) => ({ ...prev, service: service.id }));
                     }}
-                    className={`p-4 rounded-lg border-2 text-left transition-all duration-200 ${
+                    className={`p-3 rounded-lg border-2 text-left transition-all duration-200 ${
                       selectedService === service.id
                         ? "border-blue-500 bg-blue-50"
-                        : "border-gray-200 hover:border-gray-300"
+                        : "border-gray-200 hover:border-blue-200"
                     }`}
                   >
-                    <div className="font-medium text-gray-900 mb-1">
+                    <div className="font-semibold text-gray-900 mb-1 text-sm">
                       {service.name}
                     </div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-xs text-gray-600">
                       {service.description}
                     </div>
                   </button>
@@ -201,7 +204,7 @@ function ContactForm() {
             </div>
 
             {/* Contact Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label
@@ -300,10 +303,10 @@ function ContactForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-colors duration-200 ${
+                className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 shadow-md ${
                   isSubmitting
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-700 text-white hover:bg-blue-400"
+                    : "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg"
                 }`}
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
@@ -313,28 +316,12 @@ function ContactForm() {
 
           {/* Contact Information */}
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
               Get in Touch
             </h2>
 
-            <div className="space-y-8">
-              {/* Company Info */}
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Trust Solutions Company
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Delivering effective, customized solutions across our three
-                  areas of expertise: Strategic Business Consulting,
-                  comprehensive Real Estate Brokerage, and creative Event
-                  Planning.
-                </p>
-                <p className="text-gray-600">
-                  <strong>Mission:</strong> Whatever your challenge, we provide
-                  the solution.
-                </p>
-              </div>
-
+            <div className="space-y-6">
+             
               {/* Contact Details */}
               <div className="space-y-4">
                 <div className="flex items-start">
