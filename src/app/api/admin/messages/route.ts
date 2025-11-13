@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     const service = searchParams.get('service');
     
     // Build filter
-    const where: any = {};
+    const where: { status?: string; service?: string } = {};
     if (status) where.status = status;
     if (service) where.service = service;
     

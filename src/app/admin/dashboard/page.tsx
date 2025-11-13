@@ -24,7 +24,7 @@ interface Analytics {
   viewsToday: number;
   topPages: { path: string; views: number }[];
   messagesByService: { service: string; count: number }[];
-  recentMessages: any[];
+  recentMessages: Message[];
 }
 
 export default function AdminDashboard() {
@@ -39,7 +39,15 @@ export default function AdminDashboard() {
   const [replyText, setReplyText] = useState("");
   const [sendingReply, setSendingReply] = useState(false);
   const [showReplyHistory, setShowReplyHistory] = useState(false);
-  const [replyHistory, setReplyHistory] = useState<any[]>([]);
+  const [replyHistory, setReplyHistory] = useState<
+    Array<{
+      id: string;
+      subject: string;
+      replyText: string;
+      sentBy: string;
+      sentAt: string;
+    }>
+  >([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
   const router = useRouter();
 

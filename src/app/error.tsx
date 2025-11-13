@@ -53,8 +53,8 @@ export default function Error({
             Something Went Wrong
           </h1>
           <p className="text-lg text-gray-300 mb-8">
-            We encountered an unexpected error. Don't worry, our team has been
-            notified.
+            We encountered an unexpected error. Don&apos;t worry, our team has
+            been notified.
           </p>
         </div>
 

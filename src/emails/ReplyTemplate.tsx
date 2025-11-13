@@ -65,7 +65,7 @@ export const ReplyTemplate = ({
 
             {/* Next Steps */}
             <Section style={nextStepsBox}>
-              <Heading style={nextStepsTitle}>What's Next?</Heading>
+              <Heading style={nextStepsTitle}>What&apos;s Next?</Heading>
               <Text style={paragraph}>
                 • If you have any questions about our response, feel free to
                 reply to this email

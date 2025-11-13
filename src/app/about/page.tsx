@@ -41,30 +41,6 @@ export default function AboutPage() {
     },
   ];
 
-  const values = [
-    {
-      title: "Trust",
-      description:
-        "Building lasting relationships through transparency and reliability.",
-    },
-    {
-      title: "Excellence",
-      description: "Delivering superior quality in everything we do.",
-    },
-    {
-      title: "Innovation",
-      description: "Embracing creative solutions and continuous improvement.",
-    },
-    {
-      title: "Integrity",
-      description: "Maintaining the highest ethical standards.",
-    },
-    {
-      title: "Client Centricity",
-      description: "Putting our clients' success at the center of everything.",
-    },
-  ];
-
   const stats = [
     { number: "2025", label: "Founded" },
     { number: "50+", label: "Clients Served" },
