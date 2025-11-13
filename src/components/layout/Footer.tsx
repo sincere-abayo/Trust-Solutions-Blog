@@ -7,21 +7,28 @@ const Footer = () => {
   const services = [
     {
       title: "Business Consulting",
-      description:
-        "Strategic planning and advisory solutions to help your business grow and thrive.",
+      description: "Guiding your next move with expert strategy.",
       link: "/category/business",
     },
     {
+      title: "IT Consulting",
+      description: "Future proofing your operations with smart technology.",
+      link: "/category/it-consulting",
+    },
+    {
       title: "Real Estate",
-      description:
-        "Practical solutions for all your property needs, from buying and selling to renting.",
+      description: "Connecting you with prime property opportunities.",
       link: "/category/real-estate",
     },
     {
       title: "Event Planning",
-      description:
-        "Creative solutions to produce seamless, memorable, and successful events.",
+      description: "Creating seamless, memorable experiences.",
       link: "/category/events",
+    },
+    {
+      title: "Digital Marketing",
+      description: "Amplifying your brand and expanding your reach.",
+      link: "/category/digital-marketing",
     },
   ];
 
@@ -54,9 +61,9 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-gray-300 mb-4">
-              Delivering effective, customized solutions across our three areas
-              of expertise: Strategic Business Consulting, comprehensive Real
-              Estate Brokerage, and creative Event Planning.
+              Delivering effective, customized solutions across our five areas
+              of expertise: Strategic Business Consulting, IT Consulting, Real
+              Estate Brokerage, Event Planning, and Digital Marketing.
             </p>
             <div className="mb-4">
               <p className="text-blue-400 font-semibold text-sm mb-2">

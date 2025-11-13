@@ -202,9 +202,8 @@ export default function EventsPage() {
             Creative Event Planning
           </h1>
           <p className="text-xl md:text-2xl text-purple-100 max-w-3xl mx-auto">
-            Seamless, memorable, and successful events that exceed expectations
-            and create lasting impressions. Whatever your event vision, we
-            provide the solution.
+            Creating seamless, memorable experiences. Professional event
+            planning that exceeds expectations and creates lasting impressions.
           </p>
         </div>
       </section>

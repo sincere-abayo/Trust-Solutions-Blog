@@ -1,37 +1,40 @@
 import Layout from "@/components/layout/Layout";
 import CTA from "@/components/ui/CTA";
 import BlogCard from "@/components/blog/BlogCard";
-import { getPostsByCategory } from "@/data/blogPosts";
+import { getAllPosts } from "@/data/blogPosts";
 import Link from "next/link";
 
-export default function BusinessCategoryPage() {
-  const businessPosts = getPostsByCategory("business");
+export default function ITConsultingPage() {
+  const allPosts = getAllPosts();
+  const itPosts = allPosts.filter(
+    (post) => post.category.toLowerCase() === "it consulting"
+  );
 
   const services = [
     {
-      title: "Strategic Planning",
+      title: "IT Infrastructure Management",
       description:
-        "Comprehensive business strategy development and implementation",
+        "Comprehensive IT infrastructure design, implementation, and maintenance",
       longDescription:
-        "Transform your business vision into actionable strategies. Our strategic planning service helps you define clear objectives, identify market opportunities, and create roadmaps for sustainable growth.",
+        "Build and maintain a robust IT infrastructure that supports your business operations. From network design to server management, we ensure your technology foundation is secure, scalable, and reliable.",
       features: [
-        "Vision & Mission Development",
-        "SWOT Analysis & Gap Assessment",
-        "Strategic Roadmap Creation",
-        "KPI & Metrics Framework",
-        "Risk Management Planning",
+        "Network Design & Implementation",
+        "Server Management & Virtualization",
+        "Cloud Infrastructure Setup",
+        "Storage Solutions & Backup",
+        "Disaster Recovery Planning",
       ],
       benefits: [
-        "Clear direction and focus",
-        "Better resource allocation",
-        "Improved decision making",
-        "Competitive advantage",
+        "Reduced downtime",
+        "Improved performance",
+        "Enhanced security",
+        "Scalable solutions",
       ],
       process: [
-        "Current State Assessment",
-        "Future State Visioning",
-        "Strategy Formulation",
-        "Implementation Planning",
+        "Infrastructure Assessment",
+        "Design & Planning",
+        "Implementation",
+        "Ongoing Management",
       ],
       icon: (
         <svg
@@ -44,35 +47,117 @@ export default function BusinessCategoryPage() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+            d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
+          />
+        </svg>
+      ),
+      color: "cyan",
+    },
+    {
+      title: "Cybersecurity Solutions",
+      description: "Protect your business with comprehensive security measures",
+      longDescription:
+        "Safeguard your digital assets with enterprise-grade cybersecurity solutions. We implement multi-layered security strategies to protect against evolving threats and ensure compliance with industry standards.",
+      features: [
+        "Security Audits & Assessments",
+        "Firewall & Intrusion Detection",
+        "Data Encryption & Protection",
+        "Security Policy Development",
+        "Incident Response Planning",
+      ],
+      benefits: [
+        "Data protection",
+        "Compliance assurance",
+        "Risk mitigation",
+        "Peace of mind",
+      ],
+      process: [
+        "Security Assessment",
+        "Strategy Development",
+        "Implementation",
+        "Monitoring & Response",
+      ],
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          />
+        </svg>
+      ),
+      color: "red",
+    },
+    {
+      title: "Cloud Solutions & Migration",
+      description: "Seamless cloud adoption and digital transformation",
+      longDescription:
+        "Embrace the power of cloud computing with our expert migration and management services. We help you leverage cloud technologies to improve efficiency, reduce costs, and enable business agility.",
+      features: [
+        "Cloud Strategy & Planning",
+        "Migration Services (AWS, Azure, GCP)",
+        "Cloud Architecture Design",
+        "Cost Optimization",
+        "Multi-Cloud Management",
+      ],
+      benefits: [
+        "Cost savings",
+        "Scalability",
+        "Business continuity",
+        "Global accessibility",
+      ],
+      process: [
+        "Cloud Readiness Assessment",
+        "Migration Planning",
+        "Execution & Testing",
+        "Optimization",
+      ],
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
           />
         </svg>
       ),
       color: "blue",
     },
     {
-      title: "Market Analysis",
-      description: "In-depth market research and competitive intelligence",
+      title: "IT Support & Helpdesk",
+      description: "24/7 technical support and IT service management",
       longDescription:
-        "Gain deep insights into your market landscape. Our comprehensive market analysis provides you with the intelligence needed to make informed decisions and stay ahead of the competition.",
+        "Keep your business running smoothly with our responsive IT support services. Our experienced team provides quick resolution to technical issues and proactive maintenance to prevent problems before they occur.",
       features: [
-        "Industry Trend Analysis",
-        "Competitor Intelligence",
-        "Customer Behavior Studies",
-        "Market Size & Segmentation",
-        "Opportunity Identification",
+        "24/7 Helpdesk Support",
+        "Remote & On-site Assistance",
+        "Ticket Management System",
+        "Proactive Monitoring",
+        "User Training & Documentation",
       ],
       benefits: [
-        "Data-driven insights",
-        "Competitive positioning",
-        "Market opportunities",
-        "Risk mitigation",
+        "Minimal downtime",
+        "Increased productivity",
+        "Expert assistance",
+        "Cost-effective support",
       ],
       process: [
-        "Market Research Design",
-        "Data Collection & Analysis",
-        "Competitive Benchmarking",
-        "Insights & Recommendations",
+        "Support Setup",
+        "Issue Tracking",
+        "Resolution & Documentation",
+        "Continuous Improvement",
       ],
       icon: (
         <svg
@@ -85,103 +170,21 @@ export default function BusinessCategoryPage() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+            d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
           />
         </svg>
       ),
       color: "green",
-    },
-    {
-      title: "Business Development",
-      description: "Growth strategies and market expansion planning",
-      longDescription:
-        "Accelerate your business growth with proven strategies. We help you identify new opportunities, expand into new markets, and build sustainable revenue streams.",
-      features: [
-        "Growth Strategy Development",
-        "Market Entry Planning",
-        "Partnership & Alliance Strategy",
-        "Revenue Model Optimization",
-        "Sales Process Enhancement",
-      ],
-      benefits: [
-        "Accelerated growth",
-        "New revenue streams",
-        "Market expansion",
-        "Strategic partnerships",
-      ],
-      process: [
-        "Growth Opportunity Assessment",
-        "Strategy Development",
-        "Implementation Planning",
-        "Performance Monitoring",
-      ],
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-          />
-        </svg>
-      ),
-      color: "purple",
-    },
-    {
-      title: "Performance Optimization",
-      description: "Process improvement and operational efficiency",
-      longDescription:
-        "Maximize your operational efficiency and performance. Our optimization service identifies bottlenecks, streamlines processes, and implements best practices for sustainable improvement.",
-      features: [
-        "Process Analysis & Mapping",
-        "Efficiency Optimization",
-        "Cost Reduction Strategies",
-        "Quality Improvement",
-        "Performance Metrics",
-      ],
-      benefits: [
-        "Reduced operational costs",
-        "Improved productivity",
-        "Better quality outcomes",
-        "Enhanced customer satisfaction",
-      ],
-      process: [
-        "Current State Analysis",
-        "Bottleneck Identification",
-        "Solution Design",
-        "Implementation & Monitoring",
-      ],
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      ),
-      color: "orange",
     },
   ];
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
+      <section className="bg-gradient-to-r from-cyan-900 to-cyan-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-4">
-            <span className="inline-flex items-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm border border-blue-400/30 rounded-full text-blue-200 text-sm font-medium">
+            <span className="inline-flex items-center px-4 py-2 bg-cyan-600/20 backdrop-blur-sm border border-cyan-400/30 rounded-full text-cyan-200 text-sm font-medium">
               <svg
                 className="w-4 h-4 mr-2"
                 fill="currentColor"
@@ -189,15 +192,15 @@ export default function BusinessCategoryPage() {
               >
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
-              Over 2 Years Experience
+              Cutting-Edge Technology Solutions
             </span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Business Consulting
+            IT Consulting Services
           </h1>
-          <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
-            Guiding your next move with expert strategy. Strategic planning and
-            advisory solutions to help your business grow and thrive.
+          <p className="text-xl md:text-2xl text-cyan-100 max-w-3xl mx-auto">
+            Future proofing your operations with smart technology. Drive digital
+            transformation and business growth with comprehensive IT solutions.
           </p>
         </div>
       </section>
@@ -207,12 +210,12 @@ export default function BusinessCategoryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Our Business Consulting Services
+              Our IT Consulting Services
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We specialize in turning your business challenges into
-              opportunities through strategic planning, market analysis, and
-              proven business development strategies.
+              From infrastructure management to cybersecurity, we provide
+              end-to-end IT solutions that empower your business to thrive in
+              the digital age.
             </p>
           </div>
 
@@ -221,25 +224,25 @@ export default function BusinessCategoryPage() {
               <div
                 key={service.title}
                 className={`bg-gradient-to-br ${
-                  service.color === "blue"
+                  service.color === "cyan"
+                    ? "from-cyan-50 to-cyan-100 border-cyan-200"
+                    : service.color === "red"
+                    ? "from-red-50 to-red-100 border-red-200"
+                    : service.color === "blue"
                     ? "from-blue-50 to-blue-100 border-blue-200"
-                    : service.color === "green"
-                    ? "from-green-50 to-green-100 border-green-200"
-                    : service.color === "purple"
-                    ? "from-purple-50 to-purple-100 border-purple-200"
-                    : "from-orange-50 to-orange-100 border-orange-200"
+                    : "from-green-50 to-green-100 border-green-200"
                 } border rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}
               >
                 <div className="flex items-start space-x-4">
                   <div
                     className={`inline-flex items-center justify-center w-16 h-16 ${
-                      service.color === "blue"
+                      service.color === "cyan"
+                        ? "bg-cyan-500 text-white"
+                        : service.color === "red"
+                        ? "bg-red-500 text-white"
+                        : service.color === "blue"
                         ? "bg-blue-500 text-white"
-                        : service.color === "green"
-                        ? "bg-green-500 text-white"
-                        : service.color === "purple"
-                        ? "bg-purple-500 text-white"
-                        : "bg-orange-500 text-white"
+                        : "bg-green-500 text-white"
                     } rounded-xl shadow-lg`}
                   >
                     {service.icon}
@@ -280,13 +283,13 @@ export default function BusinessCategoryPage() {
                       >
                         <div
                           className={`w-2 h-2 rounded-full mr-3 ${
-                            service.color === "blue"
+                            service.color === "cyan"
+                              ? "bg-cyan-500"
+                              : service.color === "red"
+                              ? "bg-red-500"
+                              : service.color === "blue"
                               ? "bg-blue-500"
-                              : service.color === "green"
-                              ? "bg-green-500"
-                              : service.color === "purple"
-                              ? "bg-purple-500"
-                              : "bg-orange-500"
+                              : "bg-green-500"
                           }`}
                         ></div>
                         <span className="text-sm">{feature}</span>
@@ -318,13 +321,13 @@ export default function BusinessCategoryPage() {
                       <span
                         key={idx}
                         className={`px-3 py-1 text-sm rounded-full ${
-                          service.color === "blue"
+                          service.color === "cyan"
+                            ? "bg-cyan-200 text-cyan-800"
+                            : service.color === "red"
+                            ? "bg-red-200 text-red-800"
+                            : service.color === "blue"
                             ? "bg-blue-200 text-blue-800"
-                            : service.color === "green"
-                            ? "bg-green-200 text-green-800"
-                            : service.color === "purple"
-                            ? "bg-purple-200 text-purple-800"
-                            : "bg-orange-200 text-orange-800"
+                            : "bg-green-200 text-green-800"
                         }`}
                       >
                         {benefit}
@@ -359,13 +362,13 @@ export default function BusinessCategoryPage() {
                       >
                         <div
                           className={`w-8 h-8 rounded-full ${
-                            service.color === "blue"
+                            service.color === "cyan"
+                              ? "bg-cyan-500"
+                              : service.color === "red"
+                              ? "bg-red-500"
+                              : service.color === "blue"
                               ? "bg-blue-500"
-                              : service.color === "green"
-                              ? "bg-green-500"
-                              : service.color === "purple"
-                              ? "bg-purple-500"
-                              : "bg-orange-500"
+                              : "bg-green-500"
                           } text-white flex items-center justify-center text-sm font-semibold`}
                         >
                           {idx + 1}
@@ -384,15 +387,15 @@ export default function BusinessCategoryPage() {
                 {/* CTA Button */}
                 <div className="pt-4 border-t border-gray-200">
                   <Link
-                    href="/contact?service=business"
+                    href="/contact?service=it-consulting"
                     className={`inline-flex items-center px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
-                      service.color === "blue"
+                      service.color === "cyan"
+                        ? "bg-cyan-600 hover:bg-cyan-700 text-white"
+                        : service.color === "red"
+                        ? "bg-red-600 hover:bg-red-700 text-white"
+                        : service.color === "blue"
                         ? "bg-blue-600 hover:bg-blue-700 text-white"
-                        : service.color === "green"
-                        ? "bg-green-600 hover:bg-green-700 text-white"
-                        : service.color === "purple"
-                        ? "bg-purple-600 hover:bg-purple-700 text-white"
-                        : "bg-orange-600 hover:bg-orange-700 text-white"
+                        : "bg-green-600 hover:bg-green-700 text-white"
                     }`}
                   >
                     Get Started with {service.title}
@@ -423,11 +426,11 @@ export default function BusinessCategoryPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Why Choose Trust Solutions for Business Consulting?
+                Why Choose Trust Solutions for IT Consulting?
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <div className="w-6 h-6 bg-cyan-600 rounded-full flex items-center justify-center mr-4 mt-1">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -444,16 +447,16 @@ export default function BusinessCategoryPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">
-                      Proven Track Record
+                      Expert Technical Team
                     </h3>
                     <p className="text-gray-600">
-                      Over 2 years of helping businesses achieve sustainable
-                      growth and market leadership.
+                      Our certified IT professionals bring years of experience
+                      across diverse technologies and industries.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <div className="w-6 h-6 bg-cyan-600 rounded-full flex items-center justify-center mr-4 mt-1">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -470,16 +473,16 @@ export default function BusinessCategoryPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">
-                      Customized Solutions
+                      Proactive Approach
                     </h3>
                     <p className="text-gray-600">
-                      Every business is unique. We develop tailored strategies
-                      that align with your specific goals and challenges.
+                      We don&apos;t just fix problems—we prevent them with
+                      proactive monitoring and maintenance strategies.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <div className="w-6 h-6 bg-cyan-600 rounded-full flex items-center justify-center mr-4 mt-1">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -496,16 +499,16 @@ export default function BusinessCategoryPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">
-                      Expert Team
+                      Scalable Solutions
                     </h3>
                     <p className="text-gray-600">
-                      Our consultants bring deep industry knowledge and
-                      practical experience to every engagement.
+                      Our IT solutions grow with your business, ensuring you
+                      always have the technology infrastructure you need.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <div className="w-6 h-6 bg-cyan-600 rounded-full flex items-center justify-center mr-4 mt-1">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -522,28 +525,28 @@ export default function BusinessCategoryPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">
-                      Ongoing Support
+                      24/7 Support
                     </h3>
                     <p className="text-gray-600">
-                      We don&apos;t just create plans—we help implement them and
-                      provide ongoing guidance for success.
+                      Round-the-clock technical support ensures your business
+                      operations never skip a beat.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="bg-blue-600 rounded-xl p-8 text-white">
+            <div className="bg-cyan-600 rounded-xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-6">
-                Ready to Transform Your Business?
+                Ready to Transform Your IT Infrastructure?
               </h3>
               <p className="mb-6">
-                Let&apos;s discuss how our strategic consulting services can
-                help you overcome challenges, identify opportunities, and
-                achieve sustainable growth.
+                Let&apos;s discuss how our IT consulting services can help you
+                leverage technology to drive business growth, improve
+                efficiency, and stay ahead of the competition.
               </p>
               <Link
-                href="/contact?service=business"
-                className="inline-block bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-200"
+                href="/contact?service=it-consulting"
+                className="inline-block bg-white text-cyan-600 px-6 py-3 rounded-lg font-semibold hover:bg-cyan-50 transition-colors duration-200"
               >
                 Schedule a Consultation
               </Link>
@@ -557,24 +560,24 @@ export default function BusinessCategoryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Business Consulting Insights
+              IT Consulting Insights
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Stay informed with our latest insights, strategies, and best
-              practices for business growth and success.
+              Stay informed with our latest insights on technology trends,
+              cybersecurity, and IT best practices.
             </p>
           </div>
 
-          {businessPosts.length > 0 ? (
+          {itPosts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {businessPosts.map((post) => (
+              {itPosts.map((post) => (
                 <BlogCard key={post.id} post={post} />
               ))}
             </div>
           ) : (
             <div className="text-center py-16">
               <p className="text-gray-600 text-lg">
-                No business consulting posts available at the moment.
+                No IT consulting posts available at the moment.
               </p>
             </div>
           )}
@@ -582,7 +585,7 @@ export default function BusinessCategoryPage() {
           <div className="text-center mt-12">
             <Link
               href="/blog"
-              className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium text-lg"
+              className="inline-flex items-center px-8 py-4 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors duration-200 font-medium text-lg"
             >
               View All Blog Posts
               <svg
@@ -605,11 +608,11 @@ export default function BusinessCategoryPage() {
 
       {/* CTA Section */}
       <CTA
-        title="Ready to Accelerate Your **Business Growth**?"
-        subtitle="Let's discuss how our strategic consulting services can help you overcome challenges and achieve your business objectives."
-        primaryButtonText="Schedule Consultation Today"
+        title="Ready to Elevate Your **Technology Infrastructure**?"
+        subtitle="Let's discuss how our IT consulting services can help you leverage technology for competitive advantage and business growth."
+        primaryButtonText="Get Started Today"
         secondaryButtonText="Learn More About Us"
-        service="business"
+        service="it-consulting"
       />
     </Layout>
   );

@@ -198,9 +198,8 @@ export default function RealEstatePage() {
             Real Estate Solutions
           </h1>
           <p className="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto">
-            Comprehensive real estate solutions for buying, selling, and
-            investing in properties. Whatever your property needs, we provide
-            the solution.
+            Connecting you with prime property opportunities. Comprehensive
+            solutions for buying, selling, and investing in properties.
           </p>
         </div>
       </section>

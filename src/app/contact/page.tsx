@@ -28,7 +28,14 @@ function ContactForm() {
   useEffect(() => {
     if (
       serviceParam &&
-      ["general", "business", "real-estate", "events"].includes(serviceParam)
+      [
+        "general",
+        "business",
+        "it-consulting",
+        "real-estate",
+        "events",
+        "digital-marketing",
+      ].includes(serviceParam)
     ) {
       setSelectedService(serviceParam);
       setFormData((prev) => ({ ...prev, service: serviceParam }));
@@ -118,18 +125,27 @@ function ContactForm() {
     {
       id: "business",
       name: "Business Consulting",
-      description:
-        "Strategic planning and advisory services for your business.",
+      description: "Guiding your next move with expert strategy.",
+    },
+    {
+      id: "it-consulting",
+      name: "IT Consulting",
+      description: "Future proofing your operations with smart technology.",
     },
     {
       id: "real-estate",
       name: "Real Estate",
-      description: "Buying, selling, or investing in real estate.",
+      description: "Connecting you with prime property opportunities.",
     },
     {
       id: "events",
       name: "Event Planning",
-      description: "Creating memorable and successful events.",
+      description: "Creating seamless, memorable experiences.",
+    },
+    {
+      id: "digital-marketing",
+      name: "Digital Marketing",
+      description: "Amplifying your brand and expanding your reach.",
     },
   ];
 
@@ -431,6 +447,10 @@ function ContactForm() {
                     </span>
                   </div>
                   <div className="flex items-center">
+                    <div className="w-3 h-3 bg-cyan-600 rounded-full mr-3"></div>
+                    <span className="text-gray-700">IT Consulting</span>
+                  </div>
+                  <div className="flex items-center">
                     <div className="w-3 h-3 bg-green-600 rounded-full mr-3"></div>
                     <span className="text-gray-700">Real Estate Brokerage</span>
                   </div>
@@ -439,6 +459,10 @@ function ContactForm() {
                     <span className="text-gray-700">
                       Event Planning Management
                     </span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 bg-orange-600 rounded-full mr-3"></div>
+                    <span className="text-gray-700">Digital Marketing</span>
                   </div>
                 </div>
               </div>

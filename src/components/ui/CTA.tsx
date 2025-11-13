@@ -74,7 +74,7 @@ const CTA = ({
         {showStats && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">3</div>
+              <div className="text-3xl font-bold text-primary mb-2">5</div>
               <p className="text-gray-600">Core Services</p>
             </div>
             <div>

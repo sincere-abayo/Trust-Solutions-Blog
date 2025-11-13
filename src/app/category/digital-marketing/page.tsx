@@ -1,37 +1,39 @@
 import Layout from "@/components/layout/Layout";
 import CTA from "@/components/ui/CTA";
 import BlogCard from "@/components/blog/BlogCard";
-import { getPostsByCategory } from "@/data/blogPosts";
+import { getAllPosts } from "@/data/blogPosts";
 import Link from "next/link";
 
-export default function BusinessCategoryPage() {
-  const businessPosts = getPostsByCategory("business");
+export default function DigitalMarketingPage() {
+  const allPosts = getAllPosts();
+  const marketingPosts = allPosts.filter(
+    (post) => post.category.toLowerCase() === "digital marketing"
+  );
 
   const services = [
     {
-      title: "Strategic Planning",
-      description:
-        "Comprehensive business strategy development and implementation",
+      title: "Social Media Marketing",
+      description: "Build and engage your audience across social platforms",
       longDescription:
-        "Transform your business vision into actionable strategies. Our strategic planning service helps you define clear objectives, identify market opportunities, and create roadmaps for sustainable growth.",
+        "Amplify your brand presence with strategic social media marketing. We create engaging content, manage your social channels, and build meaningful connections with your target audience across all major platforms.",
       features: [
-        "Vision & Mission Development",
-        "SWOT Analysis & Gap Assessment",
-        "Strategic Roadmap Creation",
-        "KPI & Metrics Framework",
-        "Risk Management Planning",
+        "Social Media Strategy Development",
+        "Content Creation & Curation",
+        "Community Management",
+        "Paid Social Advertising",
+        "Analytics & Reporting",
       ],
       benefits: [
-        "Clear direction and focus",
-        "Better resource allocation",
-        "Improved decision making",
-        "Competitive advantage",
+        "Increased brand awareness",
+        "Higher engagement rates",
+        "Community building",
+        "Lead generation",
       ],
       process: [
-        "Current State Assessment",
-        "Future State Visioning",
-        "Strategy Formulation",
-        "Implementation Planning",
+        "Audience Analysis",
+        "Strategy Development",
+        "Content Creation",
+        "Performance Optimization",
       ],
       icon: (
         <svg
@@ -44,35 +46,77 @@ export default function BusinessCategoryPage() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+            d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+          />
+        </svg>
+      ),
+      color: "orange",
+    },
+    {
+      title: "Search Engine Optimization (SEO)",
+      description: "Improve your visibility and rank higher in search results",
+      longDescription:
+        "Drive organic traffic to your website with comprehensive SEO strategies. We optimize your online presence to improve search rankings, increase visibility, and attract qualified leads.",
+      features: [
+        "Keyword Research & Strategy",
+        "On-Page SEO Optimization",
+        "Technical SEO Audits",
+        "Link Building Campaigns",
+        "Local SEO Management",
+      ],
+      benefits: [
+        "Higher search rankings",
+        "Increased organic traffic",
+        "Better user experience",
+        "Long-term ROI",
+      ],
+      process: [
+        "SEO Audit",
+        "Strategy Development",
+        "Implementation",
+        "Monitoring & Refinement",
+      ],
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
       ),
       color: "blue",
     },
     {
-      title: "Market Analysis",
-      description: "In-depth market research and competitive intelligence",
+      title: "Content Marketing",
+      description:
+        "Create compelling content that drives engagement and conversions",
       longDescription:
-        "Gain deep insights into your market landscape. Our comprehensive market analysis provides you with the intelligence needed to make informed decisions and stay ahead of the competition.",
+        "Tell your brand story with strategic content marketing. We create valuable, relevant content that attracts and retains your target audience while driving profitable customer action.",
       features: [
-        "Industry Trend Analysis",
-        "Competitor Intelligence",
-        "Customer Behavior Studies",
-        "Market Size & Segmentation",
-        "Opportunity Identification",
+        "Content Strategy Development",
+        "Blog Writing & Management",
+        "Video Content Production",
+        "Email Marketing Campaigns",
+        "Content Distribution",
       ],
       benefits: [
-        "Data-driven insights",
-        "Competitive positioning",
-        "Market opportunities",
-        "Risk mitigation",
+        "Thought leadership",
+        "Audience engagement",
+        "Lead nurturing",
+        "Brand authority",
       ],
       process: [
-        "Market Research Design",
-        "Data Collection & Analysis",
-        "Competitive Benchmarking",
-        "Insights & Recommendations",
+        "Content Planning",
+        "Creation & Production",
+        "Distribution",
+        "Performance Analysis",
       ],
       icon: (
         <svg
@@ -85,35 +129,35 @@ export default function BusinessCategoryPage() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
           />
         </svg>
       ),
-      color: "green",
+      color: "purple",
     },
     {
-      title: "Business Development",
-      description: "Growth strategies and market expansion planning",
+      title: "Paid Advertising (PPC)",
+      description: "Maximize ROI with targeted paid advertising campaigns",
       longDescription:
-        "Accelerate your business growth with proven strategies. We help you identify new opportunities, expand into new markets, and build sustainable revenue streams.",
+        "Drive immediate results with strategic paid advertising. We create and manage high-performing campaigns across Google Ads, social media platforms, and display networks to maximize your advertising ROI.",
       features: [
-        "Growth Strategy Development",
-        "Market Entry Planning",
-        "Partnership & Alliance Strategy",
-        "Revenue Model Optimization",
-        "Sales Process Enhancement",
+        "Campaign Strategy & Planning",
+        "Ad Creation & Copywriting",
+        "Audience Targeting",
+        "Bid Management",
+        "Conversion Tracking & Optimization",
       ],
       benefits: [
-        "Accelerated growth",
-        "New revenue streams",
-        "Market expansion",
-        "Strategic partnerships",
+        "Immediate visibility",
+        "Targeted reach",
+        "Measurable results",
+        "Scalable campaigns",
       ],
       process: [
-        "Growth Opportunity Assessment",
-        "Strategy Development",
-        "Implementation Planning",
-        "Performance Monitoring",
+        "Campaign Planning",
+        "Ad Creation",
+        "Launch & Monitoring",
+        "Optimization",
       ],
       icon: (
         <svg
@@ -130,58 +174,17 @@ export default function BusinessCategoryPage() {
           />
         </svg>
       ),
-      color: "purple",
-    },
-    {
-      title: "Performance Optimization",
-      description: "Process improvement and operational efficiency",
-      longDescription:
-        "Maximize your operational efficiency and performance. Our optimization service identifies bottlenecks, streamlines processes, and implements best practices for sustainable improvement.",
-      features: [
-        "Process Analysis & Mapping",
-        "Efficiency Optimization",
-        "Cost Reduction Strategies",
-        "Quality Improvement",
-        "Performance Metrics",
-      ],
-      benefits: [
-        "Reduced operational costs",
-        "Improved productivity",
-        "Better quality outcomes",
-        "Enhanced customer satisfaction",
-      ],
-      process: [
-        "Current State Analysis",
-        "Bottleneck Identification",
-        "Solution Design",
-        "Implementation & Monitoring",
-      ],
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      ),
-      color: "orange",
+      color: "green",
     },
   ];
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
+      <section className="bg-gradient-to-r from-orange-900 to-orange-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-4">
-            <span className="inline-flex items-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm border border-blue-400/30 rounded-full text-blue-200 text-sm font-medium">
+            <span className="inline-flex items-center px-4 py-2 bg-orange-600/20 backdrop-blur-sm border border-orange-400/30 rounded-full text-orange-200 text-sm font-medium">
               <svg
                 className="w-4 h-4 mr-2"
                 fill="currentColor"
@@ -189,15 +192,15 @@ export default function BusinessCategoryPage() {
               >
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
-              Over 2 Years Experience
+              Data-Driven Marketing Solutions
             </span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Business Consulting
+            Digital Marketing Services
           </h1>
-          <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
-            Guiding your next move with expert strategy. Strategic planning and
-            advisory solutions to help your business grow and thrive.
+          <p className="text-xl md:text-2xl text-orange-100 max-w-3xl mx-auto">
+            Amplifying your brand and expanding your reach. Strategic digital
+            marketing that drives growth and delivers measurable results.
           </p>
         </div>
       </section>
@@ -207,12 +210,11 @@ export default function BusinessCategoryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Our Business Consulting Services
+              Our Digital Marketing Services
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We specialize in turning your business challenges into
-              opportunities through strategic planning, market analysis, and
-              proven business development strategies.
+              From social media to SEO, we provide comprehensive digital
+              marketing solutions that help your business thrive online.
             </p>
           </div>
 
@@ -221,25 +223,25 @@ export default function BusinessCategoryPage() {
               <div
                 key={service.title}
                 className={`bg-gradient-to-br ${
-                  service.color === "blue"
+                  service.color === "orange"
+                    ? "from-orange-50 to-orange-100 border-orange-200"
+                    : service.color === "blue"
                     ? "from-blue-50 to-blue-100 border-blue-200"
-                    : service.color === "green"
-                    ? "from-green-50 to-green-100 border-green-200"
                     : service.color === "purple"
                     ? "from-purple-50 to-purple-100 border-purple-200"
-                    : "from-orange-50 to-orange-100 border-orange-200"
+                    : "from-green-50 to-green-100 border-green-200"
                 } border rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}
               >
                 <div className="flex items-start space-x-4">
                   <div
                     className={`inline-flex items-center justify-center w-16 h-16 ${
-                      service.color === "blue"
+                      service.color === "orange"
+                        ? "bg-orange-500 text-white"
+                        : service.color === "blue"
                         ? "bg-blue-500 text-white"
-                        : service.color === "green"
-                        ? "bg-green-500 text-white"
                         : service.color === "purple"
                         ? "bg-purple-500 text-white"
-                        : "bg-orange-500 text-white"
+                        : "bg-green-500 text-white"
                     } rounded-xl shadow-lg`}
                   >
                     {service.icon}
@@ -280,13 +282,13 @@ export default function BusinessCategoryPage() {
                       >
                         <div
                           className={`w-2 h-2 rounded-full mr-3 ${
-                            service.color === "blue"
+                            service.color === "orange"
+                              ? "bg-orange-500"
+                              : service.color === "blue"
                               ? "bg-blue-500"
-                              : service.color === "green"
-                              ? "bg-green-500"
                               : service.color === "purple"
                               ? "bg-purple-500"
-                              : "bg-orange-500"
+                              : "bg-green-500"
                           }`}
                         ></div>
                         <span className="text-sm">{feature}</span>
@@ -318,13 +320,13 @@ export default function BusinessCategoryPage() {
                       <span
                         key={idx}
                         className={`px-3 py-1 text-sm rounded-full ${
-                          service.color === "blue"
+                          service.color === "orange"
+                            ? "bg-orange-200 text-orange-800"
+                            : service.color === "blue"
                             ? "bg-blue-200 text-blue-800"
-                            : service.color === "green"
-                            ? "bg-green-200 text-green-800"
                             : service.color === "purple"
                             ? "bg-purple-200 text-purple-800"
-                            : "bg-orange-200 text-orange-800"
+                            : "bg-green-200 text-green-800"
                         }`}
                       >
                         {benefit}
@@ -359,13 +361,13 @@ export default function BusinessCategoryPage() {
                       >
                         <div
                           className={`w-8 h-8 rounded-full ${
-                            service.color === "blue"
+                            service.color === "orange"
+                              ? "bg-orange-500"
+                              : service.color === "blue"
                               ? "bg-blue-500"
-                              : service.color === "green"
-                              ? "bg-green-500"
                               : service.color === "purple"
                               ? "bg-purple-500"
-                              : "bg-orange-500"
+                              : "bg-green-500"
                           } text-white flex items-center justify-center text-sm font-semibold`}
                         >
                           {idx + 1}
@@ -384,15 +386,15 @@ export default function BusinessCategoryPage() {
                 {/* CTA Button */}
                 <div className="pt-4 border-t border-gray-200">
                   <Link
-                    href="/contact?service=business"
+                    href="/contact?service=digital-marketing"
                     className={`inline-flex items-center px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
-                      service.color === "blue"
+                      service.color === "orange"
+                        ? "bg-orange-600 hover:bg-orange-700 text-white"
+                        : service.color === "blue"
                         ? "bg-blue-600 hover:bg-blue-700 text-white"
-                        : service.color === "green"
-                        ? "bg-green-600 hover:bg-green-700 text-white"
                         : service.color === "purple"
                         ? "bg-purple-600 hover:bg-purple-700 text-white"
-                        : "bg-orange-600 hover:bg-orange-700 text-white"
+                        : "bg-green-600 hover:bg-green-700 text-white"
                     }`}
                   >
                     Get Started with {service.title}
@@ -423,11 +425,11 @@ export default function BusinessCategoryPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Why Choose Trust Solutions for Business Consulting?
+                Why Choose Trust Solutions for Digital Marketing?
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <div className="w-6 h-6 bg-orange-600 rounded-full flex items-center justify-center mr-4 mt-1">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -444,16 +446,16 @@ export default function BusinessCategoryPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">
-                      Proven Track Record
+                      Data-Driven Strategies
                     </h3>
                     <p className="text-gray-600">
-                      Over 2 years of helping businesses achieve sustainable
-                      growth and market leadership.
+                      We use analytics and insights to create campaigns that
+                      deliver measurable results and ROI.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <div className="w-6 h-6 bg-orange-600 rounded-full flex items-center justify-center mr-4 mt-1">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -470,16 +472,16 @@ export default function BusinessCategoryPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">
-                      Customized Solutions
+                      Multi-Channel Expertise
                     </h3>
                     <p className="text-gray-600">
-                      Every business is unique. We develop tailored strategies
-                      that align with your specific goals and challenges.
+                      From social media to SEO, we excel across all digital
+                      marketing channels to maximize your reach.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <div className="w-6 h-6 bg-orange-600 rounded-full flex items-center justify-center mr-4 mt-1">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -496,16 +498,16 @@ export default function BusinessCategoryPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">
-                      Expert Team
+                      Creative Excellence
                     </h3>
                     <p className="text-gray-600">
-                      Our consultants bring deep industry knowledge and
-                      practical experience to every engagement.
+                      Our creative team produces compelling content that
+                      resonates with your audience and drives engagement.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                  <div className="w-6 h-6 bg-orange-600 rounded-full flex items-center justify-center mr-4 mt-1">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -522,28 +524,28 @@ export default function BusinessCategoryPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">
-                      Ongoing Support
+                      Transparent Reporting
                     </h3>
                     <p className="text-gray-600">
-                      We don&apos;t just create plans—we help implement them and
-                      provide ongoing guidance for success.
+                      Regular reports and insights keep you informed about
+                      campaign performance and ROI.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="bg-blue-600 rounded-xl p-8 text-white">
+            <div className="bg-orange-600 rounded-xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-6">
-                Ready to Transform Your Business?
+                Ready to Amplify Your Brand?
               </h3>
               <p className="mb-6">
-                Let&apos;s discuss how our strategic consulting services can
-                help you overcome challenges, identify opportunities, and
-                achieve sustainable growth.
+                Let&apos;s discuss how our digital marketing services can help
+                you expand your reach, engage your audience, and drive
+                measurable business growth.
               </p>
               <Link
-                href="/contact?service=business"
-                className="inline-block bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-200"
+                href="/contact?service=digital-marketing"
+                className="inline-block bg-white text-orange-600 px-6 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors duration-200"
               >
                 Schedule a Consultation
               </Link>
@@ -557,24 +559,24 @@ export default function BusinessCategoryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Business Consulting Insights
+              Digital Marketing Insights
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Stay informed with our latest insights, strategies, and best
-              practices for business growth and success.
+              Stay informed with our latest insights on digital marketing
+              trends, strategies, and best practices.
             </p>
           </div>
 
-          {businessPosts.length > 0 ? (
+          {marketingPosts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {businessPosts.map((post) => (
+              {marketingPosts.map((post) => (
                 <BlogCard key={post.id} post={post} />
               ))}
             </div>
           ) : (
             <div className="text-center py-16">
               <p className="text-gray-600 text-lg">
-                No business consulting posts available at the moment.
+                No digital marketing posts available at the moment.
               </p>
             </div>
           )}
@@ -582,7 +584,7 @@ export default function BusinessCategoryPage() {
           <div className="text-center mt-12">
             <Link
               href="/blog"
-              className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium text-lg"
+              className="inline-flex items-center px-8 py-4 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors duration-200 font-medium text-lg"
             >
               View All Blog Posts
               <svg
@@ -605,11 +607,11 @@ export default function BusinessCategoryPage() {
 
       {/* CTA Section */}
       <CTA
-        title="Ready to Accelerate Your **Business Growth**?"
-        subtitle="Let's discuss how our strategic consulting services can help you overcome challenges and achieve your business objectives."
-        primaryButtonText="Schedule Consultation Today"
+        title="Ready to Grow Your **Digital Presence**?"
+        subtitle="Let's discuss how our digital marketing services can help you amplify your brand and expand your reach."
+        primaryButtonText="Get Started Today"
         secondaryButtonText="Learn More About Us"
-        service="business"
+        service="digital-marketing"
       />
     </Layout>
   );
