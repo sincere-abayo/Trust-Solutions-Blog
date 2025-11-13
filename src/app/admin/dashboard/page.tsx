@@ -246,26 +246,28 @@ export default function AdminDashboard() {
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div className="flex items-center space-x-3 sm:space-x-4">
               <Image
                 src="/logo/image.png"
                 alt="Logo"
                 width={40}
                 height={40}
-                className="w-10 h-10 object-contain"
+                className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
               />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">
+                <h1 className="text-lg sm:text-2xl font-bold text-gray-900">
                   Admin Dashboard
                 </h1>
-                <p className="text-sm text-gray-600">Trust Solutions Company</p>
+                <p className="text-xs sm:text-sm text-gray-600">
+                  Trust Solutions Company
+                </p>
               </div>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <button
                 onClick={() => setShowChangePassword(true)}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+                className="px-3 py-2 sm:px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-sm sm:text-base whitespace-nowrap"
               >
                 <svg
                   className="w-4 h-4"
@@ -280,11 +282,12 @@ export default function AdminDashboard() {
                     d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
                   />
                 </svg>
-                Change Password
+                <span className="hidden sm:inline">Change Password</span>
+                <span className="sm:hidden">Password</span>
               </button>
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                className="px-3 py-2 sm:px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm sm:text-base"
               >
                 Logout
               </button>
