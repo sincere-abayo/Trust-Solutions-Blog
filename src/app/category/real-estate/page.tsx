@@ -1,39 +1,17 @@
 import Layout from "@/components/layout/Layout";
 import CTA from "@/components/ui/CTA";
-import BlogCard from "@/components/blog/BlogCard";
-import { getAllPosts } from "@/data/blogPosts";
 import Link from "next/link";
 
 export default function RealEstatePage() {
-  const allPosts = getAllPosts();
-  const realEstatePosts = allPosts.filter(
-    (post) => post.category.toLowerCase() === "real estate"
-  );
-
   const services = [
     {
       title: "Property Sales",
       description: "Expert guidance through the entire selling process",
-      longDescription:
-        "Maximize your property value with our comprehensive selling services. From market analysis to closing, we handle every aspect of your property sale to ensure you get the best possible outcome.",
       features: [
         "Market Valuation & Pricing Strategy",
         "Professional Property Marketing",
         "Buyer Screening & Qualification",
         "Negotiation & Contract Management",
-        "Closing Coordination",
-      ],
-      benefits: [
-        "Maximum sale price",
-        "Faster sale timeline",
-        "Professional marketing",
-        "Stress-free process",
-      ],
-      process: [
-        "Property Assessment",
-        "Market Analysis",
-        "Marketing Launch",
-        "Sale Completion",
       ],
       icon: (
         <svg
@@ -50,31 +28,15 @@ export default function RealEstatePage() {
           />
         </svg>
       ),
-      color: "green",
     },
     {
       title: "Property Search",
       description: "Find your perfect property with expert guidance",
-      longDescription:
-        "Discover your ideal property with our extensive market knowledge and personalized search service. We match you with properties that meet your specific needs and budget requirements.",
       features: [
         "Personalized Property Search",
         "Market Area Analysis",
         "Property Viewing Coordination",
-        "Due Diligence Support",
         "Purchase Negotiation",
-      ],
-      benefits: [
-        "Time savings",
-        "Access to exclusive listings",
-        "Expert market insights",
-        "Negotiation advantage",
-      ],
-      process: [
-        "Needs Assessment",
-        "Property Search",
-        "Viewing & Evaluation",
-        "Purchase Support",
       ],
       icon: (
         <svg
@@ -91,31 +53,15 @@ export default function RealEstatePage() {
           />
         </svg>
       ),
-      color: "blue",
     },
     {
       title: "Investment Advisory",
       description: "Strategic real estate investment guidance",
-      longDescription:
-        "Build wealth through smart real estate investments. Our advisory service helps you identify lucrative opportunities, analyze returns, and develop a diversified property portfolio.",
       features: [
         "Market Opportunity Analysis",
         "ROI & Cash Flow Projections",
         "Portfolio Diversification Strategy",
         "Risk Assessment & Mitigation",
-        "Property Management Solutions",
-      ],
-      benefits: [
-        "Passive income generation",
-        "Long-term wealth building",
-        "Portfolio diversification",
-        "Tax advantages",
-      ],
-      process: [
-        "Investment Goals Setting",
-        "Market Analysis",
-        "Property Selection",
-        "Portfolio Management",
       ],
       icon: (
         <svg
@@ -132,31 +78,15 @@ export default function RealEstatePage() {
           />
         </svg>
       ),
-      color: "purple",
     },
     {
       title: "Property Management",
       description: "Complete property management and maintenance",
-      longDescription:
-        "Maximize your rental income with our comprehensive property management services. We handle tenant relations, maintenance, and all aspects of property operations.",
       features: [
         "Tenant Screening & Placement",
         "Rent Collection & Accounting",
         "Maintenance & Repairs",
-        "Property Inspections",
         "Financial Reporting",
-      ],
-      benefits: [
-        "Passive rental income",
-        "Property value preservation",
-        "Tenant satisfaction",
-        "Reduced vacancy rates",
-      ],
-      process: [
-        "Property Assessment",
-        "Marketing & Leasing",
-        "Tenant Management",
-        "Ongoing Maintenance",
       ],
       icon: (
         <svg
@@ -173,17 +103,17 @@ export default function RealEstatePage() {
           />
         </svg>
       ),
-      color: "orange",
     },
   ];
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-900 to-green-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-4">
-            <span className="inline-flex items-center px-4 py-2 bg-green-600/20 backdrop-blur-sm border border-green-400/30 rounded-full text-green-200 text-sm font-medium">
+      {/* Hero Section - Consistent Design */}
+      <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-8 md:py-12 overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-6">
               <svg
                 className="w-4 h-4 mr-2"
                 fill="currentColor"
@@ -191,266 +121,20 @@ export default function RealEstatePage() {
               >
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
-              Over 5 Years Experience
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Real Estate Solutions
-          </h1>
-          <p className="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto">
-            Connecting you with prime property opportunities. Comprehensive
-            solutions for buying, selling, and investing in properties.
-          </p>
-        </div>
-      </section>
-
-      {/* Services Overview */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Our Real Estate Services
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From residential to commercial properties, we offer comprehensive
-              real estate solutions tailored to your specific needs.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {services.map((service) => (
-              <div
-                key={service.title}
-                className={`bg-gradient-to-br ${
-                  service.color === "green"
-                    ? "from-green-50 to-green-100 border-green-200"
-                    : service.color === "blue"
-                    ? "from-blue-50 to-blue-100 border-blue-200"
-                    : service.color === "purple"
-                    ? "from-purple-50 to-purple-100 border-purple-200"
-                    : "from-orange-50 to-orange-100 border-orange-200"
-                } border rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}
-              >
-                <div className="flex items-start space-x-4">
-                  <div
-                    className={`inline-flex items-center justify-center w-16 h-16 ${
-                      service.color === "green"
-                        ? "bg-green-500 text-white"
-                        : service.color === "blue"
-                        ? "bg-blue-500 text-white"
-                        : service.color === "purple"
-                        ? "bg-purple-500 text-white"
-                        : "bg-orange-500 text-white"
-                    } rounded-xl shadow-lg`}
-                  >
-                    {service.icon}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-700 mb-6 leading-relaxed">
-                      {service.longDescription}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Features */}
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-2 text-gray-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    Key Features
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {service.features.map((feature, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center text-gray-700"
-                      >
-                        <div
-                          className={`w-2 h-2 rounded-full mr-3 ${
-                            service.color === "green"
-                              ? "bg-green-500"
-                              : service.color === "blue"
-                              ? "bg-blue-500"
-                              : service.color === "purple"
-                              ? "bg-purple-500"
-                              : "bg-orange-500"
-                          }`}
-                        ></div>
-                        <span className="text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Benefits */}
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-2 text-gray-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 10V3L4 14h7v7l9-11h-7z"
-                      />
-                    </svg>
-                    Benefits
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {service.benefits.map((benefit, idx) => (
-                      <span
-                        key={idx}
-                        className={`px-3 py-1 text-sm rounded-full ${
-                          service.color === "green"
-                            ? "bg-green-200 text-green-800"
-                            : service.color === "blue"
-                            ? "bg-blue-200 text-blue-800"
-                            : service.color === "purple"
-                            ? "bg-purple-200 text-purple-800"
-                            : "bg-orange-200 text-orange-800"
-                        }`}
-                      >
-                        {benefit}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Process */}
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-2 text-gray-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"
-                      />
-                    </svg>
-                    Our Process
-                  </h4>
-                  <div className="flex items-center space-x-2 overflow-x-auto">
-                    {service.process.map((step, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center flex-shrink-0"
-                      >
-                        <div
-                          className={`w-8 h-8 rounded-full ${
-                            service.color === "green"
-                              ? "bg-green-500"
-                              : service.color === "blue"
-                              ? "bg-blue-500"
-                              : service.color === "purple"
-                              ? "bg-purple-500"
-                              : "bg-orange-500"
-                          } text-white flex items-center justify-center text-sm font-semibold`}
-                        >
-                          {idx + 1}
-                        </div>
-                        <span className="ml-2 text-sm text-gray-700 whitespace-nowrap">
-                          {step}
-                        </span>
-                        {idx < service.process.length - 1 && (
-                          <div className="mx-4 w-8 h-0.5 bg-gray-300"></div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* CTA Button */}
-                <div className="pt-4 border-t border-gray-200">
-                  <Link
-                    href="/contact?service=real-estate"
-                    className={`inline-flex items-center px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
-                      service.color === "green"
-                        ? "bg-green-600 hover:bg-green-700 text-white"
-                        : service.color === "blue"
-                        ? "bg-blue-600 hover:bg-blue-700 text-white"
-                        : service.color === "purple"
-                        ? "bg-purple-600 hover:bg-purple-700 text-white"
-                        : "bg-orange-600 hover:bg-orange-700 text-white"
-                    }`}
-                  >
-                    Get Started with {service.title}
-                    <svg
-                      className="ml-2 w-4 h-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Posts */}
-      <section className="py-20 bg-gray-50 hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Real Estate Insights
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Stay informed with our latest insights, market trends, and expert
-              advice for real estate success.
-            </p>
-          </div>
-
-          {realEstatePosts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {realEstatePosts.map((post) => (
-                <BlogCard key={post.id} post={post} />
-              ))}
+              Real Estate Brokerage
             </div>
-          ) : (
-            <div className="text-center py-16">
-              <p className="text-gray-600 text-lg">
-                No real estate posts available at the moment.
-              </p>
-            </div>
-          )}
-
-          <div className="text-center mt-12">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3">
+              Connecting You with Prime Property Opportunities
+            </h1>
+            <p className="text-base md:text-lg text-gray-300 mb-5">
+              Comprehensive solutions for buying, selling, and investing in
+              properties.
+            </p>
             <Link
-              href="/blog"
-              className="inline-flex items-center px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 font-medium text-lg"
+              href="/contact?service=real-estate"
+              className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl"
             >
-              View All Blog Posts
+              Get Started
               <svg
                 className="ml-2 w-5 h-5"
                 fill="none"
@@ -465,6 +149,153 @@ export default function RealEstatePage() {
                 />
               </svg>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Grid */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+              Our Real Estate Services
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              From residential to commercial properties, we offer comprehensive
+              solutions
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="group bg-white border-2 border-gray-100 rounded-xl p-8 hover:border-blue-500 hover:shadow-xl transition-all duration-300"
+              >
+                <div className="flex items-start space-x-4 mb-6">
+                  <div className="flex-shrink-0 w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                    {service.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-600">{service.description}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  {service.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center text-gray-700">
+                      <svg
+                        className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span className="text-sm">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-12 md:py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Why Choose Trust Solutions?
+              </h2>
+              <div className="space-y-6">
+                {[
+                  {
+                    title: "Local Market Expertise",
+                    description:
+                      "Deep knowledge of the local real estate market and property values.",
+                  },
+                  {
+                    title: "Personalized Service",
+                    description:
+                      "We take time to understand your unique needs and preferences.",
+                  },
+                  {
+                    title: "Proven Track Record",
+                    description:
+                      "Successful transactions and satisfied clients across all property types.",
+                  },
+                  {
+                    title: "Full-Service Support",
+                    description:
+                      "From search to closing, we handle every aspect of your real estate journey.",
+                  },
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start">
+                    <div className="flex-shrink-0 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-600">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-8 md:p-12 text-white shadow-xl">
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">
+                Ready to Find Your Perfect Property?
+              </h3>
+              <p className="text-blue-100 mb-8 text-lg">
+                Let&apos;s discuss how our real estate services can help you
+                achieve your property goals.
+              </p>
+              <Link
+                href="/contact?service=real-estate"
+                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-all duration-200 font-semibold shadow-lg"
+              >
+                Schedule Consultation
+                <svg
+                  className="ml-2 w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
