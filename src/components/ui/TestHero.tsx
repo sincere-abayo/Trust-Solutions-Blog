@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/Badge";
+import { Button } from "./button";
+import { Badge } from "./Badge";
 import { Users, TrendingUp, ArrowRight, Sparkles, Star } from "lucide-react";
 
 export function TestHero() {

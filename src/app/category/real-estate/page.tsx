@@ -1,5 +1,5 @@
-import Layout from "@/components/layout/Layout";
-import CTA from "@/components/ui/CTA";
+import Layout from "../../../components/layout/Layout";
+import CTA from "../../../components/ui/CTA";
 import Link from "next/link";
 
 export default function RealEstatePage() {

@@ -1,4 +1,4 @@
-import Layout from "@/components/layout/Layout";
+import Layout from "../../components/layout/Layout";
 
 export const metadata = {
   title: "Terms of Service - Trust Solutions",

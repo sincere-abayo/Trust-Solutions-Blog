@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Layout from "@/components/layout/Layout";
-import BlogCard from "@/components/blog/BlogCard";
-import { getAllPosts, getPostsByCategory } from "@/data/blogPosts";
+import Layout from "../../components/layout/Layout";
+import BlogCard from "../../components/blog/BlogCard";
+import { getAllPosts, getPostsByCategory } from "../../data/blogPosts";
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");

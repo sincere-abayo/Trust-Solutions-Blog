@@ -1,8 +1,8 @@
-import Layout from "@/components/layout/Layout";
-import Hero from "@/components/ui/Hero";
-import CTA from "@/components/ui/CTA";
-import BlogCard from "@/components/blog/BlogCard";
-import { getAllPosts } from "@/data/blogPosts";
+import Layout from "../components/layout/Layout";
+import Hero from "../components/ui/Hero";
+import CTA from "../components/ui/CTA";
+import BlogCard from "../components/blog/BlogCard";
+import { getAllPosts } from "../data/blogPosts";
 import Link from "next/link";
 
 // Function to get relevant live images based on category

@@ -1,7 +1,7 @@
 "use client";
 
-import Layout from "@/components/layout/Layout";
-import CTA from "@/components/ui/CTA";
+import Layout from "../../components/layout/Layout";
+import CTA from "../../components/ui/CTA";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -157,7 +157,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
 
       {/* Our Core Solutions */}
       <section className="py-4 md:py-4 bg-white">
@@ -491,7 +490,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
 
       {/* Our Impact & Commitment */}
       <section className="py-12 md:py-16 bg-gray-50">

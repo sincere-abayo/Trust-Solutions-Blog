@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import Layout from "@/components/layout/Layout";
+import Layout from "../../components/layout/Layout";
 
 function ContactForm() {
   const searchParams = useSearchParams();
@@ -321,7 +321,6 @@ function ContactForm() {
             </h2>
 
             <div className="space-y-6">
-             
               {/* Contact Details */}
               <div className="space-y-4">
                 <div className="flex items-start">

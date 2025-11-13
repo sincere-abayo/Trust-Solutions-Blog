@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { prisma } from '../../../lib/prisma';
 
 export async function POST(request: Request) {
   try {
@@ -14,6 +15,30 @@ export async function POST(request: Request) {
       );
     }
 
+    // Service name mapping - convert slug to display name
+    const serviceNames: Record<string, string> = {
+      'general': 'General Inquiry',
+      'business': 'Business Consulting',
+      'it-consulting': 'IT Consulting',
+      'real-estate': 'Real Estate',
+      'events': 'Event Planning',
+      'digital-marketing': 'Digital Marketing',
+    };
+
+    const serviceName = serviceNames[service] || service;
+
+    // Save to database with display name
+    await prisma.contactMessage.create({
+      data: {
+        name,
+        email,
+        phone: phone || '',
+        company: company || '',
+        service: serviceName,
+        message,
+      },
+    });
+
     // Create transporter - you'll need to configure this with your email service
     // For Gmail, you'll need to use App Passwords: https://support.google.com/accounts/answer/185833
     const transporter = nodemailer.createTransport({
@@ -24,15 +49,7 @@ export async function POST(request: Request) {
       },
     });
 
-    // Service name mapping
-    const serviceNames = {
-      general: 'General Inquiry',
-      business: 'Business Consulting',
-      'real-estate': 'Real Estate',
-      events: 'Event Planning',
-    };
 
-    const serviceName = serviceNames[service as keyof typeof serviceNames] || 'General Inquiry';
 
     // Email content
     const mailOptions = {
