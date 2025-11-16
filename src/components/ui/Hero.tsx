@@ -106,7 +106,7 @@ const Hero = () => {
             </h1>
 
             <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-medium text-balance mb-4 sm:mb-6 md:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 hover:scale-105 transition-transform duration-500">
-              <span className="block sm:inline">Rwanda&apos;s Premier</span>
+              <span className="block sm:inline">Rwanda&apos;s</span>
               <span className="block sm:inline sm:ml-2">
                 One-Stop Solutions Partner
               </span>
