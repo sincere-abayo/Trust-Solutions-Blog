@@ -15,14 +15,30 @@ export async function GET(request: Request) {
       );
     }
     
-    // Get days parameter from query string
+    // Get parameters from query string
     const { searchParams } = new URL(request.url);
     const daysParam = searchParams.get('days');
-    const days = daysParam ? parseInt(daysParam) : 30;
+    const monthParam = searchParams.get('month');
+    const startDateParam = searchParams.get('startDate');
+    const endDateParam = searchParams.get('endDate');
     
     // Get date ranges
     const now = new Date();
-    const customDaysAgo = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+    let customDaysAgo: Date;
+    
+    if (monthParam) {
+      // Month format: YYYY-MM
+      const [year, month] = monthParam.split('-').map(Number);
+      customDaysAgo = new Date(year, month - 1, 1); // First day of month
+    } else if (startDateParam && endDateParam) {
+      // Custom date range
+      customDaysAgo = new Date(startDateParam);
+    } else {
+      // Days-based filter
+      const days = daysParam ? parseInt(daysParam) : 30;
+      customDaysAgo = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+    }
+    
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());

@@ -59,6 +59,12 @@ export default function AdminDashboard() {
     []
   );
   const [loadingTopPages, setLoadingTopPages] = useState(false);
+  const [filterType, setFilterType] = useState<"preset" | "month" | "custom">(
+    "preset"
+  );
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const router = useRouter();
 
   const fetchData = async () => {
@@ -226,10 +232,22 @@ export default function AdminDashboard() {
     }
   };
 
-  const fetchTopPages = async (days: string) => {
+  const fetchTopPages = async () => {
     setLoadingTopPages(true);
     try {
-      const response = await fetch(`/api/admin/analytics?days=${days}`);
+      let url = "/api/admin/analytics?";
+
+      if (filterType === "preset") {
+        url += `days=${analyticsPeriod}`;
+      } else if (filterType === "month" && selectedMonth) {
+        url += `month=${selectedMonth}`;
+      } else if (filterType === "custom" && startDate && endDate) {
+        url += `startDate=${startDate}&endDate=${endDate}`;
+      } else {
+        url += `days=${analyticsPeriod}`;
+      }
+
+      const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
         setTopPages(data.topPages || []);
@@ -242,8 +260,8 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
-    fetchTopPages(analyticsPeriod);
-  }, [analyticsPeriod]);
+    fetchTopPages();
+  }, [analyticsPeriod, filterType, selectedMonth, startDate, endDate]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString("en-US", {
@@ -563,28 +581,109 @@ export default function AdminDashboard() {
                 <h3 className="text-lg font-bold text-gray-900 mb-3">
                   Top Pages
                 </h3>
-                {/* Period Filter */}
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    { label: "7 Days", value: "7" },
-                    { label: "30 Days", value: "30" },
-                    { label: "3 Months", value: "90" },
-                    { label: "6 Months", value: "180" },
-                    { label: "1 Year", value: "365" },
-                  ].map((period) => (
-                    <button
-                      key={period.value}
-                      onClick={() => setAnalyticsPeriod(period.value)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                        analyticsPeriod === period.value
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                      }`}
-                    >
-                      {period.label}
-                    </button>
-                  ))}
+
+                {/* Filter Type Tabs */}
+                <div className="flex gap-2 mb-3">
+                  <button
+                    onClick={() => setFilterType("preset")}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      filterType === "preset"
+                        ? "bg-purple-600 text-white"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
+                  >
+                    Quick
+                  </button>
+                  <button
+                    onClick={() => setFilterType("month")}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      filterType === "month"
+                        ? "bg-purple-600 text-white"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
+                  >
+                    Month
+                  </button>
+                  <button
+                    onClick={() => setFilterType("custom")}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      filterType === "custom"
+                        ? "bg-purple-600 text-white"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
+                  >
+                    Custom
+                  </button>
                 </div>
+
+                {/* Preset Period Filter */}
+                {filterType === "preset" && (
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { label: "7 Days", value: "7" },
+                      { label: "30 Days", value: "30" },
+                      { label: "3 Months", value: "90" },
+                      { label: "6 Months", value: "180" },
+                      { label: "1 Year", value: "365" },
+                    ].map((period) => (
+                      <button
+                        key={period.value}
+                        onClick={() => setAnalyticsPeriod(period.value)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                          analyticsPeriod === period.value
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
+                      >
+                        {period.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Month Selector */}
+                {filterType === "month" && (
+                  <div>
+                    <input
+                      type="month"
+                      value={selectedMonth}
+                      onChange={(e) => setSelectedMonth(e.target.value)}
+                      max={new Date().toISOString().slice(0, 7)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    />
+                  </div>
+                )}
+
+                {/* Custom Date Range */}
+                {filterType === "custom" && (
+                  <div className="space-y-2">
+                    <div>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                        Start Date
+                      </label>
+                      <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        max={new Date().toISOString().split("T")[0]}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                        End Date
+                      </label>
+                      <input
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        max={new Date().toISOString().split("T")[0]}
+                        min={startDate}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               {loadingTopPages ? (
