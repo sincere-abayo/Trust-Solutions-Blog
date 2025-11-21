@@ -54,6 +54,11 @@ export default function AdminDashboard() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [changingPassword, setChangingPassword] = useState(false);
+  const [analyticsPeriod, setAnalyticsPeriod] = useState("30"); // days
+  const [topPages, setTopPages] = useState<{ path: string; views: number }[]>(
+    []
+  );
+  const [loadingTopPages, setLoadingTopPages] = useState(false);
   const router = useRouter();
 
   const fetchData = async () => {
@@ -80,6 +85,7 @@ export default function AdminDashboard() {
 
       setMessages(messagesData.messages || []);
       setAnalytics(analyticsData);
+      setTopPages(analyticsData.topPages || []);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -219,6 +225,25 @@ export default function AdminDashboard() {
       setLoadingHistory(false);
     }
   };
+
+  const fetchTopPages = async (days: string) => {
+    setLoadingTopPages(true);
+    try {
+      const response = await fetch(`/api/admin/analytics?days=${days}`);
+      if (response.ok) {
+        const data = await response.json();
+        setTopPages(data.topPages || []);
+      }
+    } catch (error) {
+      console.error("Error fetching top pages:", error);
+    } finally {
+      setLoadingTopPages(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTopPages(analyticsPeriod);
+  }, [analyticsPeriod]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString("en-US", {
@@ -534,29 +559,66 @@ export default function AdminDashboard() {
           <div className="space-y-6">
             {/* Top Pages */}
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">
-                Top Pages (30 Days)
-              </h3>
-              <div className="space-y-3 max-h-96 overflow-y-auto">
-                {analytics?.topPages.map((page, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center py-2 hover:bg-gray-50 px-2 rounded"
-                  >
-                    <div className="flex items-center flex-1 min-w-0">
-                      <span className="text-xs font-medium text-gray-500 mr-3 w-6">
-                        #{index + 1}
-                      </span>
-                      <span className="text-sm text-gray-700 truncate">
-                        {page.path}
-                      </span>
-                    </div>
-                    <span className="text-sm font-semibold text-blue-600 ml-2">
-                      {page.views}
-                    </span>
-                  </div>
-                ))}
+              <div className="mb-4">
+                <h3 className="text-lg font-bold text-gray-900 mb-3">
+                  Top Pages
+                </h3>
+                {/* Period Filter */}
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { label: "7 Days", value: "7" },
+                    { label: "30 Days", value: "30" },
+                    { label: "3 Months", value: "90" },
+                    { label: "6 Months", value: "180" },
+                    { label: "1 Year", value: "365" },
+                  ].map((period) => (
+                    <button
+                      key={period.value}
+                      onClick={() => setAnalyticsPeriod(period.value)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                        analyticsPeriod === period.value
+                          ? "bg-blue-600 text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    >
+                      {period.label}
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              {loadingTopPages ? (
+                <div className="flex justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                </div>
+              ) : (
+                <div className="space-y-3 max-h-96 overflow-y-auto">
+                  {topPages.length === 0 ? (
+                    <p className="text-center text-gray-500 py-4">
+                      No data for this period
+                    </p>
+                  ) : (
+                    topPages.map((page, index) => (
+                      <div
+                        key={index}
+                        className="flex justify-between items-center py-2 hover:bg-gray-50 px-2 rounded"
+                      >
+                        <div className="flex items-center flex-1 min-w-0">
+                          <span className="text-xs font-medium text-gray-500 mr-3 w-6">
+                            #{index + 1}
+                          </span>
+                          <span className="text-sm text-gray-700 truncate">
+                            {page.path}
+                          </span>
+                        </div>
+                        <span className="text-sm font-semibold text-blue-600 ml-2">
+                          {page.views}
+                        </span>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Messages by Service */}

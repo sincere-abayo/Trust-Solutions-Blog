@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '../../../../lib/prisma';
 import { cookies } from 'next/headers';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     // Check authentication
     const cookieStore = await cookies();
@@ -15,8 +15,14 @@ export async function GET() {
       );
     }
     
+    // Get days parameter from query string
+    const { searchParams } = new URL(request.url);
+    const daysParam = searchParams.get('days');
+    const days = daysParam ? parseInt(daysParam) : 30;
+    
     // Get date ranges
     const now = new Date();
+    const customDaysAgo = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -57,12 +63,12 @@ export async function GET() {
         }
       }),
       
-      // Top pages (last 30 days)
+      // Top pages (custom period)
       prisma.pageView.groupBy({
         by: ['path'],
         _count: true,
         where: {
-          createdAt: { gte: thirtyDaysAgo }
+          createdAt: { gte: customDaysAgo }
         },
         orderBy: {
           _count: {
