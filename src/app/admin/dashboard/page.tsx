@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ImageUpload from "@/components/admin/ImageUpload";
+import { useSwal } from "@/hooks/useSwal";
 
 interface Message {
   id: string;
@@ -91,6 +92,11 @@ export default function AdminDashboard() {
   const [loadingArticles, setLoadingArticles] = useState(false);
   const [showArticleModal, setShowArticleModal] = useState(false);
   const [editingArticle, setEditingArticle] = useState<Article | null>(null);
+  const [savingArticle, setSavingArticle] = useState(false);
+  const [deletingArticle, setDeletingArticle] = useState<string | null>(null);
+  const [publishingArticle, setPublishingArticle] = useState<string | null>(
+    null
+  );
   const [articleForm, setArticleForm] = useState({
     title: "",
     excerpt: "",
@@ -100,6 +106,7 @@ export default function AdminDashboard() {
     readingTime: 5,
   });
   const router = useRouter();
+  const swal = useSwal();
 
   const fetchData = async () => {
     try {
@@ -145,17 +152,23 @@ export default function AdminDashboard() {
 
   const handleChangePassword = async () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
-      alert("Please fill in all fields");
+      await swal.showWarning(
+        "Missing Information",
+        "Please fill in all fields"
+      );
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      alert("New passwords do not match");
+      await swal.showWarning("Password Mismatch", "New passwords do not match");
       return;
     }
 
     if (newPassword.length < 8) {
-      alert("New password must be at least 8 characters long");
+      await swal.showWarning(
+        "Password Too Short",
+        "New password must be at least 8 characters long"
+      );
       return;
     }
 
@@ -174,17 +187,26 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Password changed successfully!");
+        await swal.showSuccess(
+          "Password Changed!",
+          "Your password has been updated successfully."
+        );
         setShowChangePassword(false);
         setCurrentPassword("");
         setNewPassword("");
         setConfirmPassword("");
       } else {
-        alert(data.error || "Failed to change password");
+        await swal.showError(
+          "Change Failed",
+          data.error || "Failed to change password"
+        );
       }
     } catch (error) {
       console.error("Error changing password:", error);
-      alert("Failed to change password. Please try again.");
+      await swal.showError(
+        "Change Failed",
+        "Failed to change password. Please try again."
+      );
     } finally {
       setChangingPassword(false);
     }
@@ -207,6 +229,8 @@ export default function AdminDashboard() {
   };
 
   const handleSaveArticle = async () => {
+    setSavingArticle(true);
+
     try {
       const url = editingArticle
         ? `/api/admin/articles/${editingArticle.id}`
@@ -221,7 +245,12 @@ export default function AdminDashboard() {
       });
 
       if (response.ok) {
-        alert(editingArticle ? "Article updated!" : "Article created!");
+        await swal.showSuccess(
+          editingArticle ? "Article Updated!" : "Article Created!",
+          editingArticle
+            ? "Your article has been successfully updated."
+            : "Your new article has been created successfully."
+        );
         setShowArticleModal(false);
         setEditingArticle(null);
         setArticleForm({
@@ -235,16 +264,26 @@ export default function AdminDashboard() {
         fetchArticles();
       } else {
         const data = await response.json();
-        alert(data.error || "Failed to save article");
+        await swal.showError(
+          "Save Failed",
+          data.error || "Failed to save article"
+        );
       }
     } catch (error) {
       console.error("Error saving article:", error);
-      alert("Failed to save article");
+      await swal.showError(
+        "Save Failed",
+        "Failed to save article. Please try again."
+      );
+    } finally {
+      setSavingArticle(false);
     }
   };
 
   const handlePublishArticle = async (id: string, currentStatus: string) => {
     const newStatus = currentStatus === "published" ? "draft" : "published";
+    setPublishingArticle(id);
+
     try {
       const response = await fetch(`/api/admin/articles/${id}`, {
         method: "PUT",
@@ -253,29 +292,59 @@ export default function AdminDashboard() {
       });
 
       if (response.ok) {
-        alert(
-          `Article ${newStatus === "published" ? "published" : "unpublished"}!`
+        await swal.showSuccess(
+          `Article ${newStatus === "published" ? "Published" : "Unpublished"}!`,
+          `The article has been ${newStatus === "published" ? "published and is now live" : "moved to draft"}.`
         );
         fetchArticles();
+      } else {
+        await swal.showError(
+          "Update Failed",
+          "Failed to update article status"
+        );
       }
     } catch (error) {
       console.error("Error updating article status:", error);
+      await swal.showError(
+        "Update Failed",
+        "Failed to update article status. Please try again."
+      );
+    } finally {
+      setPublishingArticle(null);
     }
   };
 
   const handleDeleteArticle = async (id: string) => {
-    if (confirm("Are you sure you want to delete this article?")) {
+    const result = await swal.showConfirm(
+      "Delete Article?",
+      "Are you sure you want to delete this article? This action cannot be undone."
+    );
+
+    if (result.isConfirmed) {
+      setDeletingArticle(id);
+
       try {
         const response = await fetch(`/api/admin/articles/${id}`, {
           method: "DELETE",
         });
 
         if (response.ok) {
-          alert("Article deleted!");
+          await swal.showSuccess(
+            "Article Deleted!",
+            "The article has been permanently deleted."
+          );
           fetchArticles();
+        } else {
+          await swal.showError("Delete Failed", "Failed to delete article");
         }
       } catch (error) {
         console.error("Error deleting article:", error);
+        await swal.showError(
+          "Delete Failed",
+          "Failed to delete article. Please try again."
+        );
+      } finally {
+        setDeletingArticle(null);
       }
     }
   };
@@ -1029,20 +1098,28 @@ export default function AdminDashboard() {
                                     article.status
                                   )
                                 }
+                                disabled={publishingArticle === article.id}
                                 className={`${
                                   article.status === "published"
                                     ? "text-yellow-600 hover:text-yellow-900"
                                     : "text-green-600 hover:text-green-900"
-                                }`}
+                                } disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1`}
                               >
+                                {publishingArticle === article.id && (
+                                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-current"></div>
+                                )}
                                 {article.status === "published"
                                   ? "Unpublish"
                                   : "Publish"}
                               </button>
                               <button
                                 onClick={() => handleDeleteArticle(article.id)}
-                                className="text-red-600 hover:text-red-900"
+                                disabled={deletingArticle === article.id}
+                                className="text-red-600 hover:text-red-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
                               >
+                                {deletingArticle === article.id && (
+                                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-current"></div>
+                                )}
                                 Delete
                               </button>
                             </td>
@@ -1572,13 +1649,21 @@ export default function AdminDashboard() {
               <button
                 onClick={handleSaveArticle}
                 disabled={
+                  savingArticle ||
                   !articleForm.title ||
                   !articleForm.excerpt ||
                   !articleForm.content
                 }
-                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 font-semibold transition-colors"
+                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 font-semibold transition-colors flex items-center justify-center gap-2"
               >
-                {editingArticle ? "Update Article" : "Create Article"}
+                {savingArticle && (
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                )}
+                {savingArticle
+                  ? "Saving..."
+                  : editingArticle
+                    ? "Update Article"
+                    : "Create Article"}
               </button>
               <button
                 onClick={() => {

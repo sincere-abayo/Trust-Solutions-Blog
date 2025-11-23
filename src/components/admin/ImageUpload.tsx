@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useSwal } from "@/hooks/useSwal";
 
 interface ImageUploadProps {
   currentImage?: string;
@@ -16,6 +17,7 @@ export default function ImageUpload({
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const swal = useSwal();
 
   const handleFileUpload = async (file: File) => {
     if (!file) return;
@@ -23,14 +25,20 @@ export default function ImageUpload({
     // Validate file type
     const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
     if (!allowedTypes.includes(file.type)) {
-      alert("Invalid file type. Only JPEG, PNG, and WebP images are allowed.");
+      await swal.showError(
+        "Invalid File Type",
+        "Only JPEG, PNG, and WebP images are allowed."
+      );
       return;
     }
 
     // Validate file size (max 5MB)
     const maxSize = 5 * 1024 * 1024; // 5MB
     if (file.size > maxSize) {
-      alert("File too large. Maximum size is 5MB.");
+      await swal.showError(
+        "File Too Large",
+        "Maximum file size is 5MB. Please choose a smaller image."
+      );
       return;
     }
 
@@ -49,12 +57,22 @@ export default function ImageUpload({
 
       if (response.ok) {
         onImageChange(result.imageUrl);
+        await swal.showSuccess(
+          "Upload Successful!",
+          "Your image has been uploaded successfully."
+        );
       } else {
-        alert(result.error || "Failed to upload image");
+        await swal.showError(
+          "Upload Failed",
+          result.error || "Failed to upload image"
+        );
       }
     } catch (error) {
       console.error("Upload error:", error);
-      alert("Failed to upload image. Please try again.");
+      await swal.showError(
+        "Upload Failed",
+        "Failed to upload image. Please try again."
+      );
     } finally {
       setUploading(false);
     }
