@@ -1536,6 +1536,40 @@ export default function AdminDashboard() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Featured Image URL
+                </label>
+                <input
+                  type="url"
+                  value={articleForm.featuredImage}
+                  onChange={(e) =>
+                    setArticleForm({
+                      ...articleForm,
+                      featuredImage: e.target.value,
+                    })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="https://example.com/image.jpg"
+                />
+                <p className="text-xs text-gray-500 mt-2">
+                  Optional: Add a featured image URL (recommended size:
+                  1200x630px)
+                </p>
+                {articleForm.featuredImage && (
+                  <div className="mt-3">
+                    <img
+                      src={articleForm.featuredImage}
+                      alt="Featured image preview"
+                      className="w-full h-32 object-cover rounded-lg border"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Content *
                 </label>
                 <textarea

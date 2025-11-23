@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getDefaultFeaturedImage } from "@/utils/defaultImages";
 
 interface Article {
   id: string;
@@ -9,6 +10,7 @@ interface Article {
   slug: string;
   excerpt: string;
   category: string;
+  featuredImage?: string;
   readingTime: number;
   publishedAt: string;
   author: {
@@ -112,8 +114,20 @@ export default function LatestArticles() {
           {articles.map((article) => (
             <article
               key={article.id}
-              className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
+              className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
             >
+              {/* Featured Image */}
+              <div className="aspect-video w-full overflow-hidden">
+                <img
+                  src={
+                    article.featuredImage ||
+                    getDefaultFeaturedImage(article.category)
+                  }
+                  alt={article.title}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+
               <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
                   <span
