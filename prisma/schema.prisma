@@ -69,6 +69,7 @@ model Article {
   content       String
   category      String   // business, it-consulting, real-estate, events, digital-marketing
   featuredImage String?
+  videoUrl      String?  // optional video URL (YouTube, Vimeo, etc.)
   readingTime   Int      @default(5) // minutes
   status        String   @default("draft") // draft, published
   authorId      String

@@ -11,6 +11,7 @@ interface Article {
   excerpt: string;
   category: string;
   featuredImage?: string;
+  videoUrl?: string;
   readingTime: number;
   publishedAt: string;
   author: {
@@ -117,7 +118,7 @@ export default function LatestArticles() {
               className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
             >
               {/* Featured Image */}
-              <div className="aspect-video w-full overflow-hidden">
+              <div className="aspect-video w-full overflow-hidden relative">
                 <img
                   src={
                     article.featuredImage ||
@@ -126,6 +127,20 @@ export default function LatestArticles() {
                   alt={article.title}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
+                {/* Video Indicator */}
+                {article.videoUrl && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 hover:bg-opacity-30 transition-all duration-300">
+                    <div className="bg-white bg-opacity-90 rounded-full p-3 shadow-lg">
+                      <svg
+                        className="w-6 h-6 text-red-600"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="p-6">

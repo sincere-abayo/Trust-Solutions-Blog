@@ -42,6 +42,7 @@ interface Article {
   updatedAt: string;
   publishedAt?: string;
   featuredImage?: string;
+  videoUrl?: string;
   author: {
     username: string;
   };
@@ -103,6 +104,7 @@ export default function AdminDashboard() {
     content: "",
     category: "business",
     featuredImage: "",
+    videoUrl: "",
     readingTime: 5,
   });
   const router = useRouter();
@@ -259,6 +261,7 @@ export default function AdminDashboard() {
           content: "",
           category: "business",
           featuredImage: "",
+          videoUrl: "",
           readingTime: 5,
         });
         fetchArticles();
@@ -991,6 +994,7 @@ export default function AdminDashboard() {
                     content: "",
                     category: "business",
                     featuredImage: "",
+                    videoUrl: "",
                     readingTime: 5,
                   });
                   setShowArticleModal(true);
@@ -1083,6 +1087,7 @@ export default function AdminDashboard() {
                                     content: article.content,
                                     category: article.category,
                                     featuredImage: article.featuredImage || "",
+                                    videoUrl: article.videoUrl || "",
                                     readingTime: article.readingTime,
                                   });
                                   setShowArticleModal(true);
@@ -1516,6 +1521,7 @@ export default function AdminDashboard() {
                       content: "",
                       category: "business",
                       featuredImage: "",
+                      videoUrl: "",
                       readingTime: 5,
                     });
                   }}
@@ -1627,6 +1633,25 @@ export default function AdminDashboard() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Video URL (Optional)
+                </label>
+                <input
+                  type="url"
+                  value={articleForm.videoUrl}
+                  onChange={(e) =>
+                    setArticleForm({ ...articleForm, videoUrl: e.target.value })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="https://www.youtube.com/watch?v=... or https://vimeo.com/..."
+                />
+                <p className="text-xs text-gray-500 mt-2">
+                  Optional: Add a YouTube, Vimeo, or other video URL to embed in
+                  the article
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Content *
                 </label>
                 <textarea
@@ -1675,6 +1700,7 @@ export default function AdminDashboard() {
                     content: "",
                     category: "business",
                     featuredImage: "",
+                    videoUrl: "",
                     readingTime: 5,
                   });
                 }}

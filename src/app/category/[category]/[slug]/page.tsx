@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Layout from "@/components/layout/Layout";
 import SocialShare from "@/components/blog/SocialShare";
+import VideoEmbed from "@/components/blog/VideoEmbed";
 import { getDefaultFeaturedImage } from "@/utils/defaultImages";
 
 interface Article {
@@ -12,6 +13,7 @@ interface Article {
   content: string;
   category: string;
   featuredImage?: string;
+  videoUrl?: string;
   readingTime: number;
   publishedAt: string;
   author: {
@@ -182,6 +184,11 @@ export default async function ArticlePage({ params }: PageProps) {
               </div>
             </div>
           </header>
+
+          {/* Video Embed */}
+          {article.videoUrl && (
+            <VideoEmbed videoUrl={article.videoUrl} title={article.title} />
+          )}
 
           {/* Article Content */}
           <div
