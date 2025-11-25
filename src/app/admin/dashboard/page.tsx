@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import ImageUpload from "@/components/admin/ImageUpload";
+import { useSwal } from "@/hooks/useSwal";
 
 interface Message {
   id: string;
@@ -25,6 +27,25 @@ interface Analytics {
   topPages: { path: string; views: number }[];
   messagesByService: { service: string; count: number }[];
   recentMessages: Message[];
+}
+
+interface Article {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  status: string;
+  readingTime: number;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt?: string;
+  featuredImage?: string;
+  videoUrl?: string;
+  author: {
+    username: string;
+  };
 }
 
 export default function AdminDashboard() {
@@ -65,7 +86,29 @@ export default function AdminDashboard() {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "articles">(
+    "dashboard"
+  );
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loadingArticles, setLoadingArticles] = useState(false);
+  const [showArticleModal, setShowArticleModal] = useState(false);
+  const [editingArticle, setEditingArticle] = useState<Article | null>(null);
+  const [savingArticle, setSavingArticle] = useState(false);
+  const [deletingArticle, setDeletingArticle] = useState<string | null>(null);
+  const [publishingArticle, setPublishingArticle] = useState<string | null>(
+    null
+  );
+  const [articleForm, setArticleForm] = useState({
+    title: "",
+    excerpt: "",
+    content: "",
+    category: "business",
+    featuredImage: "",
+    videoUrl: "",
+    readingTime: 5,
+  });
   const router = useRouter();
+  const swal = useSwal();
 
   const fetchData = async () => {
     try {
@@ -111,17 +154,23 @@ export default function AdminDashboard() {
 
   const handleChangePassword = async () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
-      alert("Please fill in all fields");
+      await swal.showWarning(
+        "Missing Information",
+        "Please fill in all fields"
+      );
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      alert("New passwords do not match");
+      await swal.showWarning("Password Mismatch", "New passwords do not match");
       return;
     }
 
     if (newPassword.length < 8) {
-      alert("New password must be at least 8 characters long");
+      await swal.showWarning(
+        "Password Too Short",
+        "New password must be at least 8 characters long"
+      );
       return;
     }
 
@@ -140,21 +189,174 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Password changed successfully!");
+        await swal.showSuccess(
+          "Password Changed!",
+          "Your password has been updated successfully."
+        );
         setShowChangePassword(false);
         setCurrentPassword("");
         setNewPassword("");
         setConfirmPassword("");
       } else {
-        alert(data.error || "Failed to change password");
+        await swal.showError(
+          "Change Failed",
+          data.error || "Failed to change password"
+        );
       }
     } catch (error) {
       console.error("Error changing password:", error);
-      alert("Failed to change password. Please try again.");
+      await swal.showError(
+        "Change Failed",
+        "Failed to change password. Please try again."
+      );
     } finally {
       setChangingPassword(false);
     }
   };
+
+  // Blog management functions
+  const fetchArticles = async () => {
+    setLoadingArticles(true);
+    try {
+      const response = await fetch("/api/admin/articles");
+      if (response.ok) {
+        const data = await response.json();
+        setArticles(data.articles || []);
+      }
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+    } finally {
+      setLoadingArticles(false);
+    }
+  };
+
+  const handleSaveArticle = async () => {
+    setSavingArticle(true);
+
+    try {
+      const url = editingArticle
+        ? `/api/admin/articles/${editingArticle.id}`
+        : "/api/admin/articles";
+
+      const method = editingArticle ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(articleForm),
+      });
+
+      if (response.ok) {
+        await swal.showSuccess(
+          editingArticle ? "Article Updated!" : "Article Created!",
+          editingArticle
+            ? "Your article has been successfully updated."
+            : "Your new article has been created successfully."
+        );
+        setShowArticleModal(false);
+        setEditingArticle(null);
+        setArticleForm({
+          title: "",
+          excerpt: "",
+          content: "",
+          category: "business",
+          featuredImage: "",
+          videoUrl: "",
+          readingTime: 5,
+        });
+        fetchArticles();
+      } else {
+        const data = await response.json();
+        await swal.showError(
+          "Save Failed",
+          data.error || "Failed to save article"
+        );
+      }
+    } catch (error) {
+      console.error("Error saving article:", error);
+      await swal.showError(
+        "Save Failed",
+        "Failed to save article. Please try again."
+      );
+    } finally {
+      setSavingArticle(false);
+    }
+  };
+
+  const handlePublishArticle = async (id: string, currentStatus: string) => {
+    const newStatus = currentStatus === "published" ? "draft" : "published";
+    setPublishingArticle(id);
+
+    try {
+      const response = await fetch(`/api/admin/articles/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (response.ok) {
+        await swal.showSuccess(
+          `Article ${newStatus === "published" ? "Published" : "Unpublished"}!`,
+          `The article has been ${newStatus === "published" ? "published and is now live" : "moved to draft"}.`
+        );
+        fetchArticles();
+      } else {
+        await swal.showError(
+          "Update Failed",
+          "Failed to update article status"
+        );
+      }
+    } catch (error) {
+      console.error("Error updating article status:", error);
+      await swal.showError(
+        "Update Failed",
+        "Failed to update article status. Please try again."
+      );
+    } finally {
+      setPublishingArticle(null);
+    }
+  };
+
+  const handleDeleteArticle = async (id: string) => {
+    const result = await swal.showConfirm(
+      "Delete Article?",
+      "Are you sure you want to delete this article? This action cannot be undone."
+    );
+
+    if (result.isConfirmed) {
+      setDeletingArticle(id);
+
+      try {
+        const response = await fetch(`/api/admin/articles/${id}`, {
+          method: "DELETE",
+        });
+
+        if (response.ok) {
+          await swal.showSuccess(
+            "Article Deleted!",
+            "The article has been permanently deleted."
+          );
+          fetchArticles();
+        } else {
+          await swal.showError("Delete Failed", "Failed to delete article");
+        }
+      } catch (error) {
+        console.error("Error deleting article:", error);
+        await swal.showError(
+          "Delete Failed",
+          "Failed to delete article. Please try again."
+        );
+      } finally {
+        setDeletingArticle(null);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === "articles") {
+      fetchArticles();
+    }
+  }, [activeTab]);
 
   const updateMessageStatus = async (id: string, status: string) => {
     try {
@@ -232,7 +434,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const fetchTopPages = async () => {
+  const fetchTopPages = useCallback(async () => {
     setLoadingTopPages(true);
     try {
       let url = "/api/admin/analytics?";
@@ -257,11 +459,11 @@ export default function AdminDashboard() {
     } finally {
       setLoadingTopPages(false);
     }
-  };
+  }, [analyticsPeriod, filterType, selectedMonth, startDate, endDate]);
 
   useEffect(() => {
     fetchTopPages();
-  }, [analyticsPeriod, filterType, selectedMonth, startDate, endDate]);
+  }, [fetchTopPages]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString("en-US", {
@@ -339,410 +541,603 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg p-6 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Total Messages</p>
-                <p className="text-3xl font-bold text-gray-900">
-                  {analytics?.totalMessages || 0}
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-blue-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg p-6 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">New Messages</p>
-                <p className="text-3xl font-bold text-green-600">
-                  {analytics?.newMessages || 0}
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-green-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg p-6 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Views Today</p>
-                <p className="text-3xl font-bold text-purple-600">
-                  {analytics?.viewsToday || 0}
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-purple-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg p-6 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Views (7 Days)</p>
-                <p className="text-3xl font-bold text-orange-600">
-                  {analytics?.viewsLast7Days || 0}
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-orange-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                  />
-                </svg>
-              </div>
-            </div>
+      {/* Tab Navigation */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex space-x-8">
+            <button
+              onClick={() => setActiveTab("dashboard")}
+              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                activeTab === "dashboard"
+                  ? "border-blue-500 text-blue-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              }`}
+            >
+              Dashboard
+            </button>
+            <button
+              onClick={() => setActiveTab("articles")}
+              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                activeTab === "articles"
+                  ? "border-blue-500 text-blue-600"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              }`}
+            >
+              Blog Articles
+            </button>
           </div>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Messages List */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm">
-              <div className="p-6 border-b border-gray-200">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold text-gray-900">
-                    Contact Messages
-                  </h2>
-                  <button
-                    onClick={fetchData}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
-                  >
-                    Refresh
-                  </button>
-                </div>
-
-                {/* Status Filter */}
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Filter by Status
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {["all", "new", "read", "replied"].map((status) => (
-                      <button
-                        key={status}
-                        onClick={() => setStatusFilter(status)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                          statusFilter === status
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        {status.charAt(0).toUpperCase() + status.slice(1)}
-                      </button>
-                    ))}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {activeTab === "dashboard" && (
+          <>
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Total Messages</p>
+                    <p className="text-3xl font-bold text-gray-900">
+                      {analytics?.totalMessages || 0}
+                    </p>
                   </div>
-                </div>
-
-                {/* Service Filter */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Filter by Service
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      "all",
-                      "General Inquiry",
-                      "Business Consulting",
-                      "IT Consulting",
-                      "Real Estate",
-                      "Event Planning",
-                      "Digital Marketing",
-                    ].map((service) => (
-                      <button
-                        key={service}
-                        onClick={() => setServiceFilter(service)}
-                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                          serviceFilter === service
-                            ? "bg-green-600 text-white"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        {service === "all" ? "All Services" : service}
-                      </button>
-                    ))}
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-blue-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
                   </div>
                 </div>
               </div>
 
-              <div className="divide-y divide-gray-200 max-h-[600px] overflow-y-auto">
-                {messages.length === 0 ? (
-                  <div className="p-8 text-center text-gray-500">
-                    No messages found
+              <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">New Messages</p>
+                    <p className="text-3xl font-bold text-green-600">
+                      {analytics?.newMessages || 0}
+                    </p>
                   </div>
-                ) : (
-                  messages.map((message) => (
-                    <div
-                      key={message.id}
-                      className="p-6 hover:bg-gray-50 cursor-pointer transition-colors"
-                      onClick={() => setSelectedMessage(message)}
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-green-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                      <div className="flex justify-between items-start mb-2">
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900">
-                            {message.name}
-                          </h3>
-                          <p className="text-sm text-gray-600">
-                            {message.email}
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Views Today</p>
+                    <p className="text-3xl font-bold text-purple-600">
+                      {analytics?.viewsToday || 0}
+                    </p>
+                  </div>
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-purple-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Views (7 Days)</p>
+                    <p className="text-3xl font-bold text-orange-600">
+                      {analytics?.viewsLast7Days || 0}
+                    </p>
+                  </div>
+                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-orange-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Messages List */}
+              <div className="lg:col-span-2">
+                <div className="bg-white rounded-lg shadow-sm">
+                  <div className="p-6 border-b border-gray-200">
+                    <div className="flex justify-between items-center mb-4">
+                      <h2 className="text-xl font-bold text-gray-900">
+                        Contact Messages
+                      </h2>
+                      <button
+                        onClick={fetchData}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+                      >
+                        Refresh
+                      </button>
+                    </div>
+
+                    {/* Status Filter */}
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Filter by Status
+                      </label>
+                      <div className="flex flex-wrap gap-2">
+                        {["all", "new", "read", "replied"].map((status) => (
+                          <button
+                            key={status}
+                            onClick={() => setStatusFilter(status)}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                              statusFilter === status
+                                ? "bg-blue-600 text-white"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            {status.charAt(0).toUpperCase() + status.slice(1)}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Service Filter */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Filter by Service
+                      </label>
+                      <div className="flex flex-wrap gap-2">
+                        {[
+                          "all",
+                          "General Inquiry",
+                          "Business Consulting",
+                          "IT Consulting",
+                          "Real Estate",
+                          "Event Planning",
+                          "Digital Marketing",
+                        ].map((service) => (
+                          <button
+                            key={service}
+                            onClick={() => setServiceFilter(service)}
+                            className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                              serviceFilter === service
+                                ? "bg-green-600 text-white"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            {service === "all" ? "All Services" : service}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="divide-y divide-gray-200 max-h-[600px] overflow-y-auto">
+                    {messages.length === 0 ? (
+                      <div className="p-8 text-center text-gray-500">
+                        No messages found
+                      </div>
+                    ) : (
+                      messages.map((message) => (
+                        <div
+                          key={message.id}
+                          className="p-6 hover:bg-gray-50 cursor-pointer transition-colors"
+                          onClick={() => setSelectedMessage(message)}
+                        >
+                          <div className="flex justify-between items-start mb-2">
+                            <div className="flex-1">
+                              <h3 className="font-semibold text-gray-900">
+                                {message.name}
+                              </h3>
+                              <p className="text-sm text-gray-600">
+                                {message.email}
+                              </p>
+                            </div>
+                            <span
+                              className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                message.status === "new"
+                                  ? "bg-green-100 text-green-800"
+                                  : message.status === "read"
+                                    ? "bg-blue-100 text-blue-800"
+                                    : "bg-gray-100 text-gray-800"
+                              }`}
+                            >
+                              {message.status}
+                            </span>
+                          </div>
+                          <p className="text-sm text-gray-600 mb-2">
+                            <span className="font-medium">Service:</span>{" "}
+                            {message.service}
+                          </p>
+                          <p className="text-sm text-gray-700 line-clamp-2">
+                            {message.message}
+                          </p>
+                          <p className="text-xs text-gray-500 mt-2">
+                            {formatDate(message.createdAt)}
                           </p>
                         </div>
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            message.status === "new"
-                              ? "bg-green-100 text-green-800"
-                              : message.status === "read"
-                                ? "bg-blue-100 text-blue-800"
-                                : "bg-gray-100 text-gray-800"
-                          }`}
-                        >
-                          {message.status}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600 mb-2">
-                        <span className="font-medium">Service:</span>{" "}
-                        {message.service}
-                      </p>
-                      <p className="text-sm text-gray-700 line-clamp-2">
-                        {message.message}
-                      </p>
-                      <p className="text-xs text-gray-500 mt-2">
-                        {formatDate(message.createdAt)}
-                      </p>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Analytics Sidebar */}
-          <div className="space-y-6">
-            {/* Top Pages */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <div className="mb-4">
-                <h3 className="text-lg font-bold text-gray-900 mb-3">
-                  Top Pages
-                </h3>
-
-                {/* Filter Type Tabs */}
-                <div className="flex gap-2 mb-3">
-                  <button
-                    onClick={() => setFilterType("preset")}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                      filterType === "preset"
-                        ? "bg-purple-600 text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
-                  >
-                    Quick
-                  </button>
-                  <button
-                    onClick={() => setFilterType("month")}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                      filterType === "month"
-                        ? "bg-purple-600 text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
-                  >
-                    Month
-                  </button>
-                  <button
-                    onClick={() => setFilterType("custom")}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                      filterType === "custom"
-                        ? "bg-purple-600 text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
-                  >
-                    Custom
-                  </button>
+                      ))
+                    )}
+                  </div>
                 </div>
+              </div>
 
-                {/* Preset Period Filter */}
-                {filterType === "preset" && (
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      { label: "7 Days", value: "7" },
-                      { label: "30 Days", value: "30" },
-                      { label: "3 Months", value: "90" },
-                      { label: "6 Months", value: "180" },
-                      { label: "1 Year", value: "365" },
-                    ].map((period) => (
+              {/* Analytics Sidebar */}
+              <div className="space-y-6">
+                {/* Top Pages */}
+                <div className="bg-white rounded-lg shadow-sm p-6">
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-gray-900 mb-3">
+                      Top Pages
+                    </h3>
+
+                    {/* Filter Type Tabs */}
+                    <div className="flex gap-2 mb-3">
                       <button
-                        key={period.value}
-                        onClick={() => setAnalyticsPeriod(period.value)}
+                        onClick={() => setFilterType("preset")}
                         className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                          analyticsPeriod === period.value
-                            ? "bg-blue-600 text-white"
+                          filterType === "preset"
+                            ? "bg-purple-600 text-white"
                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                         }`}
                       >
-                        {period.label}
+                        Quick
                       </button>
-                    ))}
-                  </div>
-                )}
-
-                {/* Month Selector */}
-                {filterType === "month" && (
-                  <div>
-                    <input
-                      type="month"
-                      value={selectedMonth}
-                      onChange={(e) => setSelectedMonth(e.target.value)}
-                      max={new Date().toISOString().slice(0, 7)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                    />
-                  </div>
-                )}
-
-                {/* Custom Date Range */}
-                {filterType === "custom" && (
-                  <div className="space-y-2">
-                    <div>
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
-                        Start Date
-                      </label>
-                      <input
-                        type="date"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                        max={new Date().toISOString().split("T")[0]}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
-                        End Date
-                      </label>
-                      <input
-                        type="date"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                        max={new Date().toISOString().split("T")[0]}
-                        min={startDate}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {loadingTopPages ? (
-                <div className="flex justify-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                </div>
-              ) : (
-                <div className="space-y-3 max-h-96 overflow-y-auto">
-                  {topPages.length === 0 ? (
-                    <p className="text-center text-gray-500 py-4">
-                      No data for this period
-                    </p>
-                  ) : (
-                    topPages.map((page, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between items-center py-2 hover:bg-gray-50 px-2 rounded"
+                      <button
+                        onClick={() => setFilterType("month")}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                          filterType === "month"
+                            ? "bg-purple-600 text-white"
+                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
                       >
-                        <div className="flex items-center flex-1 min-w-0">
-                          <span className="text-xs font-medium text-gray-500 mr-3 w-6">
-                            #{index + 1}
-                          </span>
-                          <span className="text-sm text-gray-700 truncate">
-                            {page.path}
-                          </span>
-                        </div>
-                        <span className="text-sm font-semibold text-blue-600 ml-2">
-                          {page.views}
-                        </span>
+                        Month
+                      </button>
+                      <button
+                        onClick={() => setFilterType("custom")}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                          filterType === "custom"
+                            ? "bg-purple-600 text-white"
+                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
+                      >
+                        Custom
+                      </button>
+                    </div>
+
+                    {/* Preset Period Filter */}
+                    {filterType === "preset" && (
+                      <div className="flex flex-wrap gap-2">
+                        {[
+                          { label: "7 Days", value: "7" },
+                          { label: "30 Days", value: "30" },
+                          { label: "3 Months", value: "90" },
+                          { label: "6 Months", value: "180" },
+                          { label: "1 Year", value: "365" },
+                        ].map((period) => (
+                          <button
+                            key={period.value}
+                            onClick={() => setAnalyticsPeriod(period.value)}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                              analyticsPeriod === period.value
+                                ? "bg-blue-600 text-white"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
+                          >
+                            {period.label}
+                          </button>
+                        ))}
                       </div>
-                    ))
+                    )}
+
+                    {/* Month Selector */}
+                    {filterType === "month" && (
+                      <div>
+                        <input
+                          type="month"
+                          value={selectedMonth}
+                          onChange={(e) => setSelectedMonth(e.target.value)}
+                          max={new Date().toISOString().slice(0, 7)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                        />
+                      </div>
+                    )}
+
+                    {/* Custom Date Range */}
+                    {filterType === "custom" && (
+                      <div className="space-y-2">
+                        <div>
+                          <label className="block text-xs font-medium text-gray-600 mb-1">
+                            Start Date
+                          </label>
+                          <input
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            max={new Date().toISOString().split("T")[0]}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-medium text-gray-600 mb-1">
+                            End Date
+                          </label>
+                          <input
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            max={new Date().toISOString().split("T")[0]}
+                            min={startDate}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {loadingTopPages ? (
+                    <div className="flex justify-center py-8">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    </div>
+                  ) : (
+                    <div className="space-y-3 max-h-96 overflow-y-auto">
+                      {topPages.length === 0 ? (
+                        <p className="text-center text-gray-500 py-4">
+                          No data for this period
+                        </p>
+                      ) : (
+                        topPages.map((page, index) => (
+                          <div
+                            key={index}
+                            className="flex justify-between items-center py-2 hover:bg-gray-50 px-2 rounded"
+                          >
+                            <div className="flex items-center flex-1 min-w-0">
+                              <span className="text-xs font-medium text-gray-500 mr-3 w-6">
+                                #{index + 1}
+                              </span>
+                              <span className="text-sm text-gray-700 truncate">
+                                {page.path}
+                              </span>
+                            </div>
+                            <span className="text-sm font-semibold text-blue-600 ml-2">
+                              {page.views}
+                            </span>
+                          </div>
+                        ))
+                      )}
+                    </div>
                   )}
                 </div>
-              )}
-            </div>
 
-            {/* Messages by Service */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">
-                Messages by Service
-              </h3>
-              <div className="space-y-3">
-                {analytics?.messagesByService.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center"
-                  >
-                    <span className="text-sm text-gray-700">
-                      {item.service}
-                    </span>
-                    <span className="text-sm font-semibold text-gray-900">
-                      {item.count}
-                    </span>
+                {/* Messages by Service */}
+                <div className="bg-white rounded-lg shadow-sm p-6">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">
+                    Messages by Service
+                  </h3>
+                  <div className="space-y-3">
+                    {analytics?.messagesByService.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex justify-between items-center"
+                      >
+                        <span className="text-sm text-gray-700">
+                          {item.service}
+                        </span>
+                        <span className="text-sm font-semibold text-gray-900">
+                          {item.count}
+                        </span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
             </div>
+          </>
+        )}
+
+        {/* Blog Articles Tab */}
+        {activeTab === "articles" && (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">
+                Blog Articles
+              </h2>
+              <button
+                onClick={() => {
+                  setEditingArticle(null);
+                  setArticleForm({
+                    title: "",
+                    excerpt: "",
+                    content: "",
+                    category: "business",
+                    featuredImage: "",
+                    videoUrl: "",
+                    readingTime: 5,
+                  });
+                  setShowArticleModal(true);
+                }}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-semibold"
+              >
+                Create New Article
+              </button>
+            </div>
+
+            {loadingArticles ? (
+              <div className="flex justify-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              </div>
+            ) : (
+              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Article
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Category
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Status
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Created
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {articles.length === 0 ? (
+                        <tr>
+                          <td
+                            colSpan={5}
+                            className="px-6 py-12 text-center text-gray-500"
+                          >
+                            No articles yet. Create your first article!
+                          </td>
+                        </tr>
+                      ) : (
+                        articles.map((article) => (
+                          <tr key={article.id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4">
+                              <div>
+                                <div className="text-sm font-medium text-gray-900">
+                                  {article.title}
+                                </div>
+                                <div className="text-sm text-gray-500 mt-1">
+                                  {article.excerpt.substring(0, 100)}...
+                                </div>
+                                <div className="text-xs text-gray-400 mt-1">
+                                  {article.readingTime} min read
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                {article.category.replace("-", " ")}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span
+                                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                  article.status === "published"
+                                    ? "bg-green-100 text-green-800"
+                                    : "bg-yellow-100 text-yellow-800"
+                                }`}
+                              >
+                                {article.status}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {formatDate(article.createdAt)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                              <button
+                                onClick={() => {
+                                  setEditingArticle(article);
+                                  setArticleForm({
+                                    title: article.title,
+                                    excerpt: article.excerpt,
+                                    content: article.content,
+                                    category: article.category,
+                                    featuredImage: article.featuredImage || "",
+                                    videoUrl: article.videoUrl || "",
+                                    readingTime: article.readingTime,
+                                  });
+                                  setShowArticleModal(true);
+                                }}
+                                className="text-blue-600 hover:text-blue-900"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handlePublishArticle(
+                                    article.id,
+                                    article.status
+                                  )
+                                }
+                                disabled={publishingArticle === article.id}
+                                className={`${
+                                  article.status === "published"
+                                    ? "text-yellow-600 hover:text-yellow-900"
+                                    : "text-green-600 hover:text-green-900"
+                                } disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1`}
+                              >
+                                {publishingArticle === article.id && (
+                                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-current"></div>
+                                )}
+                                {article.status === "published"
+                                  ? "Unpublish"
+                                  : "Publish"}
+                              </button>
+                              <button
+                                onClick={() => handleDeleteArticle(article.id)}
+                                disabled={deletingArticle === article.id}
+                                className="text-red-600 hover:text-red-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+                              >
+                                {deletingArticle === article.id && (
+                                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-current"></div>
+                                )}
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
           </div>
-        </div>
+        )}
       </div>
 
       {/* Message Detail Modal */}
@@ -1102,6 +1497,217 @@ export default function AdminDashboard() {
                   Close
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Article Modal */}
+      {showArticleModal && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex justify-between items-start">
+                <h3 className="text-xl font-bold text-gray-900">
+                  {editingArticle ? "Edit Article" : "Create New Article"}
+                </h3>
+                <button
+                  onClick={() => {
+                    setShowArticleModal(false);
+                    setEditingArticle(null);
+                    setArticleForm({
+                      title: "",
+                      excerpt: "",
+                      content: "",
+                      category: "business",
+                      featuredImage: "",
+                      videoUrl: "",
+                      readingTime: 5,
+                    });
+                  }}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Title *
+                </label>
+                <input
+                  type="text"
+                  value={articleForm.title}
+                  onChange={(e) =>
+                    setArticleForm({ ...articleForm, title: e.target.value })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Article title"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Category *
+                  </label>
+                  <select
+                    value={articleForm.category}
+                    onChange={(e) =>
+                      setArticleForm({
+                        ...articleForm,
+                        category: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="business">Business Strategy</option>
+                    <option value="it-consulting">IT Solutions</option>
+                    <option value="real-estate">Real Estate Insights</option>
+                    <option value="events">Event Planning Tips</option>
+                    <option value="digital-marketing">Digital Marketing</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Reading Time (minutes) *
+                  </label>
+                  <input
+                    type="number"
+                    value={articleForm.readingTime}
+                    onChange={(e) =>
+                      setArticleForm({
+                        ...articleForm,
+                        readingTime: parseInt(e.target.value) || 5,
+                      })
+                    }
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    min="1"
+                    max="60"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Excerpt *
+                </label>
+                <textarea
+                  value={articleForm.excerpt}
+                  onChange={(e) =>
+                    setArticleForm({ ...articleForm, excerpt: e.target.value })
+                  }
+                  rows={3}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Brief description of the article"
+                />
+              </div>
+
+              <div>
+                <ImageUpload
+                  currentImage={articleForm.featuredImage}
+                  onImageChange={(imageUrl) =>
+                    setArticleForm({
+                      ...articleForm,
+                      featuredImage: imageUrl,
+                    })
+                  }
+                  label="Featured Image"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Video URL (Optional)
+                </label>
+                <input
+                  type="url"
+                  value={articleForm.videoUrl}
+                  onChange={(e) =>
+                    setArticleForm({ ...articleForm, videoUrl: e.target.value })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="https://www.youtube.com/watch?v=... or https://vimeo.com/..."
+                />
+                <p className="text-xs text-gray-500 mt-2">
+                  Optional: Add a YouTube, Vimeo, or other video URL to embed in
+                  the article
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Content *
+                </label>
+                <textarea
+                  value={articleForm.content}
+                  onChange={(e) =>
+                    setArticleForm({ ...articleForm, content: e.target.value })
+                  }
+                  rows={15}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Article content (supports basic markdown formatting)"
+                />
+                <p className="text-xs text-gray-500 mt-2">
+                  Tip: Use # for headings, ## for subheadings, and - for bullet
+                  points
+                </p>
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-gray-200 flex space-x-3">
+              <button
+                onClick={handleSaveArticle}
+                disabled={
+                  savingArticle ||
+                  !articleForm.title ||
+                  !articleForm.excerpt ||
+                  !articleForm.content
+                }
+                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 font-semibold transition-colors flex items-center justify-center gap-2"
+              >
+                {savingArticle && (
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                )}
+                {savingArticle
+                  ? "Saving..."
+                  : editingArticle
+                    ? "Update Article"
+                    : "Create Article"}
+              </button>
+              <button
+                onClick={() => {
+                  setShowArticleModal(false);
+                  setEditingArticle(null);
+                  setArticleForm({
+                    title: "",
+                    excerpt: "",
+                    content: "",
+                    category: "business",
+                    featuredImage: "",
+                    videoUrl: "",
+                    readingTime: 5,
+                  });
+                }}
+                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-semibold transition-colors"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>

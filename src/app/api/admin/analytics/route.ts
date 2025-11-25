@@ -55,29 +55,29 @@ export async function GET(request: Request) {
       recentMessages
     ] = await Promise.all([
       // Total messages
-      prisma.contactMessage.count(),
+      prisma.contactMessage.count().catch(() => 0),
       
       // New messages (unread)
       prisma.contactMessage.count({
         where: { status: 'new' }
-      }),
+      }).catch(() => 0),
       
       // Total page views
-      prisma.pageView.count(),
+      prisma.pageView.count().catch(() => 0),
       
       // Views last 7 days
       prisma.pageView.count({
         where: {
           createdAt: { gte: sevenDaysAgo }
         }
-      }),
+      }).catch(() => 0),
       
       // Views today
       prisma.pageView.count({
         where: {
           createdAt: { gte: today }
         }
-      }),
+      }).catch(() => 0),
       
       // Top pages (custom period)
       prisma.pageView.groupBy({
@@ -92,7 +92,7 @@ export async function GET(request: Request) {
           }
         },
         take: 10
-      }),
+      }).catch(() => []),
       
       // Messages by service
       prisma.contactMessage.groupBy({
@@ -103,7 +103,7 @@ export async function GET(request: Request) {
             service: 'desc'
           }
         }
-      }),
+      }).catch(() => []),
       
       // Recent messages
       prisma.contactMessage.findMany({
@@ -117,7 +117,7 @@ export async function GET(request: Request) {
           status: true,
           createdAt: true
         }
-      })
+      }).catch(() => [])
     ]);
     
     return NextResponse.json({
@@ -138,9 +138,17 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error('Analytics error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch analytics' },
-      { status: 500 }
-    );
+    
+    // Return default analytics data when database is unavailable
+    return NextResponse.json({
+      totalMessages: 0,
+      newMessages: 0,
+      totalViews: 0,
+      viewsLast7Days: 0,
+      viewsToday: 0,
+      topPages: [],
+      messagesByService: [],
+      recentMessages: []
+    });
   }
 }

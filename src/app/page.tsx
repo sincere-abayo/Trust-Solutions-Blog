@@ -2,6 +2,7 @@ import Layout from "../components/layout/Layout";
 import Hero from "../components/ui/Hero";
 import CTA from "../components/ui/CTA";
 import BlogCard from "../components/blog/BlogCard";
+import LatestArticles from "../components/blog/LatestArticles";
 import { getAllPosts } from "../data/blogPosts";
 import Link from "next/link";
 
@@ -151,6 +152,9 @@ export default function HomePage() {
   return (
     <Layout>
       <Hero />
+
+      {/* Latest Articles */}
+      <LatestArticles />
 
       {/* Services Section */}
       <section id="services" className="py-20 bg-gray-50">
