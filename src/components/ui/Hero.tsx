@@ -377,18 +377,23 @@ const Hero = () => {
       </section>
 
       {/* Fixed Mobile CTA Button - Only visible on small devices */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-gradient-to-t from-primary via-primary/95 to-transparent pointer-events-none">
-        <Link
-          href="/contact"
-          className="pointer-events-auto block w-full max-w-md mx-auto bg-accent text-primary px-6 py-4 rounded-xl font-black text-base sm:text-lg text-center shadow-2xl hover:shadow-accent/50 hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 active:scale-95 border-2 border-accent animate-pulse hover:animate-none"
-        >
-          <span className="flex items-center justify-center gap-2">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M2.5 19.5l19-7-7 19-2.5-7-7-2.5z" />
-            </svg>
-            GET STARTED TODAY
-          </span>
-        </Link>
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
+        {/* Backdrop blur for better visibility on any background */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent backdrop-blur-sm"></div>
+
+        <div className="relative p-3 sm:p-4">
+          <Link
+            href="/contact"
+            className="pointer-events-auto block w-full max-w-md mx-auto bg-gradient-to-r from-accent via-accent to-yellow-400 text-primary px-6 py-4 rounded-2xl font-black text-base sm:text-lg text-center shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_48px_rgba(255,193,7,0.6)] transition-all duration-300 transform hover:scale-105 active:scale-95 border-2 border-white/30 animate-pulse hover:animate-none ring-2 ring-white/50"
+          >
+            <span className="flex items-center justify-center gap-2 drop-shadow-lg">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M2.5 19.5l19-7-7 19-2.5-7-7-2.5z" />
+              </svg>
+              <span className="text-shadow-lg">GET STARTED TODAY</span>
+            </span>
+          </Link>
+        </div>
       </div>
     </>
   );
