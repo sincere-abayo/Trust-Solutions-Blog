@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
   try {
     const { slug } = await params;
-    const article = await prisma.article.findUnique({
+    const article = await prisma.article.findFirst({
       where: { 
         slug,
         status: 'published'

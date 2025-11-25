@@ -38,17 +38,38 @@ const categoryLabels: Record<string, string> = {
 
 async function getArticle(slug: string): Promise<Article | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const response = await fetch(`${baseUrl}/api/articles/${slug}`, {
-      cache: "no-store", // Always fetch fresh data
+    // Import prisma dynamically to avoid issues
+    const { prisma } = await import("@/lib/prisma");
+
+    const article = await prisma.article.findFirst({
+      where: {
+        slug,
+        status: "published",
+      },
+      include: {
+        author: {
+          select: { username: true },
+        },
+      },
     });
 
-    if (!response.ok) {
-      return null;
-    }
+    if (!article) return null;
 
-    const data = await response.json();
-    return data.article;
+    // Convert database types to match Article interface
+    return {
+      id: article.id,
+      title: article.title,
+      slug: article.slug,
+      excerpt: article.excerpt,
+      content: article.content,
+      category: article.category,
+      featuredImage: article.featuredImage ?? undefined,
+      videoUrl: article.videoUrl ?? undefined,
+      readingTime: article.readingTime,
+      publishedAt:
+        article.publishedAt?.toISOString() || new Date().toISOString(),
+      author: article.author,
+    };
   } catch (error) {
     console.error("Error fetching article:", error);
     return null;
@@ -222,6 +243,29 @@ export default async function ArticlePage({ params }: PageProps) {
       </article>
     </Layout>
   );
+}
+
+// Generate static params for published articles
+export async function generateStaticParams() {
+  try {
+    const { prisma } = await import("@/lib/prisma");
+
+    const articles = await prisma.article.findMany({
+      where: { status: "published" },
+      select: {
+        slug: true,
+        category: true,
+      },
+    });
+
+    return articles.map((article) => ({
+      category: article.category,
+      slug: article.slug,
+    }));
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
 }
 
 // Generate metadata for SEO
