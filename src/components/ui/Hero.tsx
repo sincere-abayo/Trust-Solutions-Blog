@@ -375,6 +375,21 @@ const Hero = () => {
         {/* Decorative Elements */}
         <div className="absolute bottom-0 left-0 w-full h-2 xs:h-3 sm:h-4 md:h-6 lg:h-8 xl:h-10 2xl:h-12 bg-gradient-to-t from-white to-transparent pointer-events-none z-30"></div>
       </section>
+
+      {/* Fixed Mobile CTA Button - Only visible on small devices */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-gradient-to-t from-primary via-primary/95 to-transparent pointer-events-none">
+        <Link
+          href="/contact"
+          className="pointer-events-auto block w-full max-w-md mx-auto bg-accent text-primary px-6 py-4 rounded-xl font-black text-base sm:text-lg text-center shadow-2xl hover:shadow-accent/50 hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 active:scale-95 border-2 border-accent animate-pulse hover:animate-none"
+        >
+          <span className="flex items-center justify-center gap-2">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M2.5 19.5l19-7-7 19-2.5-7-7-2.5z" />
+            </svg>
+            GET STARTED TODAY
+          </span>
+        </Link>
+      </div>
     </>
   );
 };
