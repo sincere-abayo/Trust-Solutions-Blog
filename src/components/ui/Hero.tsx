@@ -381,16 +381,16 @@ const Hero = () => {
         {/* Backdrop blur for better visibility on any background */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent backdrop-blur-sm"></div>
 
-        <div className="relative p-3 sm:p-4">
+        <div className="relative p-2 sm:p-3">
           <Link
             href="/contact"
-            className="pointer-events-auto block w-full max-w-md mx-auto bg-gray-900 text-blue-400 px-6 py-4 rounded-2xl font-black text-base sm:text-lg text-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_12px_48px_rgba(59,130,246,0.5)] hover:bg-gray-800 hover:text-blue-300 transition-all duration-300 transform hover:scale-105 active:scale-95 border-2 border-blue-500/50 animate-pulse hover:animate-none ring-2 ring-blue-400/30"
+            className="pointer-events-auto block w-auto max-w-xs mx-auto bg-gray-900 text-blue-400 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl font-bold text-sm sm:text-base text-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_12px_48px_rgba(59,130,246,0.5)] hover:bg-gray-800 hover:text-blue-300 transition-all duration-300 transform hover:scale-105 active:scale-95 border-2 border-blue-500/50 animate-pulse hover:animate-none ring-2 ring-blue-400/30"
           >
             <span className="flex items-center justify-center gap-2 drop-shadow-lg">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M2.5 19.5l19-7-7 19-2.5-7-7-2.5z" />
               </svg>
-              <span>GET STARTED TODAY</span>
+              <span>GET STARTED</span>
             </span>
           </Link>
         </div>
