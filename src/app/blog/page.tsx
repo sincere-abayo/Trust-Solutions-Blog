@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Layout from "../../components/layout/Layout";
-import BlogCard from "../../components/blog/BlogCard";
 import Image from "next/image";
 
 interface Article {
@@ -31,10 +30,20 @@ export default function BlogPage() {
         const response = await fetch("/api/articles");
         if (response.ok) {
           const data = await response.json();
-          setArticles(data);
+          // Ensure data is an array
+          if (Array.isArray(data)) {
+            setArticles(data);
+          } else {
+            console.error("API response is not an array:", data);
+            setArticles([]);
+          }
+        } else {
+          console.error("Failed to fetch articles:", response.status);
+          setArticles([]);
         }
       } catch (error) {
         console.error("Error fetching articles:", error);
+        setArticles([]);
       } finally {
         setLoading(false);
       }
@@ -45,10 +54,14 @@ export default function BlogPage() {
 
   const categories = useMemo(() => {
     const categoryCounts: Record<string, number> = {};
-    articles.forEach((article) => {
-      categoryCounts[article.category] =
-        (categoryCounts[article.category] || 0) + 1;
-    });
+
+    // Ensure articles is an array before calling forEach
+    if (Array.isArray(articles)) {
+      articles.forEach((article) => {
+        categoryCounts[article.category] =
+          (categoryCounts[article.category] || 0) + 1;
+      });
+    }
 
     return [
       { id: "all", name: "All Posts", count: articles.length },
