@@ -97,6 +97,13 @@ const Header = () => {
             </Link>
 
             <Link
+              href="/"
+              className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+            >
+              Blog
+            </Link>
+
+            <Link
               href="/contact"
               className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
             >
@@ -184,6 +191,14 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
+              </Link>
+
+              <Link
+                href="/"
+                className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 block px-3 py-2 rounded-lg text-base font-medium transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blog
               </Link>
 
               <Link
