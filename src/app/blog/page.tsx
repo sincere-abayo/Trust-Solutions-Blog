@@ -1,40 +1,90 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Layout from "../../components/layout/Layout";
 import BlogCard from "../../components/blog/BlogCard";
-import { getAllPosts, getPostsByCategory } from "../../data/blogPosts";
+import Image from "next/image";
+
+interface Article {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  author: string;
+  publishedAt: string;
+  imageUrl: string;
+  tags: string[];
+  readTime?: string;
+}
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const allPosts = getAllPosts();
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch("/api/articles");
+        if (response.ok) {
+          const data = await response.json();
+          setArticles(data);
+        }
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const categories = [
-    { id: "all", name: "All Posts", count: allPosts.length },
-    {
-      id: "business",
-      name: "Business Consulting",
-      count: getPostsByCategory("business").length,
-    },
-    {
-      id: "real estate",
-      name: "Real Estate",
-      count: getPostsByCategory("real estate").length,
-    },
-    {
-      id: "events",
-      name: "Event Planning",
-      count: getPostsByCategory("events").length,
-    },
-  ];
+    fetchArticles();
+  }, []);
+
+  const categories = useMemo(() => {
+    const categoryCounts: Record<string, number> = {};
+    articles.forEach((article) => {
+      categoryCounts[article.category] =
+        (categoryCounts[article.category] || 0) + 1;
+    });
+
+    return [
+      { id: "all", name: "All Posts", count: articles.length },
+      {
+        id: "business",
+        name: "Business Consulting",
+        count: categoryCounts["business"] || 0,
+      },
+      {
+        id: "it-consulting",
+        name: "IT Consulting",
+        count: categoryCounts["it-consulting"] || 0,
+      },
+      {
+        id: "real-estate",
+        name: "Real Estate",
+        count: categoryCounts["real-estate"] || 0,
+      },
+      {
+        id: "events",
+        name: "Event Planning",
+        count: categoryCounts["events"] || 0,
+      },
+      {
+        id: "digital-marketing",
+        name: "Digital Marketing",
+        count: categoryCounts["digital-marketing"] || 0,
+      },
+    ];
+  }, [articles]);
 
   const filteredPosts = useMemo(() => {
     let posts =
       selectedCategory === "all"
-        ? allPosts
-        : getPostsByCategory(selectedCategory);
+        ? articles
+        : articles.filter((article) => article.category === selectedCategory);
 
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
@@ -47,7 +97,7 @@ export default function BlogPage() {
     }
 
     return posts;
-  }, [selectedCategory, searchQuery, allPosts]);
+  }, [selectedCategory, searchQuery, articles]);
 
   return (
     <Layout>
@@ -115,7 +165,12 @@ export default function BlogPage() {
       {/* Blog Posts */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredPosts.length > 0 ? (
+          {loading ? (
+            <div className="text-center py-16">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <p className="mt-4 text-gray-600">Loading articles...</p>
+            </div>
+          ) : filteredPosts.length > 0 ? (
             <>
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-gray-900">
@@ -133,8 +188,59 @@ export default function BlogPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map((post) => (
-                  <BlogCard key={post.id} post={post} />
+                {filteredPosts.map((article) => (
+                  <article
+                    key={article.id}
+                    className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                  >
+                    <a
+                      href={`/category/${article.category}/${article.slug}`}
+                      className="block"
+                    >
+                      <div className="relative h-48 w-full">
+                        <Image
+                          src={article.imageUrl}
+                          alt={article.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="text-xs font-semibold text-blue-600 uppercase">
+                            {article.category.replace("-", " ")}
+                          </span>
+                          {article.readTime && (
+                            <>
+                              <span className="text-gray-400">•</span>
+                              <span className="text-xs text-gray-500">
+                                {article.readTime}
+                              </span>
+                            </>
+                          )}
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors">
+                          {article.title}
+                        </h3>
+                        <p className="text-gray-600 mb-4 line-clamp-3">
+                          {article.excerpt}
+                        </p>
+                        <div className="flex items-center justify-between text-sm text-gray-500">
+                          <span>{article.author}</span>
+                          <span>
+                            {new Date(article.publishedAt).toLocaleDateString(
+                              "en-US",
+                              {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              }
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                    </a>
+                  </article>
                 ))}
               </div>
             </>
