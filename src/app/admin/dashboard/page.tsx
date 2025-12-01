@@ -1590,12 +1590,25 @@ export default function AdminDashboard() {
                   <input
                     type="number"
                     value={articleForm.readingTime}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      const value = e.target.value;
                       setArticleForm({
                         ...articleForm,
-                        readingTime: parseInt(e.target.value) || 5,
-                      })
-                    }
+                        readingTime: value === "" ? 0 : parseInt(value),
+                      });
+                    }}
+                    onBlur={(e) => {
+                      // Set default value if empty on blur
+                      if (
+                        e.target.value === "" ||
+                        parseInt(e.target.value) < 1
+                      ) {
+                        setArticleForm({
+                          ...articleForm,
+                          readingTime: 5,
+                        });
+                      }
+                    }}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     min="1"
                     max="60"
