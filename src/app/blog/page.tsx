@@ -206,7 +206,7 @@ export default function BlogPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map((article) => (
+                {filteredPosts.map((article, index) => (
                   <article
                     key={article.id}
                     className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
@@ -221,6 +221,7 @@ export default function BlogPage() {
                           alt={article.title}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          priority={index < 3}
                           className="object-cover"
                         />
                       </div>
