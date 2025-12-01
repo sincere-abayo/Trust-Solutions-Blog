@@ -215,14 +215,14 @@ export default function BlogPage() {
                       href={`/category/${article.category}/${article.slug}`}
                       className="block"
                     >
-                      <div className="relative h-48 w-full">
+                      <div className="relative h-48 w-full bg-gray-100">
                         <Image
                           src={article.featuredImage}
                           alt={article.title}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           priority={index < 3}
-                          className="object-cover"
+                          className="object-contain"
                         />
                       </div>
                       <div className="p-6">
