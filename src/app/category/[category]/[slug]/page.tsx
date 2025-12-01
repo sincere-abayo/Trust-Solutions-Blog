@@ -101,9 +101,11 @@ export default async function ArticlePage({ params }: PageProps) {
       .map((block, index) => {
         const trimmedBlock = block.trim();
 
-        // Heading level 1 (# )
-        if (trimmedBlock.startsWith("# ")) {
-          return `<h2 key="${index}" class="text-3xl font-bold text-gray-900 mt-8 mb-4">${trimmedBlock.slice(2)}</h2>`;
+        // Check headings from most specific to least specific to avoid conflicts
+
+        // Heading level 3 (### ) - Check first!
+        if (trimmedBlock.startsWith("### ")) {
+          return `<h4 key="${index}" class="text-xl font-bold text-gray-900 mt-4 mb-2">${trimmedBlock.slice(4)}</h4>`;
         }
 
         // Heading level 2 (## )
@@ -111,9 +113,9 @@ export default async function ArticlePage({ params }: PageProps) {
           return `<h3 key="${index}" class="text-2xl font-bold text-gray-900 mt-6 mb-3">${trimmedBlock.slice(3)}</h3>`;
         }
 
-        // Heading level 3 (### )
-        if (trimmedBlock.startsWith("### ")) {
-          return `<h4 key="${index}" class="text-xl font-bold text-gray-900 mt-4 mb-2">${trimmedBlock.slice(4)}</h4>`;
+        // Heading level 1 (# )
+        if (trimmedBlock.startsWith("# ")) {
+          return `<h2 key="${index}" class="text-3xl font-bold text-gray-900 mt-8 mb-4">${trimmedBlock.slice(2)}</h2>`;
         }
 
         // Bullet list (lines starting with -)
