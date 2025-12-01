@@ -92,30 +92,79 @@ export default async function ArticlePage({ params }: PageProps) {
     });
   };
 
-  // Convert content to HTML (basic markdown-like conversion)
+  // Convert content to HTML (markdown conversion)
   const formatContent = (content: string) => {
-    return content
-      .split("\\n\\n")
-      .map((paragraph, index) => {
-        if (paragraph.startsWith("# ")) {
-          return `<h2 key="${index}" class="text-2xl font-bold text-gray-900 mt-8 mb-4">${paragraph.slice(2)}</h2>`;
+    // Split by double newlines for paragraphs
+    const blocks = content.split(/\n\n+/);
+
+    return blocks
+      .map((block, index) => {
+        const trimmedBlock = block.trim();
+
+        // Heading level 1 (# )
+        if (trimmedBlock.startsWith("# ")) {
+          return `<h2 key="${index}" class="text-3xl font-bold text-gray-900 mt-8 mb-4">${trimmedBlock.slice(2)}</h2>`;
         }
-        if (paragraph.startsWith("## ")) {
-          return `<h3 key="${index}" class="text-xl font-bold text-gray-900 mt-6 mb-3">${paragraph.slice(3)}</h3>`;
+
+        // Heading level 2 (## )
+        if (trimmedBlock.startsWith("## ")) {
+          return `<h3 key="${index}" class="text-2xl font-bold text-gray-900 mt-6 mb-3">${trimmedBlock.slice(3)}</h3>`;
         }
-        if (paragraph.startsWith("- ")) {
-          const items = paragraph
-            .split("\\n")
-            .map((item) =>
-              item.startsWith("- ")
-                ? `<li class="mb-1">${item.slice(2)}</li>`
-                : item
+
+        // Heading level 3 (### )
+        if (trimmedBlock.startsWith("### ")) {
+          return `<h4 key="${index}" class="text-xl font-bold text-gray-900 mt-4 mb-2">${trimmedBlock.slice(4)}</h4>`;
+        }
+
+        // Bullet list (lines starting with -)
+        if (trimmedBlock.includes("\n- ") || trimmedBlock.startsWith("- ")) {
+          const items = trimmedBlock
+            .split("\n")
+            .filter((line) => line.trim().startsWith("- "))
+            .map((item) => `<li class="mb-2">${item.trim().slice(2)}</li>`)
+            .join("");
+          return `<ul key="${index}" class="list-disc list-inside mb-6 text-gray-700 space-y-2 ml-4">${items}</ul>`;
+        }
+
+        // Numbered list (lines starting with number.)
+        if (/^\d+\.\s/.test(trimmedBlock)) {
+          const items = trimmedBlock
+            .split("\n")
+            .filter((line) => /^\d+\.\s/.test(line.trim()))
+            .map(
+              (item) =>
+                `<li class="mb-2">${item.trim().replace(/^\d+\.\s/, "")}</li>`
             )
             .join("");
-          return `<ul key="${index}" class="list-disc list-inside mb-4 text-gray-700">${items}</ul>`;
+          return `<ol key="${index}" class="list-decimal list-inside mb-6 text-gray-700 space-y-2 ml-4">${items}</ol>`;
         }
-        return `<p key="${index}" class="mb-4 text-gray-700 leading-relaxed">${paragraph}</p>`;
+
+        // Bold text (**text**)
+        let formattedBlock = trimmedBlock.replace(
+          /\*\*(.*?)\*\*/g,
+          '<strong class="font-bold">$1</strong>'
+        );
+
+        // Italic text (*text*)
+        formattedBlock = formattedBlock.replace(
+          /\*(.*?)\*/g,
+          '<em class="italic">$1</em>'
+        );
+
+        // Links [text](url)
+        formattedBlock = formattedBlock.replace(
+          /\[(.*?)\]\((.*?)\)/g,
+          '<a href="$2" class="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener noreferrer">$1</a>'
+        );
+
+        // Regular paragraph
+        if (formattedBlock) {
+          return `<p key="${index}" class="mb-4 text-gray-700 leading-relaxed">${formattedBlock}</p>`;
+        }
+
+        return "";
       })
+      .filter((block) => block !== "")
       .join("");
   };
 
