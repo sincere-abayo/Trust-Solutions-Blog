@@ -11,11 +11,13 @@ interface Article {
   excerpt: string;
   content: string;
   category: string;
-  author: string;
+  author: {
+    username: string;
+  };
   publishedAt: string;
-  imageUrl: string;
-  tags: string[];
-  readTime?: string;
+  featuredImage: string;
+  tags?: string[];
+  readingTime?: number;
 }
 
 export default function BlogPage() {
@@ -30,9 +32,11 @@ export default function BlogPage() {
         const response = await fetch("/api/articles");
         if (response.ok) {
           const data = await response.json();
-          // Ensure data is an array
-          if (Array.isArray(data)) {
-            setArticles(data);
+          // API returns {articles: [...]} so extract the articles array
+          const articlesArray = data.articles || data;
+
+          if (Array.isArray(articlesArray)) {
+            setArticles(articlesArray);
           } else {
             console.error("API response is not an array:", data);
             setArticles([]);
@@ -105,7 +109,8 @@ export default function BlogPage() {
         (post) =>
           post.title.toLowerCase().includes(query) ||
           post.excerpt.toLowerCase().includes(query) ||
-          post.tags.some((tag) => tag.toLowerCase().includes(query))
+          (post.tags &&
+            post.tags.some((tag) => tag.toLowerCase().includes(query)))
       );
     }
 
@@ -212,7 +217,7 @@ export default function BlogPage() {
                     >
                       <div className="relative h-48 w-full">
                         <Image
-                          src={article.imageUrl}
+                          src={article.featuredImage}
                           alt={article.title}
                           fill
                           className="object-cover"
@@ -223,11 +228,11 @@ export default function BlogPage() {
                           <span className="text-xs font-semibold text-blue-600 uppercase">
                             {article.category.replace("-", " ")}
                           </span>
-                          {article.readTime && (
+                          {article.readingTime && (
                             <>
                               <span className="text-gray-400">•</span>
                               <span className="text-xs text-gray-500">
-                                {article.readTime}
+                                {article.readingTime} min read
                               </span>
                             </>
                           )}
@@ -239,7 +244,7 @@ export default function BlogPage() {
                           {article.excerpt}
                         </p>
                         <div className="flex items-center justify-between text-sm text-gray-500">
-                          <span>{article.author}</span>
+                          <span>{article.author.username}</span>
                           <span>
                             {new Date(article.publishedAt).toLocaleDateString(
                               "en-US",
