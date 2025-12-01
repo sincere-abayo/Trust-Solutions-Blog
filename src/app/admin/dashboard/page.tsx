@@ -1555,8 +1555,10 @@ export default function AdminDashboard() {
                   onChange={(e) =>
                     setArticleForm({ ...articleForm, title: e.target.value })
                   }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900 placeholder-gray-400"
                   placeholder="Article title"
+                  required
+                  autoComplete="off"
                 />
               </div>
 
@@ -1573,7 +1575,7 @@ export default function AdminDashboard() {
                         category: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
                   >
                     <option value="business">Business Strategy</option>
                     <option value="it-consulting">IT Solutions</option>
@@ -1609,9 +1611,10 @@ export default function AdminDashboard() {
                         });
                       }
                     }}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
                     min="1"
                     max="60"
+                    autoComplete="off"
                   />
                 </div>
               </div>
@@ -1626,8 +1629,10 @@ export default function AdminDashboard() {
                     setArticleForm({ ...articleForm, excerpt: e.target.value })
                   }
                   rows={3}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900 placeholder-gray-400"
                   placeholder="Brief description of the article"
+                  required
+                  autoComplete="off"
                 />
               </div>
 
@@ -1654,8 +1659,9 @@ export default function AdminDashboard() {
                   onChange={(e) =>
                     setArticleForm({ ...articleForm, videoUrl: e.target.value })
                   }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900 placeholder-gray-400"
                   placeholder="https://www.youtube.com/watch?v=... or https://vimeo.com/..."
+                  autoComplete="off"
                 />
                 <p className="text-xs text-gray-500 mt-2">
                   Optional: Add a YouTube, Vimeo, or other video URL to embed in
@@ -1673,8 +1679,10 @@ export default function AdminDashboard() {
                     setArticleForm({ ...articleForm, content: e.target.value })
                   }
                   rows={15}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900 placeholder-gray-400"
                   placeholder="Article content (supports basic markdown formatting)"
+                  required
+                  autoComplete="off"
                 />
                 <p className="text-xs text-gray-500 mt-2">
                   Tip: Use # for headings, ## for subheadings, and - for bullet
