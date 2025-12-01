@@ -191,7 +191,7 @@ export default async function ArticlePage({ params }: PageProps) {
                   getDefaultFeaturedImage(article.category)
                 }
                 alt={article.title}
-                className="w-full h-64 md:h-96 object-cover"
+                className="w-full h-80 sm:h-96 md:h-[32rem] lg:h-[36rem] object-cover"
               />
             </div>
 
